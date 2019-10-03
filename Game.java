@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 
 public class Game extends Application 
 {
-    // Premier commentaire
+    // Deuxième commentaire
     public static void main(String[] args) 
     {
         launch(args);
