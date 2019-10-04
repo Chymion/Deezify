@@ -1,4 +1,3 @@
-package deezify;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
