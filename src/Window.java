@@ -1,12 +1,12 @@
+package application;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 
 public class Window {
 
@@ -27,13 +27,45 @@ public class Window {
 	}
 	
 	
-	// Création d'un label en passant le nom en paramètre
-	public void CreateLabel(String labelName)
+	// Ajout d'un label en passant le nom,la taille et la position en paramètre
+	public void addLabel(String labelName,int haut,int large,Pos p)
 	{
 		Label l = new Label(labelName);
-		// J'initialise la scène avec ce nouveau label
-		// Les dimensions de la scène sont les mêmes que celles de la fenêtre.
+		l.setMinWidth(haut);
+		l.setMinHeight(large);
+		l.setStyle("-fx-border-style: solid inside;" + 
+                "-fx-border-width: 2;"+"-fx-border-color: black;"+"-fx-border-insets: 5;"+"-fx-border-radius: 5;");
+		switch (p)
+		{
+			case CENTER:
+			{
+				bdPane.setCenter(l);
+				break;
+			}
+			case CENTER_LEFT:
+			{
+				bdPane.setLeft(l);
+				break;
+			}
+			case CENTER_RIGHT:
+			{
+				bdPane.setRight(l);
+				break;
+			}
+			case TOP_CENTER:
+			{
+				bdPane.setTop(l);
+				break;
+			}
+			case BOTTOM_CENTER:
+			{
+				bdPane.setBottom(l);
+				break;
+			}
+		default:
+			break;
 		
+	}
 	}
 	
 	public void backColor(String color)
@@ -87,6 +119,47 @@ public class Window {
 			break;
 		}
 		// J'ajoute le BorderPlane à la scène
+		
+	}
+	
+	public void addTextFied(String textFieldName, Pos pos)  // Même chose que addButton mais avec un TextField
+	{
+		TextField b = new TextField(textFieldName);
+		bdPane.setAlignment(b, pos);
+		
+		switch (pos)
+		{
+			case CENTER:
+			{
+				bdPane.setCenter(b);
+				break;
+			}
+			case CENTER_LEFT:
+			{
+				bdPane.setLeft(b);
+				break;
+			}
+			case CENTER_RIGHT:
+			{
+				bdPane.setRight(b);
+				break;
+			}
+			case TOP_CENTER:
+			{
+				bdPane.setTop(b);
+				break;
+			}
+			case BOTTOM_CENTER:
+			{
+				bdPane.setBottom(b);
+				break;
+			}
+		default:
+			break;
+		}
+		
+	
+
 		
 	}
 	
