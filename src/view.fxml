@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<BorderPane id="borderPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox>
+         <children>
+            <ToolBar id="topToolBar">
+               <items>
+                  <Label text="  "/>
+                  <Button mnemonicParsing="false" text="..."/>
+                  <Label text="                            "/>
+                  <TextField id="textField" prefWidth="700.0"/>
+               </items>
+            </ToolBar>
+            <Separator/>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <HBox>
+         <children>
+            <VBox>
+               <Button id="boutonMenu" mnemonicParsing="false" text="Accueil"/>
+               <Separator orientation="HORIZONTAL"/>
+               <Button id="boutonMenu" mnemonicParsing="false" text="Recommandations"/>
+               <Separator orientation="HORIZONTAL"/>
+               <Button id="boutonMenu" mnemonicParsing="false" text="Musique"/>
+               <Separator orientation="HORIZONTAL"/>
+            </VBox>
+            <Separator orientation="VERTICAL"/>
+         </children>
+      </HBox>
+   </left>
+   <bottom>
+      <VBox>
+         <children>
+            <Separator orientation="HORIZONTAL"/>
+            <Button id="boutonMusique" mnemonicParsing="false" text="play/pause"/>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
