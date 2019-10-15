@@ -7,7 +7,7 @@ import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
 
-public class AudioMaster {
+public class AudioMaster implements Runnable {
 
 	//Buffer contenant le flux de donnés de la musique. Et un entier contenant la source
 	private static ArrayList<Integer> buffers = new ArrayList<Integer>();
@@ -38,6 +38,7 @@ public class AudioMaster {
 			}
 		}
 	}
+
 	
 	// Jouer la source
 	public static void play(int buffer)
@@ -45,6 +46,16 @@ public class AudioMaster {
 		AL10.alSourcei(sourceID, AL10.AL_BUFFER, buffer);
 		AL10.alSourcePlay(sourceID);
 	}
+	
+	public static void pause()
+	{
+		AL10.alSourcePause(sourceID);
+	}
+	public static void continuer()
+	{
+		AL10.alSourcePlay(sourceID);
+	}
+	
 	
 	public static int chargerMusique(String file)
 	{
@@ -72,5 +83,17 @@ public class AudioMaster {
 		
 		AL.destroy();
 		AL10.alDeleteSources(sourceID);
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		System.out.println("Thread started");
+		
+		int buffer = chargerMusique("NomDuFichier.wav");	
+		char c = ' ';
+		
+		play(buffer);
+		
 	}
 }
