@@ -14,4 +14,14 @@
         <url-pattern> / </url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name> Recommandation </servlet-name>
+        <servlet-class> controller.ServletRecommandation </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Recommandation </servlet-name>
+        <url-pattern> /Recommandations </url-pattern>
+    </servlet-mapping>
+
 </web-app>

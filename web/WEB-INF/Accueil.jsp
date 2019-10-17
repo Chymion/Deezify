@@ -8,13 +8,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
+    <style>
+        <%@ include file="style.css"%>
+    </style>
+
     <head>
         <title> Accueil </title>
     </head>
 
     <body>
-        <p> bonjour ${ auteur.prenom } ${ auteur.nom }</p>
-        <p> ${ auteur.actif ? 'Vous êtes actif !' : 'Vous ête inactif!' } </p>
+        <%@ include file="Menu.jsp"%>
+        <p class="bienvenue">
+            Bienvenue sur Deezify !
+        </p>
+        <p class="paragrapheBienvenue">
+            La <font color="orange">(future)</font> meilleure plateforme de streaming musical !
+        </p>
     </body>
 
 </html>

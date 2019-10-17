@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ServletAccueil")
-public class ServletAccueil extends HttpServlet {
+@WebServlet(name = "ServletRecommandation")
+public class ServletRecommandation extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -16,7 +16,7 @@ public class ServletAccueil extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/Recommandation.jsp").forward(request, response);
     }
 
 }
