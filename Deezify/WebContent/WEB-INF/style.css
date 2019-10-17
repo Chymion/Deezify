@@ -1,0 +1,68 @@
+body {
+
+    background-color: black;
+    color: white;
+    font-family: fantasy;
+    font-size: 16pt;
+}
+
+h1 {
+
+    font-size: 40pt;
+    text-align: center;
+}
+
+#conteneur {
+
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+#boutonMenu {
+
+    text-align: center;
+    background-color: black;
+    margin: 5pt;
+    margin-left: 10pt;
+    margin-right: 10pt;
+    padding: 7pt;
+    width: 150pt;
+}
+
+#boutonMenu a:hover {
+
+    color: orange;
+}
+
+a {
+
+    color: white;
+    text-decoration: none;
+}
+
+.bienvenue {
+
+    text-align: center;
+    font-size: 60pt;
+    color: orange;
+}
+
+.paragrapheBienvenue {
+
+    text-align: center;
+
+}
+
+#conteneurRight {
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.connexion {
+
+    background-color: orange;
+    padding: 5pt;
+    margin-right: 5pt;
+}
