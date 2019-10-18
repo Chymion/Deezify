@@ -25,46 +25,46 @@ public class DatabaseConnection {
 		this.userName = userName;
 		this.referencePilote = referencePilote;
 		
-		//On fourni la référence du pilote
+		//On fourni la rï¿½fï¿½rence du pilote
 		Class.forName(referencePilote);
 		
-		//Connection à la base
+		//Connection ï¿½ la base
 		connection = DriverManager.getConnection(this.url+"?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC" + 
 				"",this.userName,this.password);
 		
 		
-		//Vérification si on est connecté
+		//Vï¿½rification si on est connectï¿½
 		if(connection != null) {
-			System.out.println("Vous êtes connecté");connected = true;}
+			System.out.println("Vous Ãªtes connectÃ©");connected = true;}
 		else
-			System.out.println("Vous n'êtes pas connecté");
+			System.out.println("Vous n'Ãªtes pas connectÃ©");
 		
 	}
 	
 	//METHODES
 	
 	
-	public PreparedStatement makeQuery(String q) throws SQLException { /* Permet de faire une requête dans la base de données, on peut la retournée */
+	public PreparedStatement makeQuery(String q) throws SQLException { /* Permet de faire une requï¿½te dans la base de donnï¿½es, on peut la retournï¿½e */
 		PreparedStatement ps = null;
 		if(connected) {
 			
-		//On exécute la requête
+		//On exï¿½cute la requï¿½te
 		 ps = this.connection.prepareStatement(q);
         int status = ps.executeUpdate();
       
         
 		} else
-			System.out.println("Vous n'êtes connecté à aucune connexion de MySQL WorkBench !!");
+			System.out.println("Vous n'Ãªtes connectÃ© Ã  aucune connexion de MySQL WorkBench !!");
 		
 		return ps;
 	}
 	
-	public void displayQuery(PreparedStatement q) throws SQLException { /* Permet de rentrer ue requête en paramètre */
+	public void displayQuery(PreparedStatement q) throws SQLException { /* Permet de rentrer ue requï¿½te en paramï¿½tre */
 		
 	
 	}
 	
-	public void initialisationDataBase(String dataBaseName) throws SQLException { /* Initialisation de la base si elle n'est pas installé */
+	public void initialisationDataBase(String dataBaseName) throws SQLException { /* Initialisation de la base si elle n'est pas installï¿½ */
 		
 		try{
 		
@@ -152,7 +152,7 @@ public class DatabaseConnection {
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		}catch(SQLException e) {System.out.println("Base déjà instanciée");}
+		}catch(SQLException e) {System.out.println("Base dj instancie");}
 		
 	}
 	

@@ -1,17 +1,17 @@
-package view;
+package controller;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class AudioMaster implements Runnable {
 
-	//Buffer contenant le flux de donnés de la musique. Et un entier contenant la source
+	//Buffer contenant le flux de donnÃ©es de la musique. Et un entier contenant la source
 	private static ArrayList<Integer> buffers = new ArrayList<Integer>();
 	private static int sourceID;
 	
@@ -75,7 +75,7 @@ public class AudioMaster implements Runnable {
 		return buffer;
 	}
 	
-	// Libération des ressources
+	// Libï¿½ration des ressources
 	public static void Destruction()
 	{
 		for (int buffer : buffers)
@@ -88,13 +88,17 @@ public class AudioMaster implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	public void run()  {
 		// TODO Auto-generated method stub
 		System.out.println("Thread started");
-		int buffer = chargerMusique("view/Aliez.wav");	
-		char c = ' ';
-		
+		int buffer = chargerMusique("controller/Aliez.wav");
+
 		play(buffer);
-		
+
+		while (true)
+		{
+
+		}
+
 	}
 }
