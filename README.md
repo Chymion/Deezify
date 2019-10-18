@@ -11,5 +11,5 @@ Pour faire fonctionner OpenAL et la base de donnée dans le site:
 
 Déplacer dans le fichier "lib" du répertoire "tomcat" :
 
--Tout les fichiers ".jar" de lwjgl 
--le fichier mysql.jar 
+Tout les fichiers ".jar" de lwjgl 
+Le fichier mysql.jar 
