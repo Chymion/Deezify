@@ -51,7 +51,7 @@ public class ServletAccueil extends HttpServlet {
 
 
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
 
 
 

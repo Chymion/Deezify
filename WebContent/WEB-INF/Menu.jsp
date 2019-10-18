@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <header>
     <div id="conteneurRight">
         <div class="connexion">
@@ -18,13 +19,13 @@
             <a href="/DeezifyWeb_war_exploded/"> Accueil </a>
         </div>
         <div id="boutonMenu">
-            <a href="/DeezifyWeb_war_exploded/Recommandations"> Recommandations </a>
+            <a href="/DeezifyWeb_war_exploded/Recommandation"> Recommandations </a>
         </div>
         <div id="boutonMenu">
-            <a href=""> Ma Musique </a>
+            <a href="web/Musique"> Ma Musique </a>
         </div>
         <div id="boutonMenu">
-            <a href=""> Explorer </a>
+            <a href="web/Explorer"> Explorer </a>
         </div>
         <div id="boutonMenu">
             <a href=""> Profil </a>

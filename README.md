@@ -13,3 +13,7 @@ Déplacer dans le fichier "lib" du répertoire "tomcat" :
 
 Tout les fichiers ".jar" de lwjgl 
 Le fichier mysql.jar 
+
+Pour ceux qui utilisent Eclipse :
+Déplacer tous les fichiers qui se trouvent dans "lwjgl-2.9.3\native\windows" 
+dans C:\Program Files\Java\VOTRE_JDK\bin
