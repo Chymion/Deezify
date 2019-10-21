@@ -23,7 +23,11 @@
         	<p> Nom: </p>
         	<p> Prénom: </p>
         	<p> Pseudo: </p>
-        	<p> Anniversaire </p>
+        	<p> Anniversaire: </p>
+        	<p></p>
+        </div>
+        <div id="ajout">
+        	<a href="/Deezify_web/AddProfil"> Ajouter un profil </a>
         </div>
     </body>
 

@@ -15,25 +15,25 @@
     <h1> <font color="orange"> ▶︎ </font> Deezify </h1>
     <div id="conteneur">
         <div id="boutonMenu">
-            <a href="/DeezifyWeb/"> Accueil </a>
+            <a href="/Deezify_web/"> Accueil </a>
         </div>
         <div id="boutonMenu">
-            <a href="/DeezifyWeb/Recommandations"> Recommandations </a>
+            <a href="/Deezify_web/Recommandations"> Recommandations </a>
         </div>
         <div id="boutonMenu">
-            <a href="/DeezifyWeb/Explorer"> Explorer </a>
+            <a href="/Deezify_web/Explorer"> Explorer </a>
         </div>
         <div id="boutonMenu">
-            <a href="/DeezifyWeb/Musique"> Ma Musique </a>
+            <a href="/Deezify_web/Musique"> Ma Musique </a>
         </div>
         <div id="boutonMenu">
-            <a href="/DeezifyWeb/Profil"> Profil </a>
+            <a href="/Deezify_web/Profil"> Profil </a>
         </div>
     </div>
 </header>
 <footer>
 	<div class='lecteur'>
 		<p></p>
-		<input type="button" class='boutonPlay' value="▶/⏸️">
+		<input type="button" class='boutonPlay' value="▶︎/⏸️">
 	</div>
 </footer>

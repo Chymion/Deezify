@@ -113,5 +113,24 @@ a {
 	border-top-color:orange;
 	border-top-style:solid;
 	border-top-width:1px;
-	
 }
+
+#ajout a:hover{
+	color:orange;
+}
+
+#ajout{
+	text-align:center;
+}
+
+.formulaire {
+	text-align:center;
+}
+
+.boutonSub {
+	backgroung-color:black;
+	border-style:solid;
+	border-color:orange;
+	text-color:white;
+}
+

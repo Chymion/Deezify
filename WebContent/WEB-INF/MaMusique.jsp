@@ -13,11 +13,14 @@
     </style>
 
     <head>
-        <title> Recommandations </title>
+        <title> Ma musique </title>
     </head>
 
     <body>
         <%@ include file="Menu.jsp"%>
+        <div class="titre">
+    	<p> Toute la musique que vous aimez !</p>
+    </div>
     </body>
 
 </html>

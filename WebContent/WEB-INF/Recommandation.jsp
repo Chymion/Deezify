@@ -18,6 +18,9 @@
 
     <body>
     <%@ include file="Menu.jsp"%>
+    <div class="titre">
+    	<p> Voici ce que nous vous recommandons !</p>
+    </div>
     </body>
 
 </html>

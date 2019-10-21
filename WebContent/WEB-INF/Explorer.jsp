@@ -18,6 +18,14 @@
 
     <body>
         <%@ include file="Menu.jsp"%>
+        <div class="champRechercher">
+        	<p class ='titre'> Rechercher une musique : </p>
+        	<p></p>
+        	<p></p>
+        	<div class="recherche">
+        		<input type="text" class="recherche"> 
+        	</div>
+        </div>
     </body>
 
 </html>

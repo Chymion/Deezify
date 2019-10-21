@@ -4,7 +4,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-
     <servlet>
         <servlet-name> Accueil </servlet-name>
         <servlet-class> controller.ServletAccueil </servlet-class>
@@ -22,7 +21,47 @@
 
     <servlet-mapping>
         <servlet-name> Recommandation </servlet-name>
-        <url-pattern> /Recommandation </url-pattern>
+        <url-pattern> /Recommandations </url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name> Ma Musique </servlet-name>
+        <servlet-class> controller.ServletMaMusique </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Ma Musique </servlet-name>
+        <url-pattern> /Musique </url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name> Explorer </servlet-name>
+        <servlet-class> controller.ServletExplorer </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Explorer </servlet-name>
+        <url-pattern> /Explorer </url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name> Profil </servlet-name>
+        <servlet-class> controller.ServletProfil </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Profil </servlet-name>
+        <url-pattern> /Profil </url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name> AddProfil </servlet-name>
+        <servlet-class> controller.ServletAddProfil </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> AddProfil </servlet-name>
+        <url-pattern> /AddProfil </url-pattern>
     </servlet-mapping>
 
 </web-app>
