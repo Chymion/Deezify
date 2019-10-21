@@ -6,6 +6,11 @@ body {
     font-size: 16pt;
 }
 
+footer{
+	position:absolute;
+	bottom:0;
+}
+
 h1 {
 
     font-size: 40pt;
@@ -33,6 +38,17 @@ h1 {
 #boutonMenu a:hover {
 
     color: orange;
+}
+
+#recherchemenu {
+	text-align: center;
+    margin: 5pt;
+    margin-top: 10pt;
+    margin-left: 10pt;
+    margin-right: 10pt;
+    padding: 7pt;
+    border-width: 5pt;
+    length:25pt;
 }
 
 a {
@@ -65,4 +81,37 @@ a {
     background-color: orange;
     padding: 5pt;
     margin-right: 5pt;
+}
+
+.recherche {
+	text-align: center;
+}
+
+.profil {
+	text-align:center;
+	color:orange;
+}
+
+.titre {
+	text-align:center;
+	color:orange;
+	font-size:25pt;
+}
+
+.boutonPlay {
+	background-color:orange;
+	border-color:gray;
+	border-radius:70px;
+	width:50px;
+	heigth:50px;
+	margin-left:600px;
+	text-align:center;
+}
+
+.lecteur{
+	width:1210px;
+	border-top-color:orange;
+	border-top-style:solid;
+	border-top-width:1px;
+	
 }

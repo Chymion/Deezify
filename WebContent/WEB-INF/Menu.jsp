@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <header>
     <div id="conteneurRight">
         <div class="connexion">
@@ -16,19 +15,25 @@
     <h1> <font color="orange"> ▶︎ </font> Deezify </h1>
     <div id="conteneur">
         <div id="boutonMenu">
-            <a href="/DeezifyWeb_war_exploded/"> Accueil </a>
+            <a href="/DeezifyWeb/"> Accueil </a>
         </div>
         <div id="boutonMenu">
-            <a href="/DeezifyWeb_war_exploded/Recommandation"> Recommandations </a>
+            <a href="/DeezifyWeb/Recommandations"> Recommandations </a>
         </div>
         <div id="boutonMenu">
-            <a href="web/Musique"> Ma Musique </a>
+            <a href="/DeezifyWeb/Explorer"> Explorer </a>
         </div>
         <div id="boutonMenu">
-            <a href="web/Explorer"> Explorer </a>
+            <a href="/DeezifyWeb/Musique"> Ma Musique </a>
         </div>
         <div id="boutonMenu">
-            <a href=""> Profil </a>
+            <a href="/DeezifyWeb/Profil"> Profil </a>
         </div>
     </div>
 </header>
+<footer>
+	<div class='lecteur'>
+		<p></p>
+		<input type="button" class='boutonPlay' value="▶/⏸️">
+	</div>
+</footer>
