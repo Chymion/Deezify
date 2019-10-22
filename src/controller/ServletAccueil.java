@@ -25,15 +25,15 @@ public class ServletAccueil extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //Etape 2 : DÃ¨s que vous Ãªtes connectÃ©(un message apparait pour vous dire que vous Ãªtes connectÃ©), instancier la base
+        //Etape 2 : Dès que vous êtes connecté(un message apparait pour vous dire que vous êtes connecté), instancier la base
         //Dans Uwamp avec cette instruction
-        //Instancation de la base et de toutes les tables(vous mettre en paramÃ¨tre le nom de la base)
+        //Instancation de la base et de toutes les tables(vous mettre en paramètre le nom de la base)
         try {
             db.initialisationDataBase("Deezify");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //Faire un test avec cette requÃªte : (la table concernÃ©e doit Ãªtre remplie par cette requÃªte)
+        //Faire un test avec cette requète : (la table concernée doit être remplie par cette requète)
         try {
             db.makeQuery("INSERT INTO artiste VALUES ('Skillet','','Groupe de Rock')");
         } catch (SQLException e) {
