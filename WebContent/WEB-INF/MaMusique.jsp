@@ -15,7 +15,6 @@
     <head>
         <title> Ma musique </title>
     </head>
-
     <body>
         <%@ include file="Menu.jsp"%>
         <div class="titre">

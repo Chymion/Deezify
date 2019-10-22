@@ -9,7 +9,7 @@
 <header>
     <div id="conteneurRight">
         <div class="connexion">
-            <a href=""> Connexion </a>
+            <a href="/Deezify_web/Connexion"> Connexion </a>
         </div>
     </div>
     <h1> <font color="orange"> ▶︎ </font> Deezify </h1>

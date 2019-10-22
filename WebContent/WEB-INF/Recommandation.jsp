@@ -11,7 +11,6 @@
     <style>
         <%@ include file="style.css"%>
     </style>
-
     <head>
         <title> Recommandations </title>
     </head>

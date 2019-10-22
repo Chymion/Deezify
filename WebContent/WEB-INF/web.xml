@@ -63,5 +63,15 @@
         <servlet-name> AddProfil </servlet-name>
         <url-pattern> /AddProfil </url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name> Connexion </servlet-name>
+        <servlet-class> controller.ServletConnexion </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Connexion </servlet-name>
+        <url-pattern> /Connexion </url-pattern>
+    </servlet-mapping>
 
 </web-app>
