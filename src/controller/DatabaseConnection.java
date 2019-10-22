@@ -2,30 +2,29 @@ package controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseConnection {
 	
-	//ATTRIBUTS
+	//ATTRIBUTS -------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	private String url = "";
-	private String password = "";
-	private String userName = "";
-	private String referencePilote = "";
-	private boolean connected = false;
-	Connection connection = null;
+	private String url = "";      //url de l'emplacement de la base
+	private String password = ""; //Mot de passe de la connexion
+	private String userName = ""; //Nom de l'utilisateur
+	Connection connection = null; //Etablit la connection avec la base
 	
 	
-	//CONSTRUCTEUR
+	//CONSTRUCTEUR -----------------------------------------------------------------------------------------------------------------------------------------------
 	
 	public DatabaseConnection(String url, String password, String userName, String referencePilote) throws ClassNotFoundException, SQLException
 	{
 		this.url = url;
 		this.password = password;
 		this.userName = userName;
-		this.referencePilote = referencePilote;
 		
-		//On fourni la rï¿½fï¿½rence du pilote
+		//On fourni la référence du pilote
 		Class.forName(referencePilote);
 		
 		//Connection ï¿½ la base
@@ -35,44 +34,58 @@ public class DatabaseConnection {
 		
 		//Vï¿½rification si on est connectï¿½
 		if(connection != null) {
-			System.out.println("Vous Ãªtes connectÃ©");connected = true;}
+			System.out.println("Vous êtes connecté");}
 		else
-			System.out.println("Vous n'Ãªtes pas connectÃ©");
+			System.out.println("Vous n'êtes pas connecté");
 		
 	}
 	
-	//METHODES
+	//METHODES -----------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	
-	public PreparedStatement makeQuery(String q) throws SQLException { /* Permet de faire une requï¿½te dans la base de donnï¿½es, on peut la retournï¿½e */
-		PreparedStatement ps = null;
-		if(connected) {
+	
+	/* Méthode pour insérer des données dans la base en mettant en paramètre la requête */
+	public PreparedStatement insertData(String q) throws SQLException { 
+		
+		    PreparedStatement ps = null;
 			
-		//On exï¿½cute la requï¿½te
-		 ps = this.connection.prepareStatement(q);
-        int status = ps.executeUpdate();
-      
-        
-		} else
-			System.out.println("Vous n'Ãªtes connectÃ© Ã  aucune connexion de MySQL WorkBench !!");
+		 try {
+			//On exécute la requête
+			ps = this.connection.prepareStatement(q);
+	        int status = ps.executeUpdate();
+		 }catch(SQLException e) {System.out.println("Problème lors de l'insertion des données avec de cette requête : " + q + "\nPeut être que cette valeur existe déjà dans la base...");}
 		
 		return ps;
 	}
 	
-	public void displayQuery(PreparedStatement q) throws SQLException { /* Permet de rentrer ue requï¿½te en paramï¿½tre */
+	/* Méthode pour afficher des données de la base en mettant en paramètre la requête */
+	public ResultSet displayData(String q) throws SQLException {
 		
+		ResultSet rs = null;
+		Statement stmt = null;
+		
+		try {
+			 //On exécute la requête
+			 stmt = connection.createStatement();
+			 rs = stmt.executeQuery(q);
+		}catch(SQLException e) {System.out.println("Problème lors de l'affichage de la requête selon cette requête : " + q);}
+		
+		//On retourne le résultat de la requête, il reste plus qu'a l'afficher
+		return rs;
+
 	
 	}
 	
-	public void initialisationDataBase(String dataBaseName) throws SQLException { /* Initialisation de la base si elle n'est pas installï¿½ */
+	/* Méthode pour instancier la base sur phpMyAdmin si elle n'est pas instanciée */
+	public void initialisationDataBase() throws SQLException {
 		
 		try{
 		
-		this.makeQuery("CREATE DATABASE Deezify;");
+		this.insertData("CREATE DATABASE Deezify;");
 		
-		connection = DriverManager.getConnection(this.url+"/"+dataBaseName + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC",this.userName,this.password);
+		connection = DriverManager.getConnection(this.url+"/"+"Deezify" + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC",this.userName,this.password);
 		
-		this.makeQuery("CREATE TABLE Artiste(\r\n" + 
+		this.insertData("CREATE TABLE Artiste(\r\n" + 
 				"        NomArtiste Varchar (50) NOT NULL ,\r\n" + 
 				"        Image      Varchar (200) NOT NULL ,\r\n" + 
 				"        Descriptif Text NOT NULL\r\n" + 
@@ -80,14 +93,14 @@ public class DatabaseConnection {
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		this.makeQuery("CREATE TABLE Genre_musical(\r\n" + 
+		this.insertData("CREATE TABLE Genre_musical(\r\n" + 
 				"        NomGenreMusical Varchar (50) NOT NULL ,\r\n" + 
 				"        Image           Varchar (200) NOT NULL\r\n" + 
 				"	,CONSTRAINT Genre_musical_PK PRIMARY KEY (NomGenreMusical)\r\n" + 
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		this.makeQuery("CREATE TABLE Musique(\r\n" + 
+		this.insertData("CREATE TABLE Musique(\r\n" + 
 				"        NomMusique Varchar (50) NOT NULL ,\r\n" + 
 				"        Duree      Varchar (50) NOT NULL ,\r\n" + 
 				"        Date       Date NOT NULL\r\n" + 
@@ -95,14 +108,14 @@ public class DatabaseConnection {
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		this.makeQuery("CREATE TABLE Utilisateur(\r\n" + 
+		this.insertData("CREATE TABLE Utilisateur(\r\n" + 
 				"        NomUtilisateur Varchar (50) NOT NULL ,\r\n" + 
 				"        MotDePasse     Varchar (50) NOT NULL\r\n" + 
 				"	,CONSTRAINT Utilisateur_PK PRIMARY KEY (NomUtilisateur)\r\n" + 
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		this.makeQuery("CREATE TABLE Playlist(\r\n" + 
+		this.insertData("CREATE TABLE Playlist(\r\n" + 
 				"        NomPlaylist    Varchar (50) NOT NULL ,\r\n" + 
 				"        Album          Bool NOT NULL ,\r\n" + 
 				"        NomUtilisateur Varchar (50) NOT NULL\r\n" + 
@@ -112,7 +125,7 @@ public class DatabaseConnection {
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		this.makeQuery("CREATE TABLE Appartenir(\r\n" + 
+		this.insertData("CREATE TABLE Appartenir(\r\n" + 
 				"        NomGenreMusical Varchar (50) NOT NULL ,\r\n" + 
 				"        NomArtiste      Varchar (50) NOT NULL\r\n" + 
 				"	,CONSTRAINT Appartenir_PK PRIMARY KEY (NomGenreMusical,NomArtiste)\r\n" + 
@@ -122,7 +135,7 @@ public class DatabaseConnection {
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		this.makeQuery("CREATE TABLE Composer(\r\n" + 
+		this.insertData("CREATE TABLE Composer(\r\n" + 
 				"        NomMusique Varchar (50) NOT NULL ,\r\n" + 
 				"        NomArtiste Varchar (50) NOT NULL\r\n" + 
 				"	,CONSTRAINT Composer_PK PRIMARY KEY (NomMusique,NomArtiste)\r\n" + 
@@ -132,7 +145,7 @@ public class DatabaseConnection {
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		this.makeQuery("CREATE TABLE Appartient(\r\n" + 
+		this.insertData("CREATE TABLE Appartient(\r\n" + 
 				"        NomPlaylist Varchar (50) NOT NULL ,\r\n" + 
 				"        NomMusique  Varchar (50) NOT NULL\r\n" + 
 				"	,CONSTRAINT Appartient_PK PRIMARY KEY (NomPlaylist,NomMusique)\r\n" + 
@@ -142,7 +155,7 @@ public class DatabaseConnection {
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		this.makeQuery("CREATE TABLE Avoir(\r\n" + 
+		this.insertData("CREATE TABLE Avoir(\r\n" + 
 				"        NomMusique      Varchar (50) NOT NULL ,\r\n" + 
 				"        NomGenreMusical Varchar (50) NOT NULL\r\n" + 
 				"	,CONSTRAINT Avoir_PK PRIMARY KEY (NomMusique,NomGenreMusical)\r\n" + 
@@ -152,7 +165,7 @@ public class DatabaseConnection {
 				")ENGINE=InnoDB;\r\n" + 
 				"");
 		
-		}catch(SQLException e) {System.out.println("Base dj instancie");}
+		}catch(SQLException e) {System.out.println("Base déjà instanciée");}
 		
 	}
 	
