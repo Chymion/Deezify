@@ -103,7 +103,8 @@ public class DatabaseConnection {
 		this.insertData("CREATE TABLE Musique(\r\n" + 
 				"        NomMusique Varchar (50) NOT NULL ,\r\n" + 
 				"        Duree      Varchar (50) NOT NULL ,\r\n" + 
-				"        Date       Date NOT NULL\r\n" + 
+				"        Date       Date NOT NULL\r\n" +
+				"		 URL        Text NOT NULL\r\n" +	
 				"	,CONSTRAINT Musique_PK PRIMARY KEY (NomMusique)\r\n" + 
 				")ENGINE=InnoDB;\r\n" + 
 				"");
