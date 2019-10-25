@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ServletMaMusique extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        this.getServletContext().getRequestDispatcher("/WEB-INF/MaMusique.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

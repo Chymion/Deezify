@@ -13,6 +13,7 @@ public class ServletExplorer extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        this.getServletContext().getRequestDispatcher("/WEB-INF/Explorer.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

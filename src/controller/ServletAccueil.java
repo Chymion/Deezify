@@ -13,65 +13,60 @@ import java.sql.SQLException;
 @WebServlet(name = "ServletAccueil")
 public class ServletAccueil extends HttpServlet {
 
-    public void init()
+
+	public void init()
     {
-        AudioMaster.init();
-        (new Thread (new AudioMaster())).start();
+
+    	model.AudioMaster.init();
+        (new Thread (new model.AudioMaster())).start();
         
         //Etape 1 : Initialisation de la base et Etablissement de la connexion
-        DatabaseConnection db = null;
+        model.DatabaseConnection db = null;
         try {
-            db = new DatabaseConnection("jdbc:mysql://localhost:3306","root", "root", "com.mysql.cj.jdbc.Driver");
+            db = new model.DatabaseConnection("jdbc:mysql://localhost:3306","root", "", "com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
-        //Etape 2 : Dès que vous êtes connecté(un message apparait pour vous dire que vous êtes connecté), instancier la base
+        //Etape 2 : Dï¿½s que vous ï¿½tes connectï¿½(un message apparait pour vous dire que vous ï¿½tes connectï¿½), instancier la base
         //Dans Uwamp avec cette instruction
-        //Instancation de la base et de toutes les tables(vous mettre en paramètre le nom de la base)
+        //Instancation de la base et de toutes les tables(vous mettre en paramï¿½tre le nom de la base)
         try {
             db.initialisationDataBase();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
-        //Faire un test avec cette requète : (la table concernée doit être remplie par cette requète)
+        //Faire un test avec cette requï¿½te : (la table concernï¿½e doit ï¿½tre remplie par cette requï¿½te)
         try {
             db.insertData("INSERT INTO artiste VALUES ('Skrillex','','Electro')");
         } catch (SQLException e) {e.printStackTrace();}
         
-        //Pour afficher des données avec une requête SELECT 
+        //Pour afficher des donnï¿½es avec une requï¿½te SELECT 
         ResultSet rs = null;
         try {
             rs = db.displayData("SELECT NomArtiste FROM artiste");
         } catch (SQLException e) {e.printStackTrace();}
         
         try {
-        	System.out.println("Affichage des données : ");
+        	System.out.println("Affichage des donnï¿½es : ");
 			while(rs.next()) 		
 				System.out.println(rs.getString("NomArtiste"));	
 		} catch (SQLException e) {e.printStackTrace();}
-        
-        
         
     }
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        this.getServletContext().getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
-
         this.getServletContext().getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
-
-
-
     }
 
 }

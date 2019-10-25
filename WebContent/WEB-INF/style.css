@@ -6,11 +6,6 @@ body {
     font-size: 16pt;
 }
 
-footer{
-	position:absolute;
-	bottom:0;
-}
-
 h1 {
 
     font-size: 40pt;
@@ -38,17 +33,6 @@ h1 {
 #boutonMenu a:hover {
 
     color: orange;
-}
-
-#recherchemenu {
-	text-align: center;
-    margin: 5pt;
-    margin-top: 10pt;
-    margin-left: 10pt;
-    margin-right: 10pt;
-    padding: 7pt;
-    border-width: 5pt;
-    length:25pt;
 }
 
 a {
@@ -80,57 +64,99 @@ a {
 
     background-color: orange;
     padding: 5pt;
-    margin-right: 5pt;
+    margin-right: 10pt;
+    margin-top: 10pt;
 }
 
-.recherche {
-	text-align: center;
+.sousTitre {
+
+    text-align: center;
+    color: orange;
+    font-size: 30pt;
 }
 
-.profil {
-	text-align:center;
-	color:orange;
+.sousTitre2 {
+
+    text-align: center;
+    color: orange;
+    font-size: 20pt;
 }
 
-.titre {
-	text-align:center;
-	color:orange;
-	font-size:25pt;
+button {
+
+    background-color: orange;
+    padding: 10pt;
+    color: white;
+    font-size: 16pt;
+    border: none;
 }
 
-.boutonPlay {
-	background-color:orange;
-	border-color:gray;
-	border-radius:70px;
-	width:50px;
-	heigth:50px;
-	margin-left:600px;
-	text-align:center;
+#conteneurRecherche {
+
+    display: flex;
+    justify-content: center;
 }
 
-.lecteur{
-	width:1210px;
-	border-top-color:orange;
-	border-top-style:solid;
-	border-top-width:1px;
+.textField {
+
+    border: none;
+    font-size: 16pt;
+    padding-left: 16pt;
+    width: 50%;
 }
 
-#ajout a:hover{
-	color:orange;
+.field {
+
+    border: none;
+    font-size: 16pt;
+    padding-left: 16pt;
+    width: 100%;
 }
 
-#ajout{
-	text-align:center;
+#conteneurConnexion {
+
+    display: flex;
+    justify-content: center;
 }
 
-.formulaire {
-	text-align:center;
+#conteneurConnexion2 {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.boutonSub {
-	backgroung-color:black;
-	border-style:solid;
-	border-color:orange;
-	text-color:white;
+.lienInscription {
+
+    color: orange;
+}
+
+.lienInscription:hover {
+
+    text-decoration: underline;
+}
+
+#conteneurLecteur {
+
+    margin-top: 10pt;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    border-top: orange 1pt solid;
+}
+
+.boutonMusique {
+
+    background-color: orange;
+    color: white;
+    text-align: center;
+    border-radius: 10pt;
 }
 

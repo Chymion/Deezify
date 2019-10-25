@@ -13,13 +13,17 @@
     </style>
 
     <head>
-        <title> Ma musique </title>
+        <title> Ma Musique </title>
     </head>
+
     <body>
         <%@ include file="Menu.jsp"%>
-        <div class="titre">
-    	<p> Toute la musique que vous aimez !</p>
-    </div>
+        <p class="sousTitre"> Ma Musique </p>
+        <p class="sousTitre2"> Titres </p>
+        <p class="sousTitre2"> Artistes </p>
+        <p class="sousTitre2"> Albums </p>
+        <p class="sousTitre2"> Playlists </p>
+        <%@ include file="Lecteur.jsp"%>
     </body>
 
 </html>

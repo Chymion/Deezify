@@ -13,19 +13,24 @@
     </style>
 
     <head>
-        <title> Recommandations </title>
+        <title> Explorer </title>
     </head>
 
     <body>
         <%@ include file="Menu.jsp"%>
-        <div class="champRechercher">
-        	<p class ='titre'> Rechercher une musique : </p>
-        	<p></p>
-        	<p></p>
-        	<div class="recherche">
-        		<input type="text" class="recherche"> 
-        	</div>
-        </div>
+        <p class="sousTitre"> Recherche </p>
+        <form id="conteneurRecherche" method="post" action="/DeezifyWeb/Explorer">
+            <input  type="text"
+                    class="textField"
+                    id="recherche"
+                    name="recherche"/>
+            <button> rechercher </button>
+        </form>
+        <%
+            String recherche = (String) request.getAttribute("recherche");
+            if (request.getAttribute("recherche") != null)
+                out.println(recherche);
+        %>
     </body>
 
 </html>

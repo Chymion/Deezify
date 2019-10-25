@@ -11,15 +11,14 @@
     <style>
         <%@ include file="style.css"%>
     </style>
+
     <head>
         <title> Recommandations </title>
     </head>
 
     <body>
     <%@ include file="Menu.jsp"%>
-    <div class="titre">
-    	<p> Voici ce que nous vous recommandons !</p>
-    </div>
+    <p class="sousTitre"> Voici ce que nous vous recommandons </p>
     </body>
 
 </html>
