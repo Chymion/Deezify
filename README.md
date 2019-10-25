@@ -7,6 +7,8 @@ Un lecteur de fichiers audios en Java.
 4) git commit -m  "commentaire"
 5) git push origin master
 
+Pour tag une version: git tag -a vx.x.x
+
 Pour faire fonctionner OpenAL et la base de donnée dans le site:
 
 Déplacer dans le fichier "lib" du répertoire "tomcat" :
