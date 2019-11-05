@@ -1,72 +1,66 @@
 package controller;
 
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
+import model.DatabaseConnection;
 
-@WebServlet(name = "ServletAccueil")
+@WebServlet( name = "ServletAccueil" )
 public class ServletAccueil extends HttpServlet {
 
+    private AudioMaster am = null;
 
-	public void init()
-    {
+    protected void doPost( HttpServletRequest request, HttpServletResponse response )
+            throws ServletException, IOException {
 
-    	model.AudioMaster.init();
-        (new Thread (new model.AudioMaster())).start();
-        
-        //Etape 1 : Initialisation de la base et Etablissement de la connexion
-        model.DatabaseConnection db = null;
+        // Initialisation de la musique
+        if ( request.getParameter( "bouton" ) != null ) { /* le bouton a était appuyé ? */
+            am = new AudioMaster();
+            am.init();
+            ( new Thread( am ) ).start();
+        }
+
+        // Initialisation de la base et Etablissement de la connexion
+        DatabaseConnection db = null;
         try {
-            db = new model.DatabaseConnection("jdbc:mysql://localhost:3306","root", "", "com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
+                    "com.mysql.cj.jdbc.Driver" );
+        } catch ( ClassNotFoundException | SQLException e ) {
+        }
+
+        // Faire un test avec cette requete : (la table concerne doit // etre
+        // remplie par cette requete)
+        try {
+            db.insertData(
+                    "INSERT INTO artiste VALUES ('Skrillex','','Electro')" );
+        } catch ( SQLException e ) {
             e.printStackTrace();
         }
-        
-        //Etape 2 : Dï¿½s que vous ï¿½tes connectï¿½(un message apparait pour vous dire que vous ï¿½tes connectï¿½), instancier la base
-        //Dans Uwamp avec cette instruction
-        //Instancation de la base et de toutes les tables(vous mettre en paramï¿½tre le nom de la base)
-        try {
-            db.initialisationDataBase();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        //Faire un test avec cette requï¿½te : (la table concernï¿½e doit ï¿½tre remplie par cette requï¿½te)
-        try {
-            db.insertData("INSERT INTO artiste VALUES ('Skrillex','','Electro')");
-        } catch (SQLException e) {e.printStackTrace();}
-        
-        //Pour afficher des donnï¿½es avec une requï¿½te SELECT 
+
+        // Pour afficher des donnees avec une requete SELECT
         ResultSet rs = null;
         try {
-            rs = db.displayData("SELECT NomArtiste FROM artiste");
-        } catch (SQLException e) {e.printStackTrace();}
-        
+            rs = db.displayData( "SELECT NomArtiste FROM artiste" );
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        }
+
         try {
-        	System.out.println("Affichage des donnï¿½es : ");
-			while(rs.next()) 		
-				System.out.println(rs.getString("NomArtiste"));	
-		} catch (SQLException e) {e.printStackTrace();}
-        
-    }
+            System.out.println( "Affichage des donnees : " );
+            while ( rs.next() )
+                System.out.println( rs.getString( "NomArtiste" ) );
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        }
 
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher( "/WEB-INF/Accueil.jsp" ).forward( request, response );
     }
 
 }

@@ -17,6 +17,11 @@
     </head>
 
     <body>
+    
+     <form action="Accueil" method="post" n>
+    <input type="submit" value="play" name="bouton" />
+    </form>
+    
         <%@ include file="Menu.jsp"%>
         <p class="bienvenue">
             Bienvenue sur Deezify !
