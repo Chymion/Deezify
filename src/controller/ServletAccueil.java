@@ -15,16 +15,27 @@ import model.DatabaseConnection;
 @WebServlet( name = "ServletAccueil" )
 public class ServletAccueil extends HttpServlet {
 
-    private AudioMaster am = null;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private AudioMaster       am               = null;
 
-    protected void doPost( HttpServletRequest request, HttpServletResponse response )
+    protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
         // Initialisation de la musique
-        if ( request.getParameter( "bouton" ) != null ) { /* le bouton a était appuyé ? */
+        if ( request.getParameter( "play" ) != null ) { /*
+                                                         * le bouton a était
+                                                         * appuyé ?
+                                                         */
             am = new AudioMaster();
             am.init();
             ( new Thread( am ) ).start();
+        }
+
+        if ( request.getParameter( "pause" ) != null ) {
+            am.pause();
         }
 
         // Initialisation de la base et Etablissement de la connexion

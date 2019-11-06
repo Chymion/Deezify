@@ -18,8 +18,9 @@
 
     <body>
     
-     <form action="Accueil" method="post" n>
-    <input type="submit" value="play" name="bouton" />
+     <form action="Accueil" method="post" >
+    <input type="submit" value="play" name="play" />
+     
     </form>
     
         <%@ include file="Menu.jsp"%>
