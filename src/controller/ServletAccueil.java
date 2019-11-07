@@ -15,9 +15,6 @@ import model.DatabaseConnection;
 @WebServlet( name = "ServletAccueil" )
 public class ServletAccueil extends HttpServlet {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private AudioMaster       am               = null;
 
@@ -32,10 +29,6 @@ public class ServletAccueil extends HttpServlet {
             am = new AudioMaster();
             am.init();
             ( new Thread( am ) ).start();
-        }
-
-        if ( request.getParameter( "pause" ) != null ) {
-            am.pause();
         }
 
         // Initialisation de la base et Etablissement de la connexion
