@@ -22,7 +22,7 @@
     <input type="submit" value="play" name="play" />
      
     </form>
-    
+   
         <%@ include file="Menu.jsp"%>
         <p class="bienvenue">
             Bienvenue sur Deezify !
@@ -30,6 +30,7 @@
         <p class="paragrapheBienvenue">
             La <font color="orange">(future)</font> meilleure plateforme de streaming musical !
         </p>
+        
     </body>
 
 </html>

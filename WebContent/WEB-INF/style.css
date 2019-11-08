@@ -160,3 +160,29 @@ footer {
     border-radius: 10pt;
 }
 
+.lienGenre{
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+section {
+	column-count: 2;
+	column-gap: 100px;
+	margin: 100pt;
+	padding: 50pt;
+}
+
+ img{
+	margin: 20pt;
+}
+
+th{
+	margin: 20pt;
+	padding: 20pt;
+	font-size: 50pt;
+}
+
+
+

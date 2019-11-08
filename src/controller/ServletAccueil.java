@@ -37,6 +37,7 @@ public class ServletAccueil extends HttpServlet {
             db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
                     "com.mysql.cj.jdbc.Driver" );
         } catch ( ClassNotFoundException | SQLException e ) {
+            e.printStackTrace();
         }
 
         // Faire un test avec cette requete : (la table concerne doit // etre
