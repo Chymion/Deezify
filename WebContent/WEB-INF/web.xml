@@ -76,18 +76,5 @@
     	<url-pattern> /Inscription </url-pattern>
     </servlet-mapping>
     
-    <servlet>
-    
-		<servlet-name>TestImage</servlet-name>
-		<servlet-class>controller.TestImage</servlet-class>
-		
-	</servlet>
-	
-	<servlet-mapping>
-	
-		<servlet-name>TestImage</servlet-name>
-		<url-pattern>/Image</url-pattern>
-		
-	</servlet-mapping>
 	
 </web-app>
