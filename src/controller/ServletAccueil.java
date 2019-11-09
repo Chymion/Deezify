@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.AudioMaster;
 import model.DatabaseConnection;
 
 @WebServlet( name = "ServletAccueil" )
