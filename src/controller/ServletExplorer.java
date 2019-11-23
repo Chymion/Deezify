@@ -19,6 +19,11 @@ import model.DatabaseConnection;
 @WebServlet( name = "ServletExplorer" )
 public class ServletExplorer extends HttpServlet {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
@@ -39,8 +44,8 @@ public class ServletExplorer extends HttpServlet {
         try {
             db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
                     "com.mysql.cj.jdbc.Driver" );
-        } catch ( ClassNotFoundException | SQLException e ) {
-            e.printStackTrace();
+        } catch ( Exception e ) {
+            e.getMessage();
         }
 
         // Pour recuperer des donnees (liens) avec une requete SELECT
@@ -75,7 +80,11 @@ public class ServletExplorer extends HttpServlet {
         } catch ( SQLException e ) {
             e.printStackTrace();
         }
-        request.setAttribute( "nbGenre", tabGenre.size() );
+
+        Map<String, String> line = tabGenre.get( 0 );
+        System.out.println( "\n\nLigne 0: \n" );
+        System.out.println( line.get( "nom" ) + " et " + line.get( "lien" ) );
+
         /*
          * Redirection vers Explorer.jsp
          */

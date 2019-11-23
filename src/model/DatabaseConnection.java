@@ -21,7 +21,7 @@ public class DatabaseConnection {
     // -----------------------------------------------------------------------------------------------------------------------------------------------
 
     public DatabaseConnection( String url, String password, String userName, String referencePilote )
-            throws ClassNotFoundException, SQLException {
+            throws ClassNotFoundException, SQLException, Exception {
         this.url = url;
         this.password = password;
         this.userName = userName;
@@ -35,10 +35,8 @@ public class DatabaseConnection {
                         "", this.userName, this.password );
 
         // Verification si on est connecte
-        if ( connection != null ) {
-            System.out.println( "Vous etes connectee" );
-        } else
-            System.out.println( "Vous n'etes pas connecte" );
+        if ( connection == null )
+            throw new Exception( "Vous etes pas connecté." );
 
     }
 

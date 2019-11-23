@@ -10,25 +10,25 @@
 <header>
     <div id="conteneurRight">
         <div class="connexion">
-            <a href="/Deezify/Connexion"> Connexion </a>
+            <a href="/DeezifyGIT/Connexion"> Connexion </a>
         </div>
     </div>
     <h1> <font color="orange"> ▶︎ </font> Deezify </h1>
     <div id="conteneur">
         <div id="boutonMenu">
-            <a href="/Deezify/Accueil"> Accueil </a>
+            <a href="/DeezifyGIT/Accueil"> Accueil </a>
         </div>
         <div id="boutonMenu">
-            <a href="/Deezify/Recommandations"> Recommandations </a>
+            <a href="/DeezifyGIT/Recommandations"> Recommandations </a>
         </div>
         <div id="boutonMenu">
-            <a href="/Deezify/Musique"> Ma Musique </a>
+            <a href="/DeezifyGIT/Musique"> Ma Musique </a>
         </div>
         <div id="boutonMenu">
-            <a href="/Deezify/Explorer"> Explorer </a>
+            <a href="/DeezifyGIT/Explorer"> Explorer </a>
         </div>
         <div id="boutonMenu">
-            <a href="/Deezify/Profil"> Profil </a>
+            <a href="/DeezifyGIT/Profil"> Profil </a>
         </div>
     </div>
 </header>

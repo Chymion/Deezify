@@ -13,7 +13,7 @@
 
     <servlet-mapping>
         <servlet-name> Accueil </servlet-name>
-        <url-pattern> / </url-pattern>
+        <url-pattern> /Accueil </url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -74,6 +74,26 @@
     <servlet-mapping>
     	<servlet-name> Inscription </servlet-name>
     	<url-pattern> /Inscription </url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>Playlist</servlet-name>
+    	<servlet-class>controller.ServletPlaylist</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>Playlist</servlet-name>
+    	<url-pattern>/Playlist</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>ListeMusique</servlet-name>
+    	<servlet-class>controller.ServletMusique</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>ListeMusique</servlet-name>
+    	<url-pattern>/ListeMusique</url-pattern>
     </servlet-mapping>
     
 	

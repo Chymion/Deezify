@@ -168,20 +168,38 @@ footer {
 }
 
 section {
-	column-count: 2;
-	column-gap: 100px;
-	margin: 100pt;
-	padding: 50pt;
+	column-count: 1;
+	column-gap: 0px;
+	
 }
 
- img{
-	margin: 20pt;
+ 
+ th{
+	padding-right: 200pt;
 }
 
-th{
-	margin: 20pt;
-	padding: 20pt;
-	font-size: 50pt;
+button{
+	background-color: black;
+}
+
+.buttonExplorer{
+	background-color: orange;
+}
+
+.box{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.elem{
+	flex: 20 1 400px;
+	flex-basis: auto;
+	justify-content: start;
+}
+.elemMusique{
+	flex: 20 1 600px;
+	flex-basis: auto;
+	justify-content: space-around;
 }
 
 
