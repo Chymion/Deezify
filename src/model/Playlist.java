@@ -1,16 +1,13 @@
 package model;
-
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.sql.ResultSetMetaData;
 
-public class Album extends ListeMusique {
-	Artiste artiste=null;
+public class Playlist extends ListeMusique {
 	static DatabaseConnection db = null;
-	public Album(String nom) throws Exception {//permet d'instancier un album avec la base de donnée juste en mettant sont nom en parametre
+	public Playlist(String nom) throws Exception {
 		super(nom);
 		String nomM=null;
 		String dure=null;
@@ -30,7 +27,7 @@ public class Album extends ListeMusique {
         }
 		 ResultSet rs = null;
 	    try {
-	            rs = db.displayData( "Select musique.NomMusique,Pseudo,Duree,Date,URL,artiste.NomArtiste,playlist.Image,Descriptif,NomGenreMusical from playlist natural join appartient natural join musique, composer, artiste where playlist.NomPlaylist='"+nom+"' and Album=1 AND musique.NomMusique=composer.NomMusique AND composer.NomArtiste=artiste.NomArtiste"  );
+	            rs = db.displayData( "Select musique.NomMusique,Pseudo,Duree,Date,URL,artiste.NomArtiste,playlist.Image,Descriptif,NomGenreMusical from playlist natural join appartient natural join musique, composer, artiste where playlist.NomPlaylist='"+nom+"' and Album=0 AND musique.NomMusique=composer.NomMusique AND composer.NomArtiste=artiste.NomArtiste"  );
 	    } catch ( SQLException e ) {
 	            e.printStackTrace();
 	     }
@@ -41,7 +38,7 @@ public class Album extends ListeMusique {
 					if(i==1) nomM=(rs.getObject(i).toString());
             		if(i==2) uti=rs.getObject(i).toString();
             		if(i==3)dure=rs.getObject(i).toString();
-            		if(i==4) date=rs.getObject(i).toString();
+            		if(i==4)date=rs.getObject(i).toString();
             		if(i==5)URL=rs.getObject(i).toString();
             		if(i==6)nomartiste=rs.getObject(i).toString();
             		if(i==7)image=rs.getObject(i).toString();
@@ -59,12 +56,11 @@ public class Album extends ListeMusique {
 	            e.printStackTrace();
 	     }
 	     this.nbMusique=this.listeMusique.size();
-	     this.artiste=art;
 	     this.utilisateur=uti;
 	}
 	public static void main(String[]args) throws Exception {
-		Album a=new Album("Album de Skrillex");
-		//System.out.println(a.artiste.nom+"  "+a.listeMusique.get(1).nomMusique+"  "+a.listeMusique.get(1).date );
+		Playlist a=new Playlist("Musique pop");
+		//System.out.println(a.listeMusique.get(1).artiste.nom+"  "+a.listeMusique.get(1).nomMusique+"  "+a.listeMusique.get(1).date );
 		a.affiche();
 		
 	}

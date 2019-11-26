@@ -17,11 +17,6 @@
     </head>
 
     <body>
-    
-     <form action="Accueil" method="post" >
-    <input type="submit" value="play" name="play" />
-     
-    </form>
    
         <%@ include file="Menu.jsp"%>
         <p class="bienvenue">

@@ -2,21 +2,24 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import java.sql.ResultSetMetaData;
 
 public class Musique {
+	Artiste artiste;
     String                    nomMusique;
-    String                    durée;
+    String                    duree;
     String                    date;
     String                    chemin;
+    String                    genre;
     static DatabaseConnection db = null;
 
-    public Musique( String nomMusique, String durée, String date, String chemin ) {
+    public Musique( String nomMusique, String durée, String date, String chemin,String genre,Artiste art ) {
         this.nomMusique = nomMusique;
-        this.durée = durée;
+        this.duree = durée;
         this.date = date;
         this.chemin = chemin;
+        this.artiste=art;
+        this.genre=genre;
     }
 
     public String getNomMusique() {
@@ -28,11 +31,11 @@ public class Musique {
     }
 
     public String getDurée() {
-        return durée;
+        return duree;
     }
 
     public void setDurée( String durée ) {
-        this.durée = durée;
+        this.duree = durée;
     }
 
     public String getDate() {
@@ -78,24 +81,20 @@ public class Musique {
         ResultSetMetaData resultMeta = (ResultSetMetaData) rs.getMetaData();
 
         try {
-            while ( rs.next() )
-                for ( int i = 1; i <= resultMeta.getColumnCount(); i++ )
-                    if ( i == 2 )
-                        duree = rs.getObject( i ).toString();
-                    else {
-                        if ( i == 3 )
-                            date = rs.getObject( i ).toString();
-                        else if ( i == 4 )
-                            chemin = rs.getObject( i ).toString();
-
-                    }
+            while ( rs.next() ) {
+                for ( int i = 1; i <= resultMeta.getColumnCount(); i++ ) {
+                    if ( i == 2 )duree = rs.getObject( i ).toString();   
+                    if ( i == 3 )date = rs.getObject( i ).toString();
+                    if ( i == 4 )chemin = rs.getObject( i ).toString();
+                 }
+            }
 
         } catch ( SQLException e ) {
             e.printStackTrace();
         }
         if ( duree != "" ) {
             this.nomMusique = nom;
-            this.durée = duree;
+            this.duree = duree;
             this.date = date;
             this.chemin = chemin;
 

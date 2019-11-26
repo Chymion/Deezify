@@ -3,44 +3,43 @@ package model;
 import java.util.ArrayList;
 
 public class ListeMusique {
-    ArrayList<Musique> liste;
+    ArrayList<Musique> listeMusique;
     int                nbMusique;
-    // int tempsLecture;// a voir si ont le fait
+    // int tempsLecture;// a voir si ont le fait mais je pense pas
     String             nomListe;
     String             utilisateur;
 
-    public ListeMusique( String nom, String utilisateur ) {
-        liste = new ArrayList<Musique>();
+    public ListeMusique( String nom ) {
+        listeMusique = new ArrayList<Musique>();
         nbMusique = 0;
         // tempsLecture=0;
         this.nomListe = nom;
-        this.utilisateur = utilisateur;
     }
 
     // méthode qui ajoute une musique que si elle n'est poas déjà dans la liste
     public void ajoutMusique( Musique m ) {
         int compteur = 0;
-        for ( int i = 0; i < this.liste.size(); i++ ) {
-            if ( this.liste.get( i ) != m )
+        for ( int i = 0; i < this.listeMusique.size(); i++ ) {
+            if ( this.listeMusique.get( i ) != m )
                 compteur++;
 
         }
-        if ( compteur == this.liste.size() ) {
-            this.liste.add( m );
+        if ( compteur == this.listeMusique.size() ) {
+            this.listeMusique.add( m );
             this.nbMusique++;
         }
     }
 
     public void removeMusique( Musique m ) {
-        for ( int i = 0; i < this.liste.size(); i++ ) {
-            if ( this.liste.get( i ) == m )
-                this.liste.remove( i );
+        for ( int i = 0; i < this.listeMusique.size(); i++ ) {
+            if ( this.listeMusique.get( i ) == m )
+                this.listeMusique.remove( i );
         }
     }
 
     public void affiche() {
-        for ( int i = 0; i < this.liste.size(); i++ ) {
-            System.out.println( this.liste.get( i ).getNomMusique() );
+        for ( int i = 0; i < this.listeMusique.size(); i++ ) {
+            System.out.println( this.listeMusique.get( i ).getNomMusique() );
         }
 
     }
@@ -49,7 +48,7 @@ public class ListeMusique {
         Musique m = new Musique( "Believer" );
         Musique m2 = new Musique( "In the End" );
         Musique m3 = new Musique( "Lose Yourself" );
-        ListeMusique li = new ListeMusique( "Johny", "Antonin" );
+        ListeMusique li = new ListeMusique( "Johny" );
         li.ajoutMusique( m3 );
         li.ajoutMusique( m2 );
         li.ajoutMusique( m );
