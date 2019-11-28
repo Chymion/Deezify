@@ -1,12 +1,12 @@
 package model;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class AudioMaster implements Runnable {
 
@@ -81,9 +81,16 @@ public class AudioMaster implements Runnable {
     public void run() {
         // TODO Auto-generated method stub
         System.out.println( "Thread started" );
-        int buffer = chargerMusique( "controller/Aliez.wav" );
 
-        play( buffer );
+        Musique mod = null;
+        try {
+            mod = new Musique("Lose Yourself");
+            System.out.println("controller/" +  mod.getChemin());
+            int buffer = chargerMusique("controller/" +  mod.getChemin());
+            play (buffer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         while ( true ) {
 
