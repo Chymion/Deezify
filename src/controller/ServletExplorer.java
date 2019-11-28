@@ -1,10 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.DatabaseConnection;
+import model.EnsembleGenre;
 
 @WebServlet( name = "ServletExplorer" )
 public class ServletExplorer extends HttpServlet {
@@ -38,52 +35,22 @@ public class ServletExplorer extends HttpServlet {
          * Affichage des images 'genre' depuis la base de donnees
          */
 
-        // Instancation de la base
-
-        DatabaseConnection db = null;
+        EnsembleGenre e = new EnsembleGenre();
         try {
-            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                    "com.mysql.cj.jdbc.Driver" );
-        } catch ( Exception e ) {
-            e.getMessage();
+            e.remplirEnsemble( request );
+        } catch ( SQLException e1 ) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        List<Map<String, String>> tabGenre = null;
+        try {
+            tabGenre = e.setHashMap( request );
+        } catch ( SQLException e1 ) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         }
 
-        // Pour recuperer des donnees (liens) avec une requete SELECT
-
-        ResultSet reqImagesGenre = null;
-        try {
-            reqImagesGenre = db.displayData( "SELECT * FROM genre_musical" );
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-        }
-
-        // Envoi des liens d'images sur la page Explorer.jsp
-
-        List<Map<String, String>> tabGenre = new ArrayList<Map<String, String>>();
-
-        try {
-            Map<String, String> genre = null;
-            while ( reqImagesGenre.next() ) {
-
-                genre = new HashMap<String, String>();
-
-                genre.put( "lien", reqImagesGenre.getString( "Image" ) );
-                genre.put( "nom", reqImagesGenre.getString( "NomGenreMusical" ) );
-                tabGenre.add( genre );
-
-                request.setAttribute( "tabGenre", tabGenre );
-
-                System.out.print( reqImagesGenre.getString( "Image" ) );
-
-            }
-
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-        }
-
-        Map<String, String> line = tabGenre.get( 0 );
-        System.out.println( "\n\nLigne 0: \n" );
-        System.out.println( line.get( "nom" ) + " et " + line.get( "lien" ) );
+        request.setAttribute( "tabGenre", tabGenre );
 
         /*
          * Redirection vers Explorer.jsp
