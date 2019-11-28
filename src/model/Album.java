@@ -10,6 +10,11 @@ import java.sql.ResultSetMetaData;
 public class Album extends ListeMusique {
 	Artiste artiste=null;
 	static DatabaseConnection db = null;
+	public Album(String nom,String uti,Artiste arti) {
+		super(nom);
+		this.utilisateur=uti;
+		this.artiste=arti;
+	}
 	public Album(String nom) throws Exception {//permet d'instancier un album avec la base de donnée juste en mettant sont nom en parametre
 		super(nom);
 		String nomM=null;
@@ -58,7 +63,7 @@ public class Album extends ListeMusique {
 	     } catch ( SQLException e ) {
 	            e.printStackTrace();
 	     }
-	     this.nbMusique=this.listeMusique.size();
+	    // this.nbMusique=this.listeMusique.size();
 	     this.artiste=art;
 	     this.utilisateur=uti;
 	}

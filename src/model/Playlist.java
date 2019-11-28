@@ -7,6 +7,10 @@ import java.sql.ResultSetMetaData;
 
 public class Playlist extends ListeMusique {
 	static DatabaseConnection db = null;
+	public Playlist(String nom,String uti) {
+		super(nom);
+		this.utilisateur=uti;
+	}
 	public Playlist(String nom) throws Exception {
 		super(nom);
 		String nomM=null;
@@ -55,7 +59,7 @@ public class Playlist extends ListeMusique {
 	     } catch ( SQLException e ) {
 	            e.printStackTrace();
 	     }
-	     this.nbMusique=this.listeMusique.size();
+	     //this.nbMusique=this.listeMusique.size();
 	     this.utilisateur=uti;
 	}
 	public static void main(String[]args) throws Exception {
