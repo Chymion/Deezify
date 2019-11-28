@@ -43,10 +43,10 @@ import="java.util.Map"  %>
   		    
   			out.print("<div class = \"elemMusique\">");
   			
-  			out.print("<form action=\"...\" method=\"post\">");
+  			out.print("<form action=\"ListeMusique\" method=\"post\">");
   			
   			// Nom de la musique
-  			out.print("<span type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
+  			out.print("<span name=\"nomListe\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
   			out.print(ligneActuelle.get( "nom" ));
   			out.print("</span>");
   			
@@ -77,7 +77,7 @@ import="java.util.Map"  %>
 			//Bouton Play/pause
 			
 			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"Musique\"> "+
-			"<input type=\"submit\" value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" /></form>");
+			"<input type=\"submit\" value=\"Play/pause\" class=\"boutonMusique\" name=\"" + k + "\" /></form>");
 		
 			out.print("</form>");
 			

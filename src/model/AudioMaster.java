@@ -14,6 +14,7 @@ public class AudioMaster implements Runnable {
     // contenant la source
     private static ArrayList<Integer> buffers = new ArrayList<Integer>();
     private static int                sourceID;
+    private String songName;
 
     // Initialisation de OpenAL
     public void init() {
@@ -52,6 +53,16 @@ public class AudioMaster implements Runnable {
         AL10.alSourcePlay( sourceID );
     }
 
+    public void setSongName(String name)
+    {
+    	this.songName = name;
+    }
+    
+    public String getSongName()
+    {
+    	return this.songName;
+    }
+    
     public static int chargerMusique( String file ) {
         // Chargement des bits composant le fichier audio dans le buffer.
         int buffer = AL10.alGenBuffers();
@@ -68,13 +79,15 @@ public class AudioMaster implements Runnable {
     }
 
     // Lib�ration des ressources
-    public static void Destruction() {
+    public void Destruction() {
+    	AL10.alDeleteSources( sourceID );
         for ( int buffer : buffers ) {
             AL10.alDeleteBuffers( buffer );
         }
 
         AL.destroy();
-        AL10.alDeleteSources( sourceID );
+        
+        
     }
 
     @Override
@@ -84,7 +97,7 @@ public class AudioMaster implements Runnable {
 
         Musique mod = null;
         try {
-            mod = new Musique("Lose Yourself");
+            mod = new Musique(getSongName());
             System.out.println("controller/" +  mod.getChemin());
             int buffer = chargerMusique("controller/" +  mod.getChemin());
             play (buffer);
@@ -92,9 +105,7 @@ public class AudioMaster implements Runnable {
             e.printStackTrace();
         }
 
-        while ( true ) {
-
-        }
-
+  
+        
     }
 }
