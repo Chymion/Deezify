@@ -25,7 +25,6 @@ public class EnsembleGenre {
         }
 
     }
-
     public EnsembleGenre( List<Genre> tabGenre ) {
         this.tabGenre = tabGenre;
 
