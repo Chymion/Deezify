@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class EnsembleGenre {
 
-    List<Genre>        tabGenre = null;
+    ArrayList<Genre>        tabGenre = null;
     DatabaseConnection db       = null;
 
     public EnsembleGenre() {
@@ -25,7 +25,7 @@ public class EnsembleGenre {
         }
 
     }
-    public EnsembleGenre( List<Genre> tabGenre ) {
+    public EnsembleGenre( ArrayList<Genre> tabGenre ) {
         this.tabGenre = tabGenre;
 
         try {
@@ -38,7 +38,7 @@ public class EnsembleGenre {
     }
 
     public void ajouter( Genre g ) {
-        tabGenre.add( g );
+        tabGenre.add( g ); 
     }
 
     public void remplirEnsemble( HttpServletRequest request ) throws SQLException {
@@ -47,12 +47,13 @@ public class EnsembleGenre {
 
         ResultSet reqGenre = null;
         try {
-            reqGenre = db.displayData( "SELECT * FROM genre_musical" );
+            reqGenre = db.displayData( "SELECT * FROM genre_musical" );//Select playlist.NomGenreMusical,genre_musical.image,playlist.NomPlaylist, musique.NomMusique,playlist.Pseudo,musique.Duree,musique.Date,musique.URL,artiste.NomArtiste,playlist.Image,artiste.Descriptif from playlist natural join appartient natural join musique, composer, artiste,genre_musical where musique.NomMusique=composer.NomMusique AND composer.NomArtiste=artiste.NomArtiste AND genre_musical.NomGenreMusical=playlist.NomGenreMusical ORDER BY NomGenreMusical,NomPlaylist
         } catch ( SQLException e ) {
             e.printStackTrace();
         }
 
         while ( reqGenre.next() )
+        	
             this.ajouter( new Genre( reqGenre.getString( "NomGenreMusical" ), reqGenre.getString( "Image" ) ) );
 
     }
@@ -74,12 +75,75 @@ public class EnsembleGenre {
         return tabGenre;
     }
 
-    public List<Genre> getTabGenre() {
-        return tabGenre;
+    public ArrayList<Genre> getTabGenre() {
+        return (ArrayList<Genre>) tabGenre;
     }
 
-    public void setTabGenre( List<Genre> tabGenre ) {
+    public void setTabGenre( ArrayList<Genre> tabGenre ) {
         this.tabGenre = tabGenre;
     }
+    public void remplir() throws SQLException   {
+    	String nomGenre="";
+    	String nomPlay="";
+    	String nomArtiste="";
+    	Artiste artiste=null;
+    	Musique m=null;
+    	ListeMusique lm=null;
+    	Genre genre=null;
+    	int nbgenre=-1;
+    	int nbplay=-1;
 
+        ResultSet reqGenre = null;
+        try {
+            reqGenre = db.displayData( "Select playlist.NomGenreMusical,genre_musical.image,playlist.NomPlaylist,playlist.Album, musique.NomMusique,playlist.Pseudo,musique.Duree,musique.Date,musique.URL,artiste.NomArtiste,playlist.Image,artiste.Descriptif from playlist natural join appartient natural join musique, composer, artiste,genre_musical where musique.NomMusique=composer.NomMusique AND composer.NomArtiste=artiste.NomArtiste AND genre_musical.NomGenreMusical=playlist.NomGenreMusical ORDER BY NomGenreMusical,NomPlaylist");
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        }
+        while ( reqGenre.next() ) {
+             if(!reqGenre.getString("playlist.NomGenreMusical").equals(nomGenre)){//si on, change de genre     
+            	 nomGenre=reqGenre.getString("playlist.NomGenreMusical");
+            	 genre=new Genre( reqGenre.getString( "NomGenreMusical" ), reqGenre.getString( "genre_musical.image" ));
+            	 this.tabGenre.add(genre);
+            	 nbgenre++;
+            	 nbplay=-1;
+             }
+             if(!reqGenre.getString("NomArtiste").equals(nomArtiste)) {//si on change d'artiste
+            	 nomArtiste=reqGenre.getString("NomArtiste");
+ 				artiste=new Artiste(reqGenre.getString( "NomArtiste" ), reqGenre.getString( "playlist.Image" ),reqGenre.getString("Descriptif"));
+
+         	}
+        	 if(!reqGenre.getString("NomPlaylist").equals(nomPlay)) {//si on change de playlist
+        		 nomPlay=reqGenre.getString("NomPlaylist");
+        		 if(reqGenre.getString("Album").equals(1)) lm=new Album(reqGenre.getString( "NomPlaylist" ), reqGenre.getString( "Pseudo" ),artiste);	 
+        		 else lm=new Playlist(reqGenre.getString( "NomPlaylist" ), reqGenre.getString( "Pseudo" ));
+        		 this.tabGenre.get(nbgenre).ajout(lm);
+        		 nbplay++;
+        	 }
+        	m=new Musique(reqGenre.getString("NomMusique"),reqGenre.getString("Duree"),reqGenre.getString("Date"),reqGenre.getString("URL"),artiste);
+        	this.tabGenre.get(nbgenre).list.get(nbplay).ajoutMusique(m);     	
+        	
+        }  
+    }
+    public void affiche() {
+    	for(int i=0;i<tabGenre.size();i++) {
+    		System.out.println(tabGenre.get(i).getNom()+"{");
+    		for(int j=0;j<tabGenre.get(i).list.size();j++) {
+    			System.out.println(tabGenre.get(i).list.get(j).nomListe+" :");
+    			for(int k=0;k<tabGenre.get(i).list.get(j).listeMusique.size();k++) {
+    				System.out.print(tabGenre.get(i).list.get(j).listeMusique.get(k).nomMusique+" ,");
+    			}
+    			System.out.println();
+    			System.out.println();
+    		}
+    		System.out.println("}");
+    	}
+    }
+    public static void main (String[]args) throws SQLException {
+    	EnsembleGenre eg=new EnsembleGenre();
+    	eg.remplir();
+    	eg.affiche();
+    	//System.out.println(eg.tabGenre.get(0).getUrl());
+    	//System.out.println(eg.tabGenre.get(0).list.get(0).listeMusique.get(0).artiste.image);
+    	
+    }
 }

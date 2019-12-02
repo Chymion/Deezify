@@ -11,12 +11,11 @@ public class Album extends ListeMusique {
 	Artiste artiste=null;
 	static DatabaseConnection db = null;
 	public Album(String nom,String uti,Artiste arti) {
-		super(nom);
-		this.utilisateur=uti;
+		super(nom,uti);
 		this.artiste=arti;
 	}
-	public Album(String nom) throws Exception {//permet d'instancier un album avec la base de donnée juste en mettant sont nom en parametre
-		super(nom);
+	public Album(String nom,String uti) throws Exception {//permet d'instancier un album avec la base de donnée juste en mettant sont nom en parametre
+		super(nom,uti);
 		String nomM=null;
 		String dure=null;
 		String date=null;
@@ -24,7 +23,6 @@ public class Album extends ListeMusique {
 		String nomartiste=null;
 		String image=null;
 		String des=null;
-		String uti="";
 		Musique m=null;
 		Artiste art=null;
 		String genre=null;
@@ -55,7 +53,7 @@ public class Album extends ListeMusique {
             		
 				}	
 				art=new Artiste(nomartiste,image,des);
-				m=new Musique(nomM, dure, date, URL,genre,art);
+				m=new Musique(nomM, dure, date, URL,art);
 				//this.listeMusique.ajoutMusique(m);
 				this.listeMusique.add(m);
 			}
@@ -68,7 +66,7 @@ public class Album extends ListeMusique {
 	     this.utilisateur=uti;
 	}
 	public static void main(String[]args) throws Exception {
-		Album a=new Album("Album de Skrillex");
+		Album a=new Album("Album de Skrillex","root");
 		//System.out.println(a.artiste.nom+"  "+a.listeMusique.get(1).nomMusique+"  "+a.listeMusique.get(1).date );
 		a.affiche();
 		

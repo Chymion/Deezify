@@ -4,16 +4,15 @@ import java.util.ArrayList;
 
 public class ListeMusique {
     ArrayList<Musique> listeMusique;
-    int                nbMusique;
+   // int                nbMusique;
     // int tempsLecture;// a voir si ont le fait mais je pense pas
     String             nomListe;
     String             utilisateur;
 
-    public ListeMusique( String nom ) {
+    public ListeMusique( String nom,String uti ) {
         listeMusique = new ArrayList<Musique>();
-        nbMusique = 0;
-        // tempsLecture=0;
         this.nomListe = nom;
+        this.utilisateur=uti;
     }
 
     // méthode qui ajoute une musique que si elle n'est poas déjà dans la liste
@@ -26,7 +25,7 @@ public class ListeMusique {
         }
         if ( compteur == this.listeMusique.size() ) {
             this.listeMusique.add( m );
-            this.nbMusique++;
+           // this.nbMusique++;
         }
     }
 
@@ -48,14 +47,14 @@ public class ListeMusique {
         Musique m = new Musique( "Believer" );
         Musique m2 = new Musique( "In the End" );
         Musique m3 = new Musique( "Lose Yourself" );
-        ListeMusique li = new ListeMusique( "Johny" );
+        ListeMusique li = new ListeMusique( "Johny","Mickeal" );
         li.ajoutMusique( m3 );
         li.ajoutMusique( m2 );
         li.ajoutMusique( m );
         li.affiche();
         li.ajoutMusique( m3 );
         li.affiche();
-        System.out.println( li.nbMusique );
+        //System.out.println( li.nbMusique );
 
     }
 

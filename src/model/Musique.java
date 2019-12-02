@@ -10,16 +10,14 @@ public class Musique {
     String                    duree;
     String                    date;
     String                    chemin;
-    String                    genre;
     static DatabaseConnection db = null;
 
-    public Musique( String nomMusique, String durée, String date, String chemin,String genre,Artiste art ) {
+    public Musique( String nomMusique, String duree, String date, String chemin,Artiste art ) {
         this.nomMusique = nomMusique;
-        this.duree = durée;
+        this.duree = duree;
         this.date = date;
         this.chemin = chemin;
         this.artiste=art;
-        this.genre=genre;
     }
 
     public String getNomMusique() {
