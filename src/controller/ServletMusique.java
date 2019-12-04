@@ -22,8 +22,6 @@ public class ServletMusique extends HttpServlet {
     private AudioMaster        am              = new AudioMaster();
     int                        count           = 0;
     boolean                    firstClick      = false;
-    boolean                    ultimateBool    = false;
-    boolean                    ultimateDestroy = false;
     Thread                     t;
 
     @SuppressWarnings( { "deprecation", "null" } )
@@ -33,25 +31,26 @@ public class ServletMusique extends HttpServlet {
         // On récupère le nom de la playlist ou de l'album selectionné
         String nomListe = request.getParameter( CHAMP_LISTE );
 
-        for ( int i = 0; i < 4; i++ ) {
-
-            if ( request.getParameter( "music" ) != null ) {
-                if ( !firstClick ) {
+   
+        if ( request.getParameter( "music" ) != null ) {
+              	if ( !firstClick ) 
+              	{
                     firstClick = true;
                     am.init();
                     am.setSongName( request.getParameter( "music" ) );
                     t = new Thread( am );
                     t.start();
-                } else {
-                    am.Destruction();
-                    am.init();
-                    System.out.println( request.getParameter( "Play/pause" ) );
-                    am.setSongName( request.getParameter( "music" ) );
-                    t = new Thread( am );
-                    t.start();
+                } 
+              	else
+                {
+                   am.Destruction();
+                   am.init();
+                   am.setSongName( request.getParameter( "music" ) );
+                   t = new Thread( am );
+                   t.start();
                 }
             }
-        }
+        
 
         /*
          * Instancation de la base
