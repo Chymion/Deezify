@@ -18,44 +18,41 @@ import model.DatabaseConnection;
 
 public class ServletMusique extends HttpServlet {
 
-    public static final String CHAMP_LISTE = "nomListe";
-    private AudioMaster       am               = new AudioMaster();
-    int count =0;
-    boolean firstClick = false;
-    boolean ultimateBool = false;
-    boolean ultimateDestroy = false;
-    Thread t;
-    @SuppressWarnings("deprecation")
-	protected void service( HttpServletRequest request, HttpServletResponse response )
+    public static final String CHAMP_LISTE     = "nomListe";
+    private AudioMaster        am              = new AudioMaster();
+    int                        count           = 0;
+    boolean                    firstClick      = false;
+    boolean                    ultimateBool    = false;
+    boolean                    ultimateDestroy = false;
+    Thread                     t;
+
+    @SuppressWarnings( { "deprecation", "null" } )
+    protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
         // On récupère le nom de la playlist ou de l'album selectionné
         String nomListe = request.getParameter( CHAMP_LISTE );
-        
-        
-        for (int i = 0; i < 4; i++)
-        {
-        	
-        	 if ( request.getParameter(""+ i) != null ) {
-             	if (!firstClick)
-             	{
-             		firstClick = true;
-             	    am.init();
-                     am.setSongName("Numb");
-                     t = new Thread(am);
-                     t.start();
-             	}
-             	else
-             	{
-             		am.Destruction();
-                     am.init();
-                     am.setSongName("Numb");
-                     t = new Thread(am);
-                     t.start();
-             	}
-             }
+
+        for ( int i = 0; i < 4; i++ ) {
+
+            if ( request.getParameter( "music" ) != null ) {
+                if ( !firstClick ) {
+                    firstClick = true;
+                    am.init();
+                    am.setSongName( request.getParameter( "music" ) );
+                    t = new Thread( am );
+                    t.start();
+                } else {
+                    am.Destruction();
+                    am.init();
+                    System.out.println( request.getParameter( "Play/pause" ) );
+                    am.setSongName( request.getParameter( "music" ) );
+                    t = new Thread( am );
+                    t.start();
+                }
+            }
         }
-       
+
         /*
          * Instancation de la base
          */
@@ -89,13 +86,16 @@ public class ServletMusique extends HttpServlet {
          * On rentre dans un HashMap les données correspondante
          */
 
-        List<Map<String, String>> tabListe = new ArrayList<Map<String, String>>();
+        ArrayList<String> tabMusique = null;
 
+        List<Map<String, String>> tabListe = new ArrayList<Map<String, String>>();
+        tabMusique = new ArrayList<String>();
         try {
             Map<String, String> musique = null;
             while ( reqListeMusique.next() ) {
-                musique = new HashMap<String, String>();
 
+                musique = new HashMap<String, String>();
+                tabMusique.add( reqListeMusique.getString( "NomMusique" ) );
                 musique.put( "nom", reqListeMusique.getString( "NomMusique" ) );
                 musique.put( "nomArtiste", reqListeMusique.getString( "NomArtiste" ) );
                 musique.put( "date", reqListeMusique.getString( "Date" ) );
@@ -104,8 +104,11 @@ public class ServletMusique extends HttpServlet {
 
                 tabListe.add( musique );
             }
+
+            request.setAttribute( "tabNomMusique", tabMusique );
             request.setAttribute( "tabListe", tabListe );
             request.setAttribute( "nomListe", nomListe );
+
         } catch ( SQLException e ) {
             // TODO Auto-generated catch block
             e.printStackTrace();

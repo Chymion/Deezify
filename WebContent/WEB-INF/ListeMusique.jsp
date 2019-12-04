@@ -23,6 +23,7 @@ import="java.util.Map"  %>
         
         List<Map<String, String>> tabListe = (List<Map<String, String>>) request.getAttribute( "tabListe" );
         String nomListe = (String) request.getAttribute( "nomListe" );
+        ArrayList<String> tabNomMusique = (ArrayList<String>) request.getAttribute( "tabNomMusique" );
         
     	Map<String, String> ligneActuelle = null;
         
@@ -34,7 +35,8 @@ import="java.util.Map"  %>
         <div class="box">
 	
   		 <%   
-  		 for(int k = 0; k < tabListe.size() ; k++ ){
+  		 int i = 0;
+  		 for(int k = 0; k < tabListe.size() && i < (tabNomMusique.size()+2) ; k++ ){
   		     
   		    ligneActuelle = tabListe.get( k );
   		     
@@ -76,15 +78,16 @@ import="java.util.Map"  %>
 			
 			//Bouton Play/pause
 			
-			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"Musique\"> "+
-			"<input type=\"submit\" value=\"Play/pause\" class=\"boutonMusique\" name=\"" + k + "\" /></form>");
+			
+			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"ListeMusique\"> "+
+			"<input type=\"submit\" value=\"" + tabNomMusique.get(i) + "\" class=\"boutonMusique\" name=\"music\" /></form>");
 		
 			out.print("</form>");
 			
 			out.print("</div>");
 			
 			
-  		   
+  		   i++;
   		 }
   		 %> 
   	
