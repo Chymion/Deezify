@@ -14,20 +14,11 @@ import model.AudioMaster;
 public class ServletAccueil extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private AudioMaster       am               = null;
+
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        // Initialisation de la musique
-        if ( request.getParameter( "play" ) != null ) { /*
-                                                         * le bouton a était
-                                                         * appuyé ?
-                                                         */
-            am = new AudioMaster();
-            am.init();
-            ( new Thread( am ) ).start();
-        }
 
         /*
          * // Faire un test avec cette requete : (la table concerne doit // etre

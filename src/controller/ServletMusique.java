@@ -22,7 +22,7 @@ public class ServletMusique extends HttpServlet {
     private AudioMaster        am              = new AudioMaster();
     int                        count           = 0;
     boolean                    firstClick      = false;
-    Thread                     t;
+  
 
     @SuppressWarnings( { "deprecation", "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
@@ -38,16 +38,14 @@ public class ServletMusique extends HttpServlet {
                     firstClick = true;
                     am.init();
                     am.setSongName( request.getParameter( "music" ) );
-                    t = new Thread( am );
-                    t.start();
+                    am.demarrer();
                 } 
               	else
                 {
                    am.Destruction();
                    am.init();
                    am.setSongName( request.getParameter( "music" ) );
-                   t = new Thread( am );
-                   t.start();
+                   am.demarrer();
                 }
             }
         

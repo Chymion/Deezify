@@ -8,7 +8,7 @@ import org.lwjgl.util.WaveData;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AudioMaster implements Runnable {
+public class AudioMaster {
 
     // Buffer contenant le flux de données de la musique. Et un entier
     // contenant la source
@@ -80,28 +80,22 @@ public class AudioMaster implements Runnable {
 
     // Lib�ration des ressources
     public void Destruction() {
-    	     
         AL.destroy();
-        
-        
     }
 
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        System.out.println( "Thread started" );
-
-        Musique mod = null;
+    public void demarrer()
+    {
+    	Musique mod = null;
         try {
             mod = new Musique(getSongName());
-            System.out.println("controller/" +  mod.getChemin());
+            System.out.println("Musique en cours: " +  mod.getChemin());
             int buffer = chargerMusique("controller/" +  mod.getChemin());
             play (buffer);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-  
-        
     }
+    
+    
+   
 }

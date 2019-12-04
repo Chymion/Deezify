@@ -20,26 +20,8 @@ public class ServletMaMusique extends HttpServlet {
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        // Initialisation de la musique
-        if ( request.getParameter( "boutonPlay" ) != null ) {
-        	if(count==0) {
-        		am = new AudioMaster();
-                am.init();
-                ( new Thread( am ) ).start();
-                count+=2;
-        	}
-        	else {
-        		if((count&1)==0) {
-        			am.pause();
-        			count++;
-        		}
-        		else {
-        			am.continuer();
-        			count++;
-        		}
-        	}
-            
-        }
+     
+     
         this.getServletContext().getRequestDispatcher( "/WEB-INF/MaMusique.jsp" ).forward( request, response );
     }
 
