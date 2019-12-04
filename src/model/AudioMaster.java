@@ -80,11 +80,7 @@ public class AudioMaster implements Runnable {
 
     // Lib�ration des ressources
     public void Destruction() {
-    	AL10.alDeleteSources( sourceID );
-        for ( int buffer : buffers ) {
-            AL10.alDeleteBuffers( buffer );
-        }
-
+    	     
         AL.destroy();
         
         

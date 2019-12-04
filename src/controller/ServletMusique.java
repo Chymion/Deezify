@@ -19,7 +19,7 @@ import model.DatabaseConnection;
 public class ServletMusique extends HttpServlet {
 
     public static final String CHAMP_LISTE = "nomListe";
-    private AudioMaster       am               = null;
+    private AudioMaster       am               = new AudioMaster();
     int count =0;
     boolean firstClick = false;
     boolean ultimateBool = false;
@@ -32,90 +32,30 @@ public class ServletMusique extends HttpServlet {
         // On récupère le nom de la playlist ou de l'album selectionné
         String nomListe = request.getParameter( CHAMP_LISTE );
         
-        if (!ultimateBool)
-        {
-        	am = new AudioMaster();
-        	ultimateBool = true;
-        }
-        if ( request.getParameter( "0" ) != null ) {
-        	if (!firstClick)
-        	{
-        		firstClick = true;
-        		count = 0;
-        	}
-        	if(count==0) {
-        		if (!ultimateDestroy)
-        		{
-            	    am.init();
-                    am.setSongName("Enter Sandman");
-                    t = new Thread(am);
-                    t.start();
-                    count+=2;
-                    ultimateDestroy = true;
-        		}
-        		else
-        		{
-        			am.Destruction();
-            	    am.init();
-                    am.setSongName("Enter Sandman");
-                    t = new Thread(am);
-                    t.start();
-                    count+=2;
-        		}
-        		
-        	}
-        	else {
-        		if((count&1)==0) {
-        			am.pause();
-        			count++;
-        		}
-        		else {
-        			am.continuer();
-        			count++;
-        		}
-        	}
-            
-        }
         
-        if ( request.getParameter( "1" ) != null ) {
-        	if (!firstClick)
-        	{
-        		//firstClick = true;
-        		count = 0;
-        	}
-        	if(count==0) {
-        		if (!ultimateDestroy)
-        		{
-            	    am.init();
-                    am.setSongName("Numb");
-                    t = new Thread(am);
-                    t.start();
-                    count+=2;
-                    ultimateDestroy = true;
-        		}
-        		else
-        		{
-        			am.Destruction();
-            	    am.init();
-                    am.setSongName("Numb");
-                    t = new Thread(am);
-                    t.start();
-                    count+=2;
-        		}
-        	}
-        	else {
-        		if((count&1)==0) {
-        			am.pause();
-        			count++;
-        		}
-        		else {
-        			am.continuer();
-        			count++;
-        		}
-        	}
-            
+        for (int i = 0; i < 4; i++)
+        {
+        	
+        	 if ( request.getParameter(""+ i) != null ) {
+             	if (!firstClick)
+             	{
+             		firstClick = true;
+             	    am.init();
+                     am.setSongName("Numb");
+                     t = new Thread(am);
+                     t.start();
+             	}
+             	else
+             	{
+             		am.Destruction();
+                     am.init();
+                     am.setSongName("Numb");
+                     t = new Thread(am);
+                     t.start();
+             	}
+             }
         }
-
+       
         /*
          * Instancation de la base
          */
