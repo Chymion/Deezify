@@ -1,12 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,24 +10,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.AudioMaster;
-import model.DatabaseConnection;
+import model.EnsembleGenre;
 
 public class ServletMusique extends HttpServlet {
 
-    public static final String CHAMP_LISTE = "nomListe";
-    private AudioMaster        am          = new AudioMaster();
-    int                        count       = 0;
-    boolean                    firstClick  = false;
+    public static final String CHAMP_LISTE   = "nomListe";
+    private AudioMaster        am            = new AudioMaster();
+    int                        count         = 0;
+    boolean                    firstClick    = false;
+    public EnsembleGenre       ensembleGenre = null;
 
     @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        // On récupère le nom de la playlist ou de l'album selectionné
-        String nomListe = request.getParameter( CHAMP_LISTE );
-
         // Récupération de la session
         HttpSession session = request.getSession();
+
+        // On récupère le nom de la playlist ou de l'album selectionné
+        String nomListe = request.getParameter( CHAMP_LISTE );
 
         // Si il y'a un nom déjà existant, il suffit d'actualiser nomListe de
         // session
@@ -42,6 +38,19 @@ public class ServletMusique extends HttpServlet {
         // Dans tous les cas, on actualise nomListe
         nomListe = (String) session.getAttribute( "nomListe" );
 
+        // Création de l'objet ensembleGenre en session si il n'existe pas
+        if ( session.getAttribute( "ensembleGenre" ) == null ) {
+            EnsembleGenre e = new EnsembleGenre();
+            try {
+                e.remplir();
+            } catch ( SQLException e1 ) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            session.setAttribute( "ensembleGenre", e );
+        }
+
+        // Gestion de la musique
         if ( request.getParameter( "music" ) != null ) {
             if ( !firstClick ) {
                 firstClick = true;
@@ -56,65 +65,26 @@ public class ServletMusique extends HttpServlet {
             }
         }
 
-        /*
-         * Instancation de la base
-         */
+        ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 
-        DatabaseConnection db = null;
-        try {
-            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                    "com.mysql.cj.jdbc.Driver" );
-        } catch ( Exception e ) {
-            e.getMessage();
-        }
+        // On parcours chaque genre
+        for ( int i = 0; i < ensembleGenre.getTabGenre().size(); i++ ) {
 
-        /*
-         * Requête pour récupérer les musiques de la liste
-         */
+            // On parcours chaque Playlist/Album
+            for ( int j = 0; j < ensembleGenre.getTabGenre().get( i ).getList().size(); j++ ) {
 
-        ResultSet reqListeMusique = null;
+                // Si la variable session nomListe correspond à l'une des listes
+                if ( ensembleGenre.getTabGenre().get( i ).getList().get( j ).getNomListe().equals( nomListe ) )
+                    // On prépare les attributs (le tableau contenant les objets
+                    // Musique) pour la page jsp
+                    request.setAttribute( "tabMusique",
+                            ensembleGenre.getTabGenre().get( i ).getList().get( j ).getListeMusique() );
 
-        try {
-            reqListeMusique = db
-                    .displayData(
-                            "SELECT musique.NomMusique, Duree, Date, URL, composer.NomArtiste "
-                                    + "FROM musique INNER JOIN appartient ON musique.NomMusique = appartient.NomMusique "
-                                    + "INNER JOIN composer ON musique.NomMusique = composer.NomMusique "
-                                    + "WHERE appartient.NomPlaylist = \"" + nomListe + "\"" );
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-        }
-
-        /*
-         * On rentre dans un HashMap les données correspondante
-         */
-
-        ArrayList<String> tabNomMusique = new ArrayList<String>();
-        List<Map<String, String>> tabListe = new ArrayList<Map<String, String>>();
-
-        try {
-            Map<String, String> musique = null;
-            while ( reqListeMusique.next() ) {
-
-                musique = new HashMap<String, String>();
-                tabNomMusique.add( reqListeMusique.getString( "NomMusique" ) );
-                musique.put( "nom", reqListeMusique.getString( "NomMusique" ) );
-                musique.put( "nomArtiste", reqListeMusique.getString( "NomArtiste" ) );
-                musique.put( "date", reqListeMusique.getString( "Date" ) );
-                musique.put( "duree", reqListeMusique.getString( "Duree" ) );
-                musique.put( "lien", reqListeMusique.getString( "URL" ) );
-
-                tabListe.add( musique );
             }
 
-            // On prépare les attributs pour la page jsp
-            request.setAttribute( "tabNomMusique", tabNomMusique );
-            request.setAttribute( "tabListe", tabListe );
-            request.setAttribute( "nomListe", nomListe );
-
-        } catch ( SQLException e ) {
-            e.printStackTrace();
         }
+
+        request.setAttribute( "nomListe", nomListe );
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/ListeMusique.jsp" ).forward( request, response );
     }

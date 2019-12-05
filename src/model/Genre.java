@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Genre {
 
-    private String nom = "";
-    private String url = "";
-    ArrayList<ListeMusique>list=null;
+    private String                  nom  = "";
+    private String                  url  = "";
+    private ArrayList<ListeMusique> list = null;
 
     public Genre( String nom, String url ) {
 
         this.nom = nom;
         this.url = url;
-        list=new  ArrayList<ListeMusique>();
+        this.setList( new ArrayList<ListeMusique>() );
 
     }
 
@@ -23,6 +23,7 @@ public class Genre {
     public void setNom( String nom ) {
         this.nom = nom;
     }
+
     public String getUrl() {
         return url;
     }
@@ -30,11 +31,21 @@ public class Genre {
     public void setUrl( String url ) {
         this.url = url;
     }
-    public void ajout(ListeMusique l) {
-    	list.add(l);
+
+    public void ajout( ListeMusique l ) {
+        getList().add( l );
     }
-    public static void main (String[]args) {
-    	
+
+    public static void main( String[] args ) {
+
+    }
+
+    public ArrayList<ListeMusique> getList() {
+        return list;
+    }
+
+    public void setList( ArrayList<ListeMusique> list ) {
+        this.list = list;
     }
 
 }

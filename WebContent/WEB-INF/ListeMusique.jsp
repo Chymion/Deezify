@@ -2,7 +2,8 @@
 <%@page import = "java.util.ArrayList" 
 import="java.util.HashMap" 
 import="java.util.List" 
-import="java.util.Map"  %>
+import="java.util.Map"
+import="model.Musique"  %>
 
 
 <html>
@@ -20,16 +21,11 @@ import="java.util.Map"  %>
         
         
         <%
-        
-        List<Map<String, String>> tabListe = (List<Map<String, String>>) request.getAttribute( "tabListe" );
+               
+        ArrayList<Musique> tabMusique = (ArrayList<Musique>) request.getAttribute( "tabMusique" );
         String nomListe = (String) request.getAttribute( "nomListe" );
-        ArrayList<String> tabNomMusique = (ArrayList<String>) request.getAttribute( "tabNomMusique" );
         
-       
-        
-        
-        
-    	Map<String, String> ligneActuelle = null;
+    	Musique ligneActuelle = null;
         
     	out.print( "<h1>" + nomListe + "</h1>" );
         %>
@@ -39,10 +35,10 @@ import="java.util.Map"  %>
         <div class="box">
 	
   		 <%   
-  		 int i = 0;
-  		 for(int k = 0; k < tabListe.size() && i < (tabNomMusique.size()+2) ; k++ ){
+  		
+  		 for(int k = 0; k < tabMusique.size() ; k++ ){
   		     
-  		    ligneActuelle = tabListe.get( k );
+  		    ligneActuelle = tabMusique.get( k );
   		     
   		    
   		    /*Affichage des informations sur la musique*/
@@ -52,8 +48,8 @@ import="java.util.Map"  %>
   			out.print("<form action=\"ListeMusique\" method=\"post\">");
   			
   			// Nom de la musique
-  			out.print("<span name=\"nomListe\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
-  			out.print(ligneActuelle.get( "nom" ));
+  			out.print("<span name=\"nomListe\" value=\"" +  ligneActuelle.getNomMusique(  )  + "\" class=\"sousTitre\">");
+  			out.print(ligneActuelle.getNomMusique(  ));
   			out.print("</span>");
   			
   			
@@ -61,21 +57,21 @@ import="java.util.Map"  %>
   			
   			// Nom artiste
  
-  			out.print("Artiste : " + ligneActuelle.get( "nomArtiste" ) + "<br/>");
+  			out.print("Artiste : " + ligneActuelle.getArtiste(  ).getNom(  ) + "<br/>");
   			
   			
   			out.print("<br/>");
   			
   			//Date de sortie
 			
-			out.print("Date de sortie : " + ligneActuelle.get( "date" ));
+			out.print("Date de sortie : " + ligneActuelle.getDate(  ));
 			
 			
 			out.print("<br/>");
   			
   			//Duree
 			
-			out.print("Durée : " + ligneActuelle.get( "duree" ));
+			out.print("Durée : " + ligneActuelle.getDurée(  ));
   			
   			
 			out.print("<br/>");
@@ -84,14 +80,14 @@ import="java.util.Map"  %>
 			
 			
 			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"ListeMusique\"> "+
-			"<input type=\"submit\" value=\"" + tabNomMusique.get(i) + "\" class=\"boutonMusique\" name=\"music\" /></form>");
+			"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"boutonMusique\" name=\"music\" /></form>");
 		
 			out.print("</form>");
 			
 			out.print("</div>");
 			
 			
-  		   i++;
+  		   
   		 }
         
   		 %> 

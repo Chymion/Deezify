@@ -1,12 +1,9 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,104 +11,70 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.DatabaseConnection;
+import model.Album;
+import model.EnsembleGenre;
+import model.ListeMusique;
+import model.Playlist;
 
 public class ServletPlaylist extends HttpServlet {
 
-    /**
-     * 
-     */
     private static final long  serialVersionUID = 1L;
 
     public static final String CHAMP_GENRE      = "genre";
+    private EnsembleGenre      ensembleGenre;
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
         String genre = request.getParameter( CHAMP_GENRE );
-
         // Récupération de la session
         HttpSession session = request.getSession();
+
+        // Création de l'objet ensembleGenre en session si il n'existe pas
+        if ( session.getAttribute( "ensembleGenre" ) == null ) {
+            EnsembleGenre e = new EnsembleGenre();
+            try {
+                e.remplir();
+            } catch ( SQLException e1 ) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            session.setAttribute( "ensembleGenre", e );
+        }
 
         // Si il y'a un genre déjà existant, il suffit d'actualiser genre de
         // session
         if ( genre != null )
             session.setAttribute( "genre", genre );
 
+        // Dans tous les cas, on actualise l'objet local genre
         genre = (String) session.getAttribute( "genre" );
 
-        /*
-         * Instancation de la base
-         */
-
-        DatabaseConnection db = null;
-        try {
-            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                    "com.mysql.cj.jdbc.Driver" );
-        } catch ( Exception e ) {
-            e.getMessage();
-        }
+        List<ListeMusique> tabPlaylist = new ArrayList<ListeMusique>();
+        List<ListeMusique> tabAlbum = new ArrayList<ListeMusique>();
 
         /*
-         * Requête pour récupérer les playlists selon le genre
+         * On parcoure tabGenre de l'objet EnsembleGenre en session pour trouver
+         * la/les playlists/albums concernés
          */
 
-        ResultSet reqPlaylist = null;
+        ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 
-        try {
-            reqPlaylist = db
-                    .displayData( "SELECT Image, NomPlaylist FROM playlist WHERE NomGenreMusical = \"" + genre
-                            + "\" AND Album =" + 0 );
-        } catch ( SQLException e ) {
-            e.printStackTrace();
+        for ( int i = 0; i < ensembleGenre.getTabGenre().size(); i++ ) {
+            if ( ensembleGenre.getTabGenre().get( i ).getNom().equals( genre ) )
+                for ( int j = 0; j < ensembleGenre.getTabGenre().get( i ).getList().size(); j++ ) {
+
+                    if ( ensembleGenre.getTabGenre().get( i ).getList().get( j ).getClass().getSimpleName()
+                            .equals( "Album" ) )
+                        tabAlbum.add( (Album) ensembleGenre.getTabGenre().get( i ).getList().get( j ) );
+                    else
+                        tabPlaylist.add( (Playlist) ensembleGenre.getTabGenre().get( i ).getList().get( j ) );
+                }
         }
 
-        /*
-         * Requête pour récupérer les Albums selon le genre
-         */
-
-        ResultSet reqAlbum = null;
-
-        try {
-            reqAlbum = db
-                    .displayData( "SELECT Image, NomPlaylist FROM playlist WHERE NomGenreMusical = \"" + genre
-                            + "\" AND Album =" + 1 );
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-        }
-
-        /*
-         * On rentre dans un HashMap les données correspondante
-         */
-
-        List<Map<String, String>> tabPlaylist = new ArrayList<Map<String, String>>();
-        List<Map<String, String>> tabAlbum = new ArrayList<Map<String, String>>();
-
-        try {
-            Map<String, String> playlist = null;
-            while ( reqPlaylist.next() ) {
-                playlist = new HashMap<String, String>();
-
-                playlist.put( "nom", reqPlaylist.getString( "NomPlaylist" ) );
-                playlist.put( "lien", reqPlaylist.getString( "Image" ) );
-                tabPlaylist.add( playlist );
-            }
-            Map<String, String> album = null;
-            while ( reqAlbum.next() ) {
-                album = new HashMap<String, String>();
-
-                album.put( "nom", reqAlbum.getString( "NomPlaylist" ) );
-                album.put( "lien", reqAlbum.getString( "Image" ) );
-                tabAlbum.add( album );
-            }
-
-            request.setAttribute( "tabPlaylist", tabPlaylist );
-            request.setAttribute( "tabAlbum", tabAlbum );
-
-        } catch ( SQLException e ) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        // On prépare les attributs pour la page jsp
+        request.setAttribute( "tabPlaylist", tabPlaylist );
+        request.setAttribute( "tabAlbum", tabAlbum );
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Playlist.jsp" ).forward( request, response );
     }

@@ -1,23 +1,40 @@
 package model;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 public class Musique {
-	Artiste artiste;
+    Artiste artiste;
+
+    public Artiste getArtiste() {
+        return artiste;
+    }
+
+    public void setArtiste( Artiste artiste ) {
+        this.artiste = artiste;
+    }
+
+    public String getDuree() {
+        return duree;
+    }
+
+    public void setDuree( String duree ) {
+        this.duree = duree;
+    }
+
     String                    nomMusique;
     String                    duree;
     String                    date;
     String                    chemin;
     static DatabaseConnection db = null;
 
-    public Musique( String nomMusique, String duree, String date, String chemin,Artiste art ) {
+    public Musique( String nomMusique, String duree, String date, String chemin, Artiste art ) {
         this.nomMusique = nomMusique;
         this.duree = duree;
         this.date = date;
         this.chemin = chemin;
-        this.artiste=art;
+        this.artiste = art;
     }
 
     public String getNomMusique() {
@@ -81,10 +98,13 @@ public class Musique {
         try {
             while ( rs.next() ) {
                 for ( int i = 1; i <= resultMeta.getColumnCount(); i++ ) {
-                    if ( i == 2 )duree = rs.getObject( i ).toString();   
-                    if ( i == 3 )date = rs.getObject( i ).toString();
-                    if ( i == 4 )chemin = rs.getObject( i ).toString();
-                 }
+                    if ( i == 2 )
+                        duree = rs.getObject( i ).toString();
+                    if ( i == 3 )
+                        date = rs.getObject( i ).toString();
+                    if ( i == 4 )
+                        chemin = rs.getObject( i ).toString();
+                }
             }
 
         } catch ( SQLException e ) {

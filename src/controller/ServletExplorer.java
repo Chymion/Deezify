@@ -2,27 +2,38 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.EnsembleGenre;
 
 @WebServlet( name = "ServletExplorer" )
 public class ServletExplorer extends HttpServlet {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+
+        // Création de l'objet ensembleGenre en session si il n'existe pas
+        if ( session.getAttribute( "ensembleGenre" ) == null ) {
+            EnsembleGenre e = new EnsembleGenre();
+            try {
+                e.remplir();
+            } catch ( SQLException e1 ) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            session.setAttribute( "ensembleGenre", e );
+        }
+
         /*
          * Barre de recherche
          */
@@ -34,22 +45,7 @@ public class ServletExplorer extends HttpServlet {
          * Affichage des images 'genre' depuis la base de donnees
          */
 
-        EnsembleGenre e = new EnsembleGenre();
-        try {
-            e.remplirEnsemble( request );
-        } catch ( SQLException e1 ) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        List<Map<String, String>> tabGenre = null;
-        try {
-            tabGenre = e.setHashMap( request );
-        } catch ( SQLException e1 ) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-
-        request.setAttribute( "tabGenre", tabGenre );
+        request.setAttribute( "tabGenre", session.getAttribute( "ensembleGenre" ) );
 
         /*
          * Redirection vers Explorer.jsp

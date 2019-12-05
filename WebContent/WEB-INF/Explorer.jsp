@@ -11,7 +11,9 @@
 <%@page import = "java.util.ArrayList" 
 import="java.util.HashMap" 
 import="java.util.List" 
-import="java.util.Map"  %>
+import="java.util.Map"
+import="model.EnsembleGenre"
+import="model.Genre"  %>
 
 <html>
 
@@ -42,8 +44,10 @@ import="java.util.Map"  %>
   
     <%
 		 
-		List<Map<String, String>> tabGenre = (List<Map<String, String>>) request.getAttribute( "tabGenre" );
-    	Map<String, String> ligneActuelle = null;
+		EnsembleGenre ensembleGenre = (EnsembleGenre) request.getAttribute( "tabGenre" );
+        ArrayList<Genre> tabGenre = ensembleGenre.getTabGenre(  );
+    
+    	Genre ligneActuelle = null;
     
 	%>
   
@@ -59,8 +63,8 @@ import="java.util.Map"  %>
   			out.print("<div class = \"elem\">");
   			
   			out.print("<form action=\"Playlist\" method=\"post\">");
-  			out.print("<button type=\"submit\" name=\"genre\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
-  			out.print(ligneActuelle.get( "nom" ));
+  			out.print("<button type=\"submit\" name=\"genre\" value=\"" +  ligneActuelle.getNom(  )  + "\" class=\"sousTitre\">");
+  			out.print(ligneActuelle.getNom(  ) );
   			out.print("</button>");
   			out.print("</form>");
   			
@@ -68,8 +72,8 @@ import="java.util.Map"  %>
   			
   			out.print("<td>");
 			out.print("<form action=\"Playlist\" method=\"post\">");
-			out.print("<button type=\"submit\" name=\"genre\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
-			out.print("<img src=\"" + ligneActuelle.get( "lien" ) + "\" class=\"lienGenre\" ");
+			out.print("<button type=\"submit\" name=\"genre\" value=\"" +  ligneActuelle.getNom(  )   + "\" class=\"sousTitre\">");
+			out.print("<img src=\"" + ligneActuelle.getUrl(  ) + "\" class=\"lienGenre\" ");
 			out.print("</button>");
 			out.print("</form>");
 			

@@ -10,7 +10,10 @@
 <%@page import = "java.util.ArrayList" 
 import="java.util.HashMap" 
 import="java.util.List" 
-import="java.util.Map"  %>
+import="java.util.Map"
+import="model.ListeMusique"
+import="model.Playlist"
+import="model.Album"  %>
     <style>
         <%@ include file="style.css"%>
     </style>
@@ -28,8 +31,8 @@ import="java.util.Map"  %>
 
     <%
 		 
-		List<Map<String, String>> tabPlaylist = (List<Map<String, String>>) request.getAttribute( "tabPlaylist" );
-    	Map<String, String> ligneActuelle = null;
+        List<ListeMusique> tabPlaylist = (ArrayList<ListeMusique>) request.getAttribute( "tabPlaylist" );
+    	ListeMusique ligneActuelle = null;
 		        
 	%>
   
@@ -44,8 +47,8 @@ import="java.util.Map"  %>
   			out.print("<div class = \"elem\">");
   			
   			out.print("<form action=\"ListeMusique\" method=\"post\">");
-  			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
-  			out.print(ligneActuelle.get( "nom" ));
+  			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.getNomListe(  )  + "\" class=\"sousTitre\">");
+  			out.print(ligneActuelle.getNomListe(  ) );
   			out.print("</button>");
   			out.print("</form>");
   			
@@ -53,8 +56,8 @@ import="java.util.Map"  %>
   			
   			out.print("<td>");
 			out.print("<form action=\"ListeMusique\" method=\"post\">");
-			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
-			out.print("<img src=\"" + ligneActuelle.get( "lien" ) + "\" class=\"lienGenre\" ");
+			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.getNomListe(  )   + "\" class=\"sousTitre\">");
+			out.print("<img src=\"" + "\" class=\"lienGenre\" ");
 			out.print("</button>");
 			out.print("</form>");
 			
@@ -71,7 +74,7 @@ import="java.util.Map"  %>
 
 	<%
 		 
-		List<Map<String, String>> tabAlbum = (List<Map<String, String>>) request.getAttribute( "tabAlbum" );
+	List<ListeMusique> tabAlbum = (ArrayList<ListeMusique>) request.getAttribute( "tabAlbum" );
     	ligneActuelle = null;
 		        
 	%>
@@ -87,8 +90,8 @@ import="java.util.Map"  %>
   			out.print("<div class = \"Elem\">");
   			
   			out.print("<form action=\"ListeMusique\" method=\"post\">");
-  			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
-  			out.print(ligneActuelle.get( "nom" ));
+  			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.getNomListe(  )  + "\" class=\"sousTitre\">");
+  			out.print(ligneActuelle.getNomListe(  ));
   			out.print("</button>");
   			out.print("</form>");
   			
@@ -96,8 +99,8 @@ import="java.util.Map"  %>
   			
   			out.print("<td>");
 			out.print("<form action=\"ListeMusique\" method=\"post\">");
-			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.get( "nom" )  + "\" class=\"sousTitre\">");
-			out.print("<img src=\"" + ligneActuelle.get( "lien" ) + "\" class=\"lienGenre\" ");
+			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.getNomListe(  )  + "\" class=\"sousTitre\">");
+			out.print("<img src=\"" + "\" class=\"lienGenre\" ");
 			out.print("</button>");
 			out.print("</form>");
 			
