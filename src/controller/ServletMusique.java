@@ -12,43 +12,49 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.AudioMaster;
 import model.DatabaseConnection;
 
 public class ServletMusique extends HttpServlet {
 
-    public static final String CHAMP_LISTE     = "nomListe";
-    private AudioMaster        am              = new AudioMaster();
-    int                        count           = 0;
-    boolean                    firstClick      = false;
-  
+    public static final String CHAMP_LISTE = "nomListe";
+    private AudioMaster        am          = new AudioMaster();
+    int                        count       = 0;
+    boolean                    firstClick  = false;
 
-    @SuppressWarnings( { "deprecation", "null" } )
+    @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
         // On récupère le nom de la playlist ou de l'album selectionné
         String nomListe = request.getParameter( CHAMP_LISTE );
 
-   
+        // Récupération de la session
+        HttpSession session = request.getSession();
+
+        // Si il y'a un nom déjà existant, il suffit d'actualiser nomListe de
+        // session
+        if ( nomListe != null )
+            session.setAttribute( "nomListe", nomListe );
+
+        // Dans tous les cas, on actualise nomListe
+        nomListe = (String) session.getAttribute( "nomListe" );
+
         if ( request.getParameter( "music" ) != null ) {
-              	if ( !firstClick ) 
-              	{
-                    firstClick = true;
-                    am.init();
-                    am.setSongName( request.getParameter( "music" ) );
-                    am.demarrer();
-                } 
-              	else
-                {
-                   am.Destruction();
-                   am.init();
-                   am.setSongName( request.getParameter( "music" ) );
-                   am.demarrer();
-                }
+            if ( !firstClick ) {
+                firstClick = true;
+                am.init();
+                am.setSongName( request.getParameter( "music" ) );
+                am.demarrer();
+            } else {
+                am.Destruction();
+                am.init();
+                am.setSongName( request.getParameter( "music" ) );
+                am.demarrer();
             }
-        
+        }
 
         /*
          * Instancation de la base
@@ -83,16 +89,15 @@ public class ServletMusique extends HttpServlet {
          * On rentre dans un HashMap les données correspondante
          */
 
-        ArrayList<String> tabMusique = null;
-
+        ArrayList<String> tabNomMusique = new ArrayList<String>();
         List<Map<String, String>> tabListe = new ArrayList<Map<String, String>>();
-        tabMusique = new ArrayList<String>();
+
         try {
             Map<String, String> musique = null;
             while ( reqListeMusique.next() ) {
 
                 musique = new HashMap<String, String>();
-                tabMusique.add( reqListeMusique.getString( "NomMusique" ) );
+                tabNomMusique.add( reqListeMusique.getString( "NomMusique" ) );
                 musique.put( "nom", reqListeMusique.getString( "NomMusique" ) );
                 musique.put( "nomArtiste", reqListeMusique.getString( "NomArtiste" ) );
                 musique.put( "date", reqListeMusique.getString( "Date" ) );
@@ -102,12 +107,12 @@ public class ServletMusique extends HttpServlet {
                 tabListe.add( musique );
             }
 
-            request.setAttribute( "tabNomMusique", tabMusique );
+            // On prépare les attributs pour la page jsp
+            request.setAttribute( "tabNomMusique", tabNomMusique );
             request.setAttribute( "tabListe", tabListe );
             request.setAttribute( "nomListe", nomListe );
 
         } catch ( SQLException e ) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

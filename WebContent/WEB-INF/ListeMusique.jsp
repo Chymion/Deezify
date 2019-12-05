@@ -25,6 +25,10 @@ import="java.util.Map"  %>
         String nomListe = (String) request.getAttribute( "nomListe" );
         ArrayList<String> tabNomMusique = (ArrayList<String>) request.getAttribute( "tabNomMusique" );
         
+       
+        
+        
+        
     	Map<String, String> ligneActuelle = null;
         
     	out.print( "<h1>" + nomListe + "</h1>" );
@@ -89,6 +93,7 @@ import="java.util.Map"  %>
 			
   		   i++;
   		 }
+        
   		 %> 
   	
 	</div>  		 

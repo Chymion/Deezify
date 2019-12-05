@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.DatabaseConnection;
 
@@ -28,6 +29,16 @@ public class ServletPlaylist extends HttpServlet {
             throws ServletException, IOException {
 
         String genre = request.getParameter( CHAMP_GENRE );
+
+        // Récupération de la session
+        HttpSession session = request.getSession();
+
+        // Si il y'a un genre déjà existant, il suffit d'actualiser genre de
+        // session
+        if ( genre != null )
+            session.setAttribute( "genre", genre );
+
+        genre = (String) session.getAttribute( "genre" );
 
         /*
          * Instancation de la base
