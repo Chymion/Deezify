@@ -15,21 +15,19 @@ import model.EnsembleGenre;
 public class ServletMusique extends HttpServlet {
 
     public static final String CHAMP_LISTE   = "nomListe";
-    public static AudioMaster        am            = new AudioMaster();
-    public static boolean                        count         = false;
+    public static AudioMaster  am            = new AudioMaster();
+    public static boolean      count         = false;
     boolean                    firstClick    = false;
     public EnsembleGenre       ensembleGenre = null;
-    
+
     @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
         // Récupération de la session
         HttpSession session = request.getSession();
-        session.setAttribute("audio", am);
-        session.setAttribute("count", count);
-       
-        
+        session.setAttribute( "audio", am );
+        session.setAttribute( "count", count );
 
         // On récupère le nom de la playlist ou de l'album selectionné
         String nomListe = request.getParameter( CHAMP_LISTE );
@@ -62,51 +60,27 @@ public class ServletMusique extends HttpServlet {
                 am.setSongName( request.getParameter( "music" ) );
                 am.demarrer();
             } else {
-            	count = false;
+                count = false;
                 am.Destruction();
                 am.init();
                 am.setSongName( request.getParameter( "music" ) );
                 am.demarrer();
             }
         }
-        if (request.getParameter("boutonPlay") != null)
-        {
-        	if (count  == false)
-        	{
-        		am.pause();
-        		count = true;
-        	}
-        	else
-        	{
-        		am.continuer();
-        		count = false;
-        	}
+        if ( request.getParameter( "boutonPlay" ) != null ) {
+            if ( count == false ) {
+                am.pause();
+                count = true;
+            } else {
+                am.continuer();
+                count = false;
+            }
         }
-     
 
         ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 
-        // On parcours chaque genre
-        for ( int i = 0; i < ensembleGenre.getTabGenre().size(); i++ ) {
-
-            // On parcours chaque Playlist/Album
-            for ( int j = 0; j < ensembleGenre.getTabGenre().get( i ).getList().size(); j++ ) {
-
-                // Si la variable session nomListe correspond à l'une des listes
-                if ( ensembleGenre.getTabGenre().get( i ).getList().get( j ).getNomListe().equals( nomListe ) )
-                    // On prépare les attributs (le tableau contenant les objets
-                    // Musique) pour la page jsp
-                    request.setAttribute( "tabMusique",
-                            ensembleGenre.getTabGenre().get( i ).getList().get( j ).getListeMusique() );
-
-            }
-
-        }
-
+        request.setAttribute( "tabMusique", ensembleGenre.getListeMusique( nomListe ) );
         request.setAttribute( "nomListe", nomListe );
-        
-        String nomPage="ListeMusique";
-        session.setAttribute("nomPage", nomPage);
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/ListeMusique.jsp" ).forward( request, response );
     }

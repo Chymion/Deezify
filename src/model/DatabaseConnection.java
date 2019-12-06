@@ -67,7 +67,7 @@ public class DatabaseConnection {
      * Methode pour afficher des donnees de la base en mettant en parametre la
      * requete
      */
-    public ResultSet displayData( String q ) throws SQLException {
+    public ResultSet getData( String q ) throws SQLException {
 
         ResultSet rs = null;
         Statement stmt = null;

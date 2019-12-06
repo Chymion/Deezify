@@ -89,7 +89,7 @@ public class Musique {
         }
         ResultSet rs = null;
         try {
-            rs = db.displayData( "Select * from musique where NomMusique='" + nom + "'" );
+            rs = db.getData( "Select * from musique where NomMusique='" + nom + "'" );
         } catch ( SQLException e ) {
             e.printStackTrace();
         }

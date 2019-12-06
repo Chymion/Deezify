@@ -1,19 +1,38 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Genre {
 
-    private String                  nom  = "";
-    private String                  url  = "";
-    private ArrayList<ListeMusique> list = null;
+    private String         nom         = "";
+    private String         url         = "";
+    // private ArrayList<ListeMusique> list = null;
+
+    private List<Playlist> tabPlaylist = new ArrayList<Playlist>();
+    private List<Album>    tabAlbum    = new ArrayList<Album>();
 
     public Genre( String nom, String url ) {
 
         this.nom = nom;
         this.url = url;
-        this.setList( new ArrayList<ListeMusique>() );
 
+    }
+
+    public void addPlaylist( Playlist p ) {
+        tabPlaylist.add( p );
+    }
+
+    public void addAlbum( Album a ) {
+        tabAlbum.add( a );
+    }
+
+    public List<Playlist> getTabPlaylist() {
+        return this.tabPlaylist;
+    }
+
+    public List<Album> getTabAlbum() {
+        return this.tabAlbum;
     }
 
     public String getNom() {
@@ -32,20 +51,8 @@ public class Genre {
         this.url = url;
     }
 
-    public void ajout( ListeMusique l ) {
-        getList().add( l );
-    }
-
     public static void main( String[] args ) {
 
-    }
-
-    public ArrayList<ListeMusique> getList() {
-        return list;
-    }
-
-    public void setList( ArrayList<ListeMusique> list ) {
-        this.list = list;
     }
 
 }

@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Album;
 import model.AudioMaster;
 import model.EnsembleGenre;
-import model.ListeMusique;
-import model.Playlist;
 
 public class ServletPlaylist extends HttpServlet {
 
@@ -42,18 +37,14 @@ public class ServletPlaylist extends HttpServlet {
             }
             session.setAttribute( "ensembleGenre", e );
         }
-        if (request.getParameter("boutonPlay") != null)
-        {
-        	if ((boolean)(session.getAttribute("count")) == false)
-        	{
-        		((AudioMaster) session.getAttribute("audio")).pause();
-        		session.setAttribute("count", true);
-        	}
-        	else
-        	{
-        		((AudioMaster) session.getAttribute("audio")).continuer();
-        		session.setAttribute("count", false);
-        	}
+        if ( request.getParameter( "boutonPlay" ) != null ) {
+            if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
+                ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
+                session.setAttribute( "count", true );
+            } else {
+                ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
+                session.setAttribute( "count", false );
+            }
         }
         // Si il y'a un genre déjà existant, il suffit d'actualiser genre de
         // session
@@ -63,9 +54,6 @@ public class ServletPlaylist extends HttpServlet {
         // Dans tous les cas, on actualise l'objet local genre
         genre = (String) session.getAttribute( "genre" );
 
-        List<ListeMusique> tabPlaylist = new ArrayList<ListeMusique>();
-        List<ListeMusique> tabAlbum = new ArrayList<ListeMusique>();
-
         /*
          * On parcoure tabGenre de l'objet EnsembleGenre en session pour trouver
          * la/les playlists/albums concernés
@@ -74,23 +62,14 @@ public class ServletPlaylist extends HttpServlet {
         ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 
         for ( int i = 0; i < ensembleGenre.getTabGenre().size(); i++ ) {
-            if ( ensembleGenre.getTabGenre().get( i ).getNom().equals( genre ) )
-                for ( int j = 0; j < ensembleGenre.getTabGenre().get( i ).getList().size(); j++ ) {
 
-                    if ( ensembleGenre.getTabGenre().get( i ).getList().get( j ).getClass().getSimpleName()
-                            .equals( "Album" ) )
-                        tabAlbum.add( (Album) ensembleGenre.getTabGenre().get( i ).getList().get( j ) );
-                    else
-                        tabPlaylist.add( (Playlist) ensembleGenre.getTabGenre().get( i ).getList().get( j ) );
-                }
+            if ( ensembleGenre.getTabGenre().get( i ).getNom().equals( genre ) ) {
+                // On prépare les attributs pour la page jsp
+                request.setAttribute( "tabAlbum", ensembleGenre.getTabGenre().get( i ).getTabAlbum() );
+                request.setAttribute( "tabPlaylist", ensembleGenre.getTabGenre().get( i ).getTabPlaylist() );
+            }
+
         }
-
-        // On prépare les attributs pour la page jsp
-        request.setAttribute( "tabPlaylist", tabPlaylist );
-        request.setAttribute( "tabAlbum", tabAlbum );
-        
-        String nomPage="Playlist";
-        session.setAttribute("nomPage", nomPage);
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Playlist.jsp" ).forward( request, response );
     }
