@@ -26,6 +26,8 @@
             La <font color="orange">(future)</font> meilleure plateforme de streaming musical !
         </p>
         
+        <%@ include file="Lecteur.jsp"%>
+        
     </body>
 
 </html>

@@ -49,6 +49,9 @@ public class ServletAccueil extends HttpServlet {
          * rs.next() ) System.out.println( rs.getString( "NomArtiste" ) ); }
          * catch ( SQLException e ) { e.printStackTrace(); }
          */
+        
+        String nomPage="Accueil";
+        session.setAttribute("nomPage", nomPage);
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Accueil.jsp" ).forward( request, response );
     }

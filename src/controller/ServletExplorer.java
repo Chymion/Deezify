@@ -51,6 +51,9 @@ public class ServletExplorer extends HttpServlet {
          * Redirection vers Explorer.jsp
          */
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Explorer.jsp" ).forward( request, response );
+        
+        String nomPage="Explorer";
+        session.setAttribute("nomPage", nomPage);
     }
 
 }

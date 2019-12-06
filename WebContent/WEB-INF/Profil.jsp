@@ -22,6 +22,7 @@
         <p class="sousTitre2"> prenom nom </p>
         <p class="sousTitre2"> informations </p>
         <p class="sousTitre2"> Preferences </p>
+        <%@ include file="Lecteur.jsp"%>	
     </body>
 
 </html>

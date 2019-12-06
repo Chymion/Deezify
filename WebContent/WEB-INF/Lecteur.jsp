@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer>
 
-    <form id="conteneurLecteur" method="post" action="Musique">
+    <form id="conteneurLecteur" method="post" action=${ sessionScope.nomPage }>
         <input type="submit" value="Play/pause" class="boutonMusique" name="boutonPlay" />
     </form>
     

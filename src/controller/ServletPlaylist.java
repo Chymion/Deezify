@@ -75,6 +75,9 @@ public class ServletPlaylist extends HttpServlet {
         // On prépare les attributs pour la page jsp
         request.setAttribute( "tabPlaylist", tabPlaylist );
         request.setAttribute( "tabAlbum", tabAlbum );
+        
+        String nomPage="Playlist";
+        session.setAttribute("nomPage", nomPage);
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Playlist.jsp" ).forward( request, response );
     }

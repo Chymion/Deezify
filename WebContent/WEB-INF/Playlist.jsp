@@ -108,7 +108,9 @@ import="model.Album"  %>
   		   
   		 }
   		 %> 
-	</div>  		 
+	</div>  
+	
+	<%@ include file="Lecteur.jsp"%>		 
    
 </body>
 
