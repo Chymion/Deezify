@@ -7,13 +7,13 @@ import java.sql.ResultSetMetaData;
 
 public class Playlist extends ListeMusique {
 	static DatabaseConnection db = null;
-	public Playlist(String nom,String uti) {
+	public Playlist(String nom,String uti,String image) {
 		super(nom,uti);
-		
+		this.image=image;	
 
 	}
-	/*
-	public Playlist(String nom,String uti) throws Exception {
+	
+	/*public Playlist(String nom,String uti) throws Exception {
 		super(nom,uti);
 		String nomM=null;
 		String dure=null;
@@ -62,12 +62,12 @@ public class Playlist extends ListeMusique {
 	     }
 	     //this.nbMusique=this.listeMusique.size();
 	     this.utilisateur=uti;
-	}*/
+	}
 	public static void main(String[]args) throws Exception {
 		Playlist a=new Playlist("Musique pop","Root");
 		//System.out.println(a.listeMusique.get(1).artiste.nom+"  "+a.listeMusique.get(1).nomMusique+"  "+a.listeMusique.get(1).date );
 		a.affiche();
 		
-	}
+	}*/
 
 }

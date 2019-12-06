@@ -153,9 +153,9 @@ public class EnsembleGenre {
                                                                            // playlist
                 nomPlay = reqGenre.getString( "NomPlaylist" );
                 if ( reqGenre.getString( "Album" ).equals( "1" ) )
-                    lm = new Album( reqGenre.getString( "NomPlaylist" ), reqGenre.getString( "Pseudo" ), artiste );
+                    lm = new Album( reqGenre.getString( "NomPlaylist" ), reqGenre.getString( "Pseudo" ), artiste ,reqGenre.getString( "playlist.Image" ));
                 else
-                    lm = new Playlist( reqGenre.getString( "NomPlaylist" ), reqGenre.getString( "Pseudo" ) );
+                    lm = new Playlist( reqGenre.getString( "NomPlaylist" ), reqGenre.getString( "Pseudo" ),reqGenre.getString( "playlist.Image" ) );
                 this.tabGenre.get( nbgenre ).ajout( lm );
                 nbplay++;
             }

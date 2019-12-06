@@ -26,12 +26,16 @@ public class ListeMusique {
     public void setUtilisateur( String utilisateur ) {
         this.utilisateur = utilisateur;
     }
+    public String getImage() {
+    	return this.image;
+    }
 
     ArrayList<Musique> listeMusique;
     // int nbMusique;
     // int tempsLecture;// a voir si ont le fait mais je pense pas
     String             nomListe;
     String             utilisateur;
+    String             image;
 
     public ListeMusique( String nom, String uti ) {
         listeMusique = new ArrayList<Musique>();

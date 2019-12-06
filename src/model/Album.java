@@ -10,10 +10,12 @@ import java.sql.ResultSetMetaData;
 public class Album extends ListeMusique {
 	Artiste artiste=null;
 	static DatabaseConnection db = null;
-	public Album(String nom,String uti,Artiste arti) {
+	public Album(String nom,String uti,Artiste arti,String image) {
 		super(nom,uti);
 		this.artiste=arti;
+		this.image=image;
 	}
+	
 	public Album(String nom,String uti) throws Exception {//permet d'instancier un album avec la base de donnée juste en mettant sont nom en parametre
 		super(nom,uti);
 		String nomM=null;

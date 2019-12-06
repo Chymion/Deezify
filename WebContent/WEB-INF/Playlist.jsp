@@ -57,7 +57,7 @@ import="model.Album"  %>
   			out.print("<td>");
 			out.print("<form action=\"ListeMusique\" method=\"post\">");
 			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.getNomListe(  )   + "\" class=\"sousTitre\">");
-			out.print("<img src=\"" + "\" class=\"lienGenre\" ");
+			out.print("<img src=\"" +ligneActuelle.getImage()+ "\" class=\"lienGenre\" ");
 			out.print("</button>");
 			out.print("</form>");
 			
@@ -100,7 +100,7 @@ import="model.Album"  %>
   			out.print("<td>");
 			out.print("<form action=\"ListeMusique\" method=\"post\">");
 			out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuelle.getNomListe(  )  + "\" class=\"sousTitre\">");
-			out.print("<img src=\"" + "\" class=\"lienGenre\" ");
+			out.print("<img src=\"" +ligneActuelle.getImage()+ "\" class=\"lienGenre\" ");
 			out.print("</button>");
 			out.print("</form>");
 			
