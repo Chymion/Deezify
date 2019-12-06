@@ -3,7 +3,7 @@
 <html>
 
     <style>
-        <%@ include file="style.css"%>
+        <%@ include file="../style.css"%>
     </style>
 
     <head>
@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <%@ include file="Menu.jsp"%>
+        <%@ include file="../Menu.jsp"%>
         <div class="formulaire">
        		<p></p>
     		Nom : <input type="text" name="nom" required /><br>

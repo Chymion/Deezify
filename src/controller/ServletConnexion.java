@@ -20,10 +20,8 @@ public class ServletConnexion extends HttpServlet {
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
         if ( request.getParameter( "pseudo" ) != null && request.getParameter( "password" ) != null ) {
-
-            HttpSession session = request.getSession();
 
             ConnexionForm cf = null;
             try {

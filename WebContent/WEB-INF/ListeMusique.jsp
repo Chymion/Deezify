@@ -9,7 +9,7 @@ import="model.Musique"  %>
 <html>
 
     <style>
-        <%@ include file="style.css"%>
+        <%@ include file="../style.css"%>
     </style>
 
     <head>
@@ -17,7 +17,7 @@ import="model.Musique"  %>
     </head>
 
     <body>
-        <%@ include file="Menu.jsp"%>
+        <%@ include file="../Menu.jsp"%>
         
         
         <%

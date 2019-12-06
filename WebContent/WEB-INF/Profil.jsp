@@ -9,7 +9,7 @@
 <html>
 
     <style>
-        <%@ include file="style.css"%>
+        <%@ include file="../style.css"%>
     </style>
 
     <head>
@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <%@ include file="Menu.jsp"%>
+        <%@ include file="../Menu.jsp"%>
         <p class="sousTitre"> Profil </p>
         <p class="sousTitre2"> prenom nom </p>
         <p class="sousTitre2"> informations </p>

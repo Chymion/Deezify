@@ -10,16 +10,15 @@
 
     <form id="conteneurLecteur" method="post" action=${ sessionScope.nomPage }>
     
-    	<% 
+    	<%  
+    		// Il suffit de vérifier si la variable boutonPresent est présente ou pas
     	
-    	
+    		Boolean b = (Boolean)request.getSession().getAttribute( "boutonPresent" );
     		
-	    	
-	    	out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");
-	    	
-    	
-    	
-    
+    		
+    		if ( b != null && b  ){
+	    		out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");  
+    		}
     	%>
     
         

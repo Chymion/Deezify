@@ -18,7 +18,7 @@ import="model.Genre"  %>
 <html>
 
     <style>
-        <%@ include file="style.css"%>
+        <%@ include file="../style.css"%>
     </style>
 
     <head>
@@ -27,7 +27,7 @@ import="model.Genre"  %>
 
     <body>
    		
-         <%@ include file="Menu.jsp"%>
+         <%@ include file="../Menu.jsp"%>
         
         <p class="sousTitre"> Recherche </p>
         <form id="conteneurRecherche" method="post" action="Explorer">

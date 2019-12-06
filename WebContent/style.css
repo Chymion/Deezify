@@ -1,0 +1,204 @@
+body {
+
+    background-color: black;
+    color: white;
+    font-family: fantasy;
+    font-size: 16pt;
+}
+
+h1 {
+
+    font-size: 40pt;
+    text-align: center;
+}
+
+#conteneur {
+
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+#boutonMenu {
+
+    text-align: center;
+    background-color: black;
+    margin: 5pt;
+    margin-left: 10pt;
+    margin-right: 10pt;
+    padding: 7pt;
+    width: 150pt;
+}
+
+#boutonMenu a:hover {
+
+    color: orange;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.bienvenue {
+
+    text-align: center;
+    font-size: 60pt;
+    color: orange;
+}
+
+.paragrapheBienvenue {
+
+    text-align: center;
+
+}
+
+#conteneurRight {
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.connexion {
+
+    background-color: orange;
+    padding: 5pt;
+    margin-right: 10pt;
+    margin-top: 10pt;
+}
+
+.sousTitre {
+
+    text-align: center;
+    color: orange;
+    font-size: 30pt;
+}
+
+.sousTitre2 {
+
+    text-align: center;
+    color: orange;
+    font-size: 20pt;
+}
+
+button {
+
+    background-color: orange;
+    padding: 10pt;
+    color: white;
+    font-size: 16pt;
+    border: none;
+}
+
+#conteneurRecherche {
+
+    display: flex;
+    justify-content: center;
+}
+
+.textField {
+
+    border: none;
+    font-size: 16pt;
+    padding-left: 16pt;
+    width: 50%;
+}
+
+.field {
+
+    border: none;
+    font-size: 16pt;
+    padding-left: 16pt;
+    width: 100%;
+}
+
+#conteneurConnexion {
+
+    display: flex;
+    justify-content: center;
+}
+
+#conteneurConnexion2 {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lienInscription {
+
+    color: orange;
+}
+
+.lienInscription:hover {
+
+    text-decoration: underline;
+}
+
+#conteneurLecteur {
+
+    margin-top: 10pt;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+
+.boutonMusique {
+
+    background-color: orange;
+    color: white;
+    text-align: center;
+    border-radius: 10pt;
+}
+
+.lienGenre{
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+section {
+	column-count: 1;
+	column-gap: 0px;
+	
+}
+
+ 
+ th{
+	padding-right: 200pt;
+}
+
+button{
+	background-color: black;
+}
+
+.buttonExplorer{
+	background-color: orange;
+}
+
+.box{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.elem{
+	flex: 20 1 400px;
+	flex-basis: auto;
+	justify-content: start;
+}
+.elemMusique{
+	flex: 20 1 600px;
+	flex-basis: auto;
+	justify-content: space-around;
+}
+
+
+

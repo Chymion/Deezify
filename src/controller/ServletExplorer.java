@@ -20,10 +20,9 @@ public class ServletExplorer extends HttpServlet {
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
-    	
+
         HttpSession session = request.getSession();
-        System.out.println(session.getAttribute("int"));
-    
+
         // Création de l'objet ensembleGenre en session si il n'existe pas
         if ( session.getAttribute( "ensembleGenre" ) == null ) {
             EnsembleGenre e = new EnsembleGenre();
@@ -35,19 +34,16 @@ public class ServletExplorer extends HttpServlet {
             }
             session.setAttribute( "ensembleGenre", e );
         }
-        
-        if (request.getParameter("boutonPlay") != null)
-        {
-        	if ((boolean)(session.getAttribute("count")) == false)
-        	{
-        		((AudioMaster) session.getAttribute("audio")).pause();
-        		session.setAttribute("count", true);
-        	}
-        	else
-        	{
-        		((AudioMaster) session.getAttribute("audio")).continuer();
-        		session.setAttribute("count", false);
-        	}
+
+        // Gestion Pause/Lecture
+        if ( request.getParameter( "boutonPlay" ) != null ) {
+            if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
+                ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
+                session.setAttribute( "count", true );
+            } else {
+                ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
+                session.setAttribute( "count", false );
+            }
         }
         /*
          * Barre de recherche
@@ -66,9 +62,9 @@ public class ServletExplorer extends HttpServlet {
          * Redirection vers Explorer.jsp
          */
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Explorer.jsp" ).forward( request, response );
-        
-        String nomPage="Explorer";
-        session.setAttribute("nomPage", nomPage);
+
+        String nomPage = "Explorer";
+        session.setAttribute( "nomPage", nomPage );
     }
 
 }

@@ -8,16 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ServletExplorer")
+@WebServlet( name = "ServletExplorer" )
 public class ServletAddProfil extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service( HttpServletRequest request, HttpServletResponse response )
+            throws ServletException, IOException {
 
-    }
+        request.getSession();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/AddProfil.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher( "/WEB-INF/AddProfil.jsp" ).forward( request, response );
     }
 
 }

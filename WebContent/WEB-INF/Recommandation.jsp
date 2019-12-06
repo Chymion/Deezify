@@ -9,7 +9,7 @@
 <html>
 
     <style>
-        <%@ include file="style.css"%>
+        <%@ include file="../style.css"%>
     </style>
 
     <head>
@@ -17,7 +17,7 @@
     </head>
 
     <body>
-    <%@ include file="Menu.jsp"%>
+    <%@ include file="../Menu.jsp"%>
     <p class="sousTitre"> Voici ce que nous vous recommandons </p>
      <%@ include file="Lecteur.jsp"%>
     </body>

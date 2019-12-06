@@ -15,7 +15,7 @@ import="model.ListeMusique"
 import="model.Playlist"
 import="model.Album"  %>
     <style>
-        <%@ include file="style.css"%>
+        <%@ include file="../style.css"%>
     </style>
 
     <head>
@@ -23,7 +23,7 @@ import="model.Album"  %>
     </head>
 
     <body>
-        <%@ include file="Menu.jsp"%>
+        <%@ include file="../Menu.jsp"%>
         
         
 <%-- Affichage des Playlists --%>

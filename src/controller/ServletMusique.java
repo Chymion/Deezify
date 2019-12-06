@@ -19,7 +19,8 @@ public class ServletMusique extends HttpServlet {
     public static boolean      count         = false;
     boolean                    firstClick    = false;
     public EnsembleGenre       ensembleGenre = null;
-    public static boolean isPlaying = false;
+    public static boolean      isPlaying     = false;
+
     @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
@@ -28,7 +29,7 @@ public class ServletMusique extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute( "audio", am );
         session.setAttribute( "count", count );
-        
+
         // On récupère le nom de la playlist ou de l'album selectionné
         String nomListe = request.getParameter( CHAMP_LISTE );
 
@@ -54,14 +55,15 @@ public class ServletMusique extends HttpServlet {
 
         // Gestion de la musique
         if ( request.getParameter( "music" ) != null ) {
+            session.setAttribute( "boutonPresent", true );
             if ( !firstClick ) {
                 firstClick = true;
-          
+
                 am.init();
                 am.setSongName( request.getParameter( "music" ) );
                 am.demarrer();
             } else {
-            
+
                 count = false;
                 am.Destruction();
                 am.init();
@@ -71,11 +73,11 @@ public class ServletMusique extends HttpServlet {
         }
         if ( request.getParameter( "boutonPlay" ) != null ) {
             if ( count == false ) {
-            	
+
                 am.pause();
                 count = true;
             } else {
-           
+
                 am.continuer();
                 count = false;
             }

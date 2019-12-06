@@ -9,7 +9,7 @@
 <html>
 
     <style>
-        <%@ include file="../style.css"%>
+        <%@ include file="style.css"%>
     </style>
 
     <head>
@@ -18,7 +18,7 @@
 
     <body>
    
-        <%@ include file="../Menu.jsp"%>
+        <%@ include file="Menu.jsp"%>
         <p class="bienvenue">
             Bienvenue sur Deezify !
         </p>
@@ -26,8 +26,11 @@
             La <font color="orange">(future)</font> meilleure plateforme de streaming musical !
         </p>
         
-        
-        <%@ include file="Lecteur.jsp"%>
+      
+        <%request.getSession(  ).invalidate(  );%>
+       
+  
+      
         
        
         
