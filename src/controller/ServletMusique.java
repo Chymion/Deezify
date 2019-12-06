@@ -85,6 +85,9 @@ public class ServletMusique extends HttpServlet {
         }
 
         request.setAttribute( "nomListe", nomListe );
+        
+        String nomPage="ListeMusique";
+        session.setAttribute("nomPage", nomPage);
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/ListeMusique.jsp" ).forward( request, response );
     }

@@ -92,9 +92,10 @@ import="model.Musique"  %>
         
   		 %> 
   	
-	</div>  		 
+	</div>
+	
+	<%@ include file="Lecteur.jsp"%> 		 
         
-  
 	</body>
 
 </html>
