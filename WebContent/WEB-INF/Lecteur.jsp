@@ -12,19 +12,13 @@
     
     	<% 
     	
-    	if (request.getAttribute("blod") != null)
-    	{
+    	
     		
-    
-    	if ((boolean)(request.getAttribute("blod")) == true)
-    	{
-    		out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");
-    	}
-    	else
-    	{
-    		
-    	}
-    	}
+	    	
+	    	out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");
+	    	
+    	
+    	
     
     	%>
     
