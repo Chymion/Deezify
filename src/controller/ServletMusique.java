@@ -55,11 +55,13 @@ public class ServletMusique extends HttpServlet {
         // Gestion de la musique
         if ( request.getParameter( "music" ) != null ) {
             if ( !firstClick ) {
+            	request.setAttribute("blod", true);
                 firstClick = true;
                 am.init();
                 am.setSongName( request.getParameter( "music" ) );
                 am.demarrer();
             } else {
+            	request.setAttribute("blod", true);
                 count = false;
                 am.Destruction();
                 am.init();
