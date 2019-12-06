@@ -24,6 +24,19 @@ public class ServletMaMusique extends HttpServlet {
     	String nomPage="Musique";
         HttpSession session = request.getSession();
         session.setAttribute("nomPage", nomPage);
+        if (request.getParameter("boutonPlay") != null)
+        {
+        	if ((boolean)(session.getAttribute("count")) == false)
+        	{
+        		((AudioMaster) session.getAttribute("audio")).pause();
+        		session.setAttribute("count", true);
+        	}
+        	else
+        	{
+        		((AudioMaster) session.getAttribute("audio")).continuer();
+        		session.setAttribute("count", false);
+        	}
+        }
      
         this.getServletContext().getRequestDispatcher( "/WEB-INF/MaMusique.jsp" ).forward( request, response );
     }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.AudioMaster;
 import model.EnsembleGenre;
 
 @WebServlet( name = "ServletExplorer" )
@@ -19,9 +20,10 @@ public class ServletExplorer extends HttpServlet {
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
-
+    	
         HttpSession session = request.getSession();
-
+        System.out.println(session.getAttribute("int"));
+    
         // Création de l'objet ensembleGenre en session si il n'existe pas
         if ( session.getAttribute( "ensembleGenre" ) == null ) {
             EnsembleGenre e = new EnsembleGenre();
@@ -33,7 +35,20 @@ public class ServletExplorer extends HttpServlet {
             }
             session.setAttribute( "ensembleGenre", e );
         }
-
+        
+        if (request.getParameter("boutonPlay") != null)
+        {
+        	if ((boolean)(session.getAttribute("count")) == false)
+        	{
+        		((AudioMaster) session.getAttribute("audio")).pause();
+        		session.setAttribute("count", true);
+        	}
+        	else
+        	{
+        		((AudioMaster) session.getAttribute("audio")).continuer();
+        		session.setAttribute("count", false);
+        	}
+        }
         /*
          * Barre de recherche
          */

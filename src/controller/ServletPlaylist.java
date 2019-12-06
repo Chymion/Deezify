@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Album;
+import model.AudioMaster;
 import model.EnsembleGenre;
 import model.ListeMusique;
 import model.Playlist;
@@ -41,7 +42,19 @@ public class ServletPlaylist extends HttpServlet {
             }
             session.setAttribute( "ensembleGenre", e );
         }
-
+        if (request.getParameter("boutonPlay") != null)
+        {
+        	if ((boolean)(session.getAttribute("count")) == false)
+        	{
+        		((AudioMaster) session.getAttribute("audio")).pause();
+        		session.setAttribute("count", true);
+        	}
+        	else
+        	{
+        		((AudioMaster) session.getAttribute("audio")).continuer();
+        		session.setAttribute("count", false);
+        	}
+        }
         // Si il y'a un genre déjà existant, il suffit d'actualiser genre de
         // session
         if ( genre != null )

@@ -15,17 +15,21 @@ import model.EnsembleGenre;
 public class ServletMusique extends HttpServlet {
 
     public static final String CHAMP_LISTE   = "nomListe";
-    private AudioMaster        am            = new AudioMaster();
-    int                        count         = 0;
+    public static AudioMaster        am            = new AudioMaster();
+    public static boolean                        count         = false;
     boolean                    firstClick    = false;
     public EnsembleGenre       ensembleGenre = null;
-
+    
     @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
         // Récupération de la session
         HttpSession session = request.getSession();
+        session.setAttribute("audio", am);
+        session.setAttribute("count", count);
+       
+        
 
         // On récupère le nom de la playlist ou de l'album selectionné
         String nomListe = request.getParameter( CHAMP_LISTE );
@@ -58,12 +62,27 @@ public class ServletMusique extends HttpServlet {
                 am.setSongName( request.getParameter( "music" ) );
                 am.demarrer();
             } else {
+            	count = false;
                 am.Destruction();
                 am.init();
                 am.setSongName( request.getParameter( "music" ) );
                 am.demarrer();
             }
         }
+        if (request.getParameter("boutonPlay") != null)
+        {
+        	if (count  == false)
+        	{
+        		am.pause();
+        		count = true;
+        	}
+        	else
+        	{
+        		am.continuer();
+        		count = false;
+        	}
+        }
+     
 
         ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 
