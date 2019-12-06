@@ -20,7 +20,7 @@
     <%@ include file="Menu.jsp"%>
     <p class="sousTitre"> Connexion </p>
     <div id="conteneurConnexion">
-        <form id="conteneurConnexion2" method="post" action="/DeezifyWeb/">
+        <form id="conteneurConnexion2" method="post" action="Connexion">
             <p>
                 <label for="pseudo"> Pseudo : </label>
                 <input  type="text"
