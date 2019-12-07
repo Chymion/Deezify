@@ -27,8 +27,8 @@ public class ServletMusique extends HttpServlet {
 
         // Récupération de la session
         HttpSession session = request.getSession();
+        session.setAttribute( "nomPage", "ListeMusique" );
         session.setAttribute( "audio", am );
-        session.setAttribute( "count", count );
 
         // On récupère le nom de la playlist ou de l'album selectionné
         String nomListe = request.getParameter( CHAMP_LISTE );
@@ -55,7 +55,10 @@ public class ServletMusique extends HttpServlet {
 
         // Gestion de la musique
         if ( request.getParameter( "music" ) != null ) {
-            session.setAttribute( "boutonPresent", true );
+
+            if ( session.getAttribute( "count" ) == null )
+                session.setAttribute( "count", count );
+
             if ( !firstClick ) {
                 firstClick = true;
 
@@ -70,16 +73,26 @@ public class ServletMusique extends HttpServlet {
                 am.setSongName( request.getParameter( "music" ) );
                 am.demarrer();
             }
+            session.setAttribute( "count", count );
         }
+
+        /*
+         * // Bouton Play/Pause if ( request.getParameter( "boutonPlay" ) !=
+         * null ) { if ( count == false ) {
+         * 
+         * am.pause(); count = true; } else {
+         * 
+         * am.continuer(); count = false; } session.setAttribute( "count", count
+         * ); }
+         */
+
         if ( request.getParameter( "boutonPlay" ) != null ) {
-            if ( count == false ) {
-
-                am.pause();
-                count = true;
+            if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
+                ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
+                session.setAttribute( "count", true );
             } else {
-
-                am.continuer();
-                count = false;
+                ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
+                session.setAttribute( "count", false );
             }
         }
 

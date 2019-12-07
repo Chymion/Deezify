@@ -12,11 +12,7 @@
     
     	<%  
     		// Il suffit de vérifier si la variable boutonPresent est présente ou pas
-    	
-    		Boolean b = (Boolean)request.getSession().getAttribute( "boutonPresent" );
-    		
-    		
-    		if ( b != null && b  ){
+    		if ( request.getSession().getAttribute( "count" ) != null  ){
 	    		out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");  
     		}
     	%>
