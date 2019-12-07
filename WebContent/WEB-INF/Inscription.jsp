@@ -11,10 +11,19 @@
 	</head>
 	
 	<body>
+	
 		<%@ include file="../Menu.jsp"%>
+		<% 
+		
+		if (request.getAttribute( "resultat" ) != null){
+		    	out.print( "<h3>" + (String)request.getAttribute( "resultat" ) + "</h3>" ); 
+		    	request.removeAttribute( "resultat" );
+		}
+		
+		%>
 		<p class="sousTitre"> Inscription </p>
 		<div id="conteneurConnexion">
-			<form id="conteneurConnexion2" method="post" action="/DeezifyWeb/Inscription">
+			<form id="conteneurConnexion2" method="post" action="Inscription">
 				<p>
 					<label for="prenom"> Prenom : </label>
 					<input  type="text"
@@ -48,12 +57,15 @@
 					<input  type="password"
 							class="field"
 							id="password"
-							name="password"/>
+							name="motDePasse"/>
 				</p>
 				<br />
-				<button> Inscription </button>
+				<button type="submit" name="inscription" > Inscription </button>
 			</form>
+			
 		</div>
+		
+		
 	</body>
 	
 </html>

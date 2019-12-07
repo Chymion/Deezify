@@ -17,9 +17,8 @@ public class ServletRecommandation extends HttpServlet {
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        String nomPage = "Recommandations";
         HttpSession session = request.getSession();
-        session.setAttribute( "nomPage", nomPage );
+        session.setAttribute( "nomPage", "Recommandations" );
         if ( request.getParameter( "boutonPlay" ) != null ) {
             if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
                 ( (AudioMaster) session.getAttribute( "audio" ) ).pause();

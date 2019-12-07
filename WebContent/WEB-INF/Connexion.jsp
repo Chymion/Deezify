@@ -20,6 +20,9 @@
     <%@ include file="../Menu.jsp"%>
     <p class="sousTitre"> Connexion </p>
     <div id="conteneurConnexion">
+    
+    	
+    
         <form id="conteneurConnexion2" method="post" action="Connexion">
             <p>
                 <label for="pseudo"> Pseudo : </label>
@@ -36,6 +39,20 @@
                         name="password"/>
             </p>
             <br />
+            <% 
+    	
+    			if ( request.getAttribute( "message" ) != null ){
+    		
+    			    if ( ((String)request.getAttribute( "message" )).equals( "Échec de la connexion, cet utilisateur n'existe pas" ) )
+    			    	out.print((String)request.getAttribute( "message" )); 
+    			    else {                 
+    			        
+    			        this.getServletContext().getRequestDispatcher( "/Accueil" ).forward( request, response );
+    			    }
+    			    
+    			}
+    	
+    		%>
             <button> Connexion </button>
             <p> vous n'avez pas encore de compte ? <a class="lienInscription" href="/DeezifyWeb/Inscription"> Inscrivez vous </a> </p>
         </form>

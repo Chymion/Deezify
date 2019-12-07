@@ -13,6 +13,13 @@ import javax.servlet.http.HttpSession;
 import model.AudioMaster;
 import model.EnsembleGenre;
 
+/**
+ * Controlleur de la page Explorer.jsp
+ * 
+ * @author guill
+ *
+ */
+
 @WebServlet( name = "ServletExplorer" )
 public class ServletExplorer extends HttpServlet {
 
@@ -22,6 +29,7 @@ public class ServletExplorer extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+        session.setAttribute( "nomPage", "Explorer" );
 
         // Création de l'objet ensembleGenre en session si il n'existe pas
         if ( session.getAttribute( "ensembleGenre" ) == null ) {
@@ -63,8 +71,6 @@ public class ServletExplorer extends HttpServlet {
          */
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Explorer.jsp" ).forward( request, response );
 
-        String nomPage = "Explorer";
-        session.setAttribute( "nomPage", nomPage );
     }
 
 }

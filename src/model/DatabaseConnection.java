@@ -7,18 +7,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Permet la connection à la base de données
+ * 
+ * @author guill
+ *
+ */
+
 public class DatabaseConnection {
 
     // ATTRIBUTS
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 
-    private String url        = "";   // url de l'emplacement de la base
-    private String password   = "";   // Mot de passe de la connexion
-    private String userName   = "";   // Nom de l'utilisateur
-    Connection     connection = null; // Etablit la connection avec la base
+    private String     url        = "";   // url de l'emplacement de la base
+    private String     password   = "";   // Mot de passe de la connexion
+    private String     userName   = "";   // Nom de l'utilisateur
+    private Connection connection = null; // Etablit la connection avec la base
 
     // CONSTRUCTEUR
     // -----------------------------------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Instancation des attributs et connection à la base
+     * 
+     * @param url
+     *            chemin à la base
+     * @param password
+     *            mot de passe pour se connecter
+     * @param userName
+     *            nom de l'utilisateur
+     * @param referencePilote
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * @throws Exception
+     */
 
     public DatabaseConnection( String url, String password, String userName, String referencePilote )
             throws ClassNotFoundException, SQLException, Exception {
@@ -43,10 +65,17 @@ public class DatabaseConnection {
     // METHODES
     // -----------------------------------------------------------------------------------------------------------------------------------------------------
 
-    /*
-     * Methode pour inserer des donnï¿½es dans la base en mettant en parametre
-     * la requete
+    /**
+     * 
+     * Methode pour inserer des donnees dans la base en mettant en parametre la
+     * requete
+     * 
+     * @param q
+     *            chaine qui contient la requête
+     * @return PreparedStatement le résultat
+     * @throws SQLException
      */
+
     public PreparedStatement insertData( String q ) throws SQLException {
 
         PreparedStatement ps = null;
@@ -63,9 +92,14 @@ public class DatabaseConnection {
         return ps;
     }
 
-    /*
+    /**
      * Methode pour afficher des donnees de la base en mettant en parametre la
      * requete
+     * 
+     * @param q
+     *            chaine contenant la requête
+     * @return le résultat
+     * @throws SQLException
      */
     public ResultSet getData( String q ) throws SQLException {
 
@@ -86,10 +120,13 @@ public class DatabaseConnection {
 
     }
 
-    /*
+    /**
      * Methode pour instancier la base sur phpMyAdmin si elle n'est pas
      * instanciee
+     * 
+     * @throws SQLException
      */
+
     public void initialisationDataBase() throws SQLException {
 
         try {

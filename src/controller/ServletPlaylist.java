@@ -25,6 +25,7 @@ public class ServletPlaylist extends HttpServlet {
         String genre = request.getParameter( CHAMP_GENRE );
         // Récupération de la session
         HttpSession session = request.getSession();
+        session.setAttribute( "nomPage", "Playlist" );
 
         // Création de l'objet ensembleGenre en session si il n'existe pas
         if ( session.getAttribute( "ensembleGenre" ) == null ) {

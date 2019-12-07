@@ -13,6 +13,13 @@ import javax.servlet.http.HttpSession;
 import model.AudioMaster;
 import model.EnsembleGenre;
 
+/**
+ * Controlleur de la page Accueil.jsp
+ * 
+ * @author guill
+ *
+ */
+
 @WebServlet( name = "ServletAccueil" )
 public class ServletAccueil extends HttpServlet {
 

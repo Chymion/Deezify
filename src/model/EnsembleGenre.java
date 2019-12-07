@@ -7,10 +7,22 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Permet de d'instancier en une seule toutes les musiques de chaque playlist et
+ * album de chaque genre
+ * 
+ * @author guill
+ *
+ */
+
 public class EnsembleGenre {
 
     ArrayList<Genre>   tabGenre = null;
     DatabaseConnection db       = null;
+
+    /**
+     * Constructeur qui instancie la base et un tableau de genres
+     */
 
     public EnsembleGenre() {
         this.tabGenre = new ArrayList<Genre>();
@@ -24,6 +36,13 @@ public class EnsembleGenre {
 
     }
 
+    /**
+     * Même chose, sauf qu'on instancie tabGenre grâce à un paramètre
+     * 
+     * @param tabGenre
+     *            tableau contenant les objets genres
+     */
+
     public EnsembleGenre( ArrayList<Genre> tabGenre ) {
         this.tabGenre = tabGenre;
 
@@ -36,9 +55,26 @@ public class EnsembleGenre {
 
     }
 
+    /**
+     * Ajoute un genre à tabGenre
+     * 
+     * @param g
+     *            un genre
+     */
+
     public void ajouter( Genre g ) {
         tabGenre.add( g );
     }
+
+    /**
+     * Permet de remplir tabGenre de playlists/albums qui eux même contiendront
+     * des objets Musique
+     * 
+     * @param request
+     *            requête
+     * 
+     * @throws SQLException
+     */
 
     public void remplirEnsemble( HttpServletRequest request ) throws SQLException {
 
@@ -77,6 +113,13 @@ public class EnsembleGenre {
             this.ajouter( new Genre( reqGenre.getString( "NomGenreMusical" ), reqGenre.getString( "Image" ) ) );
 
     }
+
+    /**
+     * Permet de remplir tabGenre de playlists/albums qui eux même contiendront
+     * des objets Musique
+     * 
+     * @throws SQLException
+     */
 
     public void remplir() throws SQLException {
         String nomGenre = "";
@@ -159,6 +202,14 @@ public class EnsembleGenre {
         }
     }
 
+    /**
+     * Permet de récupérer une liste d'objets Musique selon nomListe
+     * 
+     * @param nomListe
+     *            correspond au nom de la playlist ou album
+     * @return liste d'objets Musique
+     */
+
     public List<Musique> getListeMusique( String nomListe ) {
 
         // On parcours chaque genre
@@ -188,6 +239,10 @@ public class EnsembleGenre {
         return null;
 
     }
+
+    /**
+     * Méthodes permettant de tous afficher de l'attribut tabGenre
+     */
 
     public void affiche() {
 
@@ -225,13 +280,30 @@ public class EnsembleGenre {
     // GETTERS et SETTERS
     // ---------------------------------------------------------------------------------------------------------
 
+    /**
+     * 
+     * @return une liste d'objets genre
+     */
+
     public ArrayList<Genre> getTabGenre() {
         return (ArrayList<Genre>) tabGenre;
     }
 
+    /**
+     * 
+     * @param tabGenre
+     */
+
     public void setTabGenre( ArrayList<Genre> tabGenre ) {
         this.tabGenre = tabGenre;
     }
+
+    /**
+     * Tests
+     * 
+     * @param args
+     * @throws SQLException
+     */
 
     public static void main( String[] args ) throws SQLException {
 

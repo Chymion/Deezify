@@ -22,6 +22,7 @@ public class Utilisateur {
      * @param password
      * @throws Exception
      */
+
     public Utilisateur( String prenom, String nom, String pseudo, String email, String password ) throws Exception {
         this.email = email;
         this.prenom = prenom;

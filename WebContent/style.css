@@ -12,6 +12,8 @@ h1 {
     text-align: center;
 }
 
+
+
 #conteneur {
 
     display: flex;
@@ -61,7 +63,11 @@ a {
 
 .connexion {
 
+	height: 50pt;
+	font-size: 20pt;
     background-color: orange;
+    color: white;
+    text-decoration: none;
     padding: 5pt;
     margin-right: 10pt;
     margin-top: 10pt;
