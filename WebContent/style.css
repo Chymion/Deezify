@@ -74,10 +74,14 @@ a {
 }
 
 .sousTitre {
-
+    background-color:black;
     text-align: center;
     color: orange;
     font-size: 30pt;
+    border:none;
+}
+.sousTitre:hover{
+	color:white;
 }
 
 .sousTitre2 {
@@ -201,6 +205,7 @@ button{
 	justify-content: start;
 }
 .elemMusique{
+	margin-bottom:5%;
 	flex: 20 1 600px;
 	flex-basis: auto;
 	justify-content: space-around;

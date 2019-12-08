@@ -48,9 +48,8 @@ import="model.Musique"  %>
   			out.print("<form action=\"ListeMusique\" method=\"post\">");
   			
   			// Nom de la musique
-  			out.print("<span name=\"nomListe\" value=\"" +  ligneActuelle.getNomMusique(  )  + "\" class=\"sousTitre\">");
-  			out.print(ligneActuelle.getNomMusique(  ));
-  			out.print("</span>");
+  			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"ListeMusique\"> "+
+  					"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"sousTitre\" name=\"music\" /></form>");
   			
   			
   			out.print("<br/>");
@@ -75,13 +74,6 @@ import="model.Musique"  %>
   			
   			
 			out.print("<br/>");
-			
-			//Bouton Play/pause
-			
-			
-			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"ListeMusique\"> "+
-			"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"boutonMusique\" name=\"music\" /></form>");
-		
 			out.print("</form>");
 			
 			out.print("</div>");
