@@ -13,7 +13,8 @@
     	<%  
     		// Il suffit de vérifier si la variable count est présente ou pas pour lancer le bouton Play/Pause
     		if ( request.getSession().getAttribute( "count" ) != null  ){
-	    		out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");  
+	    		out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");
+	    		out.print("<input class=\"slider\" type=\"range\" name=\"volume\" min=\"0\" max=\"100\" />");
     		}
     	
     	%>
