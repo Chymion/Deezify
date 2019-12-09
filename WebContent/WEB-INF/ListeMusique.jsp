@@ -70,7 +70,7 @@ import="model.Musique"  %>
   			
   			//Duree
 			
-			out.print("Durée : " + ligneActuelle.getDurée(  ));
+			out.print("Durée : " + ligneActuelle.getDuree(  ));
   			
   			
 			out.print("<br/>");
