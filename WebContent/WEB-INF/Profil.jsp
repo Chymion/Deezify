@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<%@ page import="model.Utilisateur" %>
 
     <style>
         <%@ include file="../style.css"%>
@@ -15,13 +16,14 @@
     <head>
         <title> Recommandations </title>
     </head>
-
+	<% Utilisateur utilisateur = (Utilisateur)session.getAttribute( "utilisateur" ); %>
     <body>
         <%@ include file="../Menu.jsp"%>
         <p class="sousTitre"> Profil </p>
-        <p class="sousTitre2"> prenom nom </p>
-        <p class="sousTitre2"> informations </p>
-        <p class="sousTitre2"> Preferences </p>
+        <p class="sousTitre2"> nom : <% out.print(utilisateur.getNom(  )); %> </p>
+        <p class="sousTitre2"> prenom : <% out.print(utilisateur.getPrenom(  )); %> </p>
+        <p class="sousTitre2"> Pseudo : <% out.print(utilisateur.getPseudo(  )); %> </p>
+        <p class="sousTitre2"> Email : <% out.print(utilisateur.getEmail(  )); %> </p>
         <%@ include file="Lecteur.jsp"%>	
     </body>
 

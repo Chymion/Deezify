@@ -45,14 +45,6 @@ public class Musique {
         this.nomMusique = nomMusique;
     }
 
-    public String getDurée() {
-        return duree;
-    }
-
-    public void setDurée( String durée ) {
-        this.duree = durée;
-    }
-
     public String getDate() {
         return date;
     }
@@ -122,7 +114,7 @@ public class Musique {
     public static void main( String[] args ) throws Exception {
         Musique m = new Musique( "Believer" );
         System.out.println( m.getNomMusique() );
-        System.out.println( m.getDurée() );
+        System.out.println( m.getDuree() );
         System.out.println( m.getDate() );
         System.out.println( m.getChemin() );
     }

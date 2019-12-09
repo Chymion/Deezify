@@ -5,7 +5,16 @@
   Time: 19:02
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8" 
+	
+%>
+
+<%@page import = "java.util.ArrayList" 
+import="java.util.HashMap" 
+import="java.util.List" 
+import="java.util.Map"
+import="model.Musique"
+import="model.Utilisateur"  %>
 <!DOCTYPE html>
 <header>
 
@@ -14,9 +23,9 @@
     	
     	<% 
     	
-    	if (request.getParameter( "deconnexion" ) != null) request.getSession().removeAttribute( "pseudo" );
+    	if (request.getParameter( "deconnexion" ) != null) request.getSession().removeAttribute( "utilisateur" );
     	
-    	if (request.getSession().getAttribute( "pseudo" ) == null){ %>
+    	if (request.getSession().getAttribute( "utilisateur" ) == null){ %>
     
        
         	<form action="Connexion"  method="post">
@@ -47,8 +56,8 @@
     
     <%
 	
-	if (request.getSession().getAttribute( "pseudo" ) != null)
-	    out.print( "<h2> Bienvenue <strong>" + (String)request.getSession().getAttribute( "pseudo" ) + "</strong> !!</h2>" );
+	if (request.getSession().getAttribute( "utilisateur" ) != null)
+	    out.print( "<h2> Bienvenue <strong>" + ((Utilisateur)request.getSession().getAttribute( "utilisateur" )).getPseudo(  ) + "</strong> !!</h2>" );
 	
 	%>
     
@@ -62,7 +71,7 @@
             <a href="/DeezifyWeb/Recommandations"> Recommandations </a>
         </div>
         
-        <%if (request.getSession().getAttribute( "pseudo" ) != null){%>
+        <%if (request.getSession().getAttribute( "utilisateur" ) != null){%>
         
         <div id="boutonMenu">
             <a href="/DeezifyWeb/Musique"> Ma Musique </a>
@@ -74,7 +83,7 @@
             <a href="/DeezifyWeb/Explorer"> Explorer </a>
         </div>
         
-        <%if (request.getSession().getAttribute( "pseudo" ) != null){%>
+        <%if (request.getSession().getAttribute( "utilisateur" ) != null){%>
         
         <div id="boutonMenu">
             <a href="/DeezifyWeb/Profil"> Profil </a>

@@ -11,10 +11,11 @@
     <form id="conteneurLecteur" method="post" action=${ sessionScope.nomPage }>
     
     	<%  
-    		// Il suffit de vérifier si la variable boutonPresent est présente ou pas
+    		// Il suffit de vérifier si la variable count est présente ou pas pour lancer le bouton Play/Pause
     		if ( request.getSession().getAttribute( "count" ) != null  ){
 	    		out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");  
     		}
+    	
     	%>
     
         

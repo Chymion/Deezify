@@ -80,7 +80,6 @@ public final class ConnexionForm {
             Utilisateur utilisateur = new Utilisateur( pseudo, motDePasse );
             resultat = "Connexion réussie";
             return utilisateur;
-
         } else {
 
             resultat = "Échec de la connexion, cet utilisateur n'existe pas";

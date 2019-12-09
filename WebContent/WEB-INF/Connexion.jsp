@@ -33,7 +33,7 @@
             </p>
             <p>
                 <label for="password"> Mot de passe : </label>
-                <input  type="text"
+                <input   type="password"
                         class="field"
                         id="password"
                         name="password"/>

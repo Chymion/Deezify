@@ -43,7 +43,15 @@ public class InscriptionForm {
 
     public void creerUtilisateur( HttpServletRequest request ) throws Exception {
 
-        if ( request.getParameter( "prenom" ).trim().equals( "" ) || request.getParameter( "nom" ).trim().equals( "" )
+        if ( stringToHtmlString( request.getParameter( "prenom" ) )
+                || stringToHtmlString( request.getParameter( "nom" ) )
+                || stringToHtmlString( request.getParameter( "pseudo" ) )
+                || stringToHtmlString( request.getParameter( "motDePasse" ) ) ) {
+            this.resultat += "\nVous ne pouvez pas mettre les caractères suivants &, <, >,\"";
+        }
+
+        else if ( request.getParameter( "prenom" ).trim().equals( "" )
+                || request.getParameter( "nom" ).trim().equals( "" )
                 ||
                 request.getParameter( "pseudo" ).trim().equals( "" )
                 || request.getParameter( "email" ).trim().equals( "" ) ||
@@ -53,7 +61,7 @@ public class InscriptionForm {
 
         } else {
 
-            String motDePasse = this.getValeurChamp( request, CHAMP_PASS );
+            String motDePasse = ( this.getValeurChamp( request, CHAMP_PASS ) );
             String pseudo = this.getValeurChamp( request, CHAMP_PSEUDO );
             String nom = this.getValeurChamp( request, CHAMP_NOM );
             String prenom = this.getValeurChamp( request, CHAMP_PRENOM );
@@ -156,6 +164,39 @@ public class InscriptionForm {
         } else {
             return valeur;
         }
+    }
+
+    /**
+     * 
+     * @param s
+     * @return la donnée entrée par l'utilisateur sans les failles XSS
+     */
+
+    private boolean stringToHtmlString( String s ) {
+        boolean b = false;
+        StringBuffer sb = new StringBuffer();
+        int n = s.length();
+        for ( int i = 0; i < n; i++ ) {
+            char c = s.charAt( i );
+            switch ( c ) {
+            case '<':
+                b = true;
+                break;
+            case '>':
+                b = true;
+                break;
+            case '&':
+                b = true;
+                break;
+            case '"':
+                b = true;
+                break;
+            default:
+                b = false;
+                break;
+            }
+        }
+        return b;
     }
 
     // GETTERS ET SETTERS

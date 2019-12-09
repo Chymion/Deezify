@@ -65,7 +65,7 @@
         </p>
         
       
-        <%request.getSession(  ).invalidate(  );%>
+        <%request.getSession(  ).invalidate(  );response.sendRedirect( request.getContextPath(  ) + "/Accueil" );%>
        
   
       

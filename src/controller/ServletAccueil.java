@@ -53,20 +53,6 @@ public class ServletAccueil extends HttpServlet {
                 session.setAttribute( "count", false );
             }
         }
-        /*
-         * // Faire un test avec cette requete : (la table concerne doit // etre
-         * // remplie par cette requete) try { db.insertData(
-         * "INSERT INTO artiste VALUES ('Skrillex','','Electro')" ); } catch (
-         * SQLException e ) { e.printStackTrace(); }
-         * 
-         * // Pour afficher des donnees avec une requete SELECT ResultSet rs =
-         * null; try { rs = db.displayData( "SELECT NomArtiste FROM artiste" );
-         * } catch ( SQLException e ) { e.printStackTrace(); }
-         * 
-         * try { System.out.println( "Affichage des donnees : " ); while (
-         * rs.next() ) System.out.println( rs.getString( "NomArtiste" ) ); }
-         * catch ( SQLException e ) { e.printStackTrace(); }
-         */
 
         String nomPage = "Accueil";
         session.setAttribute( "nomPage", nomPage );

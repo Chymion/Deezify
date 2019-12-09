@@ -30,6 +30,9 @@ import="model.Album"  %>
 	<h2>Playlists</h2>
 
     <%
+    
+ 		
+    	
 		 
         List<ListeMusique> tabPlaylist = (ArrayList<ListeMusique>) request.getAttribute( "tabPlaylist" );
     	ListeMusique ligneActuelle = null;

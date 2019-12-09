@@ -44,7 +44,7 @@ public class ServletExplorer extends HttpServlet {
         }
 
         // Gestion Pause/Lecture
-        if ( request.getParameter( "boutonPlay" ) != null ) {
+        if ( request.getParameter( "boutonPlay" ) != null && session.getAttribute( "audio" ) != null ) {
             if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
                 ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
                 session.setAttribute( "count", true );

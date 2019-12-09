@@ -13,22 +13,40 @@ import model.AudioMaster;
 
 @WebServlet( name = "ServletProfil" )
 public class ServletProfil extends HttpServlet {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        session.setAttribute( "nomPage", "Profil" );
-        if ( request.getParameter( "boutonPlay" ) != null ) {
-            if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
-                ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
-                session.setAttribute( "count", true );
-            } else {
-                ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
-                session.setAttribute( "count", false );
-            }
-        }
 
-        this.getServletContext().getRequestDispatcher( "/WEB-INF/Profil.jsp" ).forward( request, response );
+        // On vérifie si l'utilisateur est connecté
+        if ( session.getAttribute( "utilisateur" ) == null )
+            // On le redirige vers la page où il était si n'est pas connnecté
+            response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
+        else {
+
+            // On actualise la page sur laquelle il se situe
+            session.setAttribute( "nomPage", "Profil" );
+
+            // Gestion du bouton Play/Pause
+            if ( request.getParameter( "boutonPlay" ) != null ) {
+                if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
+                    ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
+                    session.setAttribute( "count", true );
+                } else {
+                    ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
+                    session.setAttribute( "count", false );
+                }
+            }
+
+            // Redirection vers Profil.jsp
+            this.getServletContext().getRequestDispatcher( "/WEB-INF/Profil.jsp" ).forward( request, response );
+
+        }
     }
 
 }

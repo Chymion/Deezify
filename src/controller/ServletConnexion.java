@@ -22,54 +22,62 @@ import model.Utilisateur;
 @WebServlet( name = "ServletExplorer" )
 public class ServletConnexion extends HttpServlet {
 
-    private static final String CHAMP_PASS   = "password";
-    private static final String CHAMP_PSEUDO = "pseudo";
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
+        // Récupération de la session
         HttpSession session = request.getSession();
-        session.setAttribute( "nomPage", "Connexion" );
 
-        if ( session.getAttribute( "pseudo" ) != null )
-            session.removeAttribute( "pseudo" );
+        // On vérifie si l'utilisateur est connecté
+        if ( session.getAttribute( "utilisateur" ) != null )
+            // Si ce n'est pas le cas, on le redirige vers la page actuelle
+            response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
+        else {
 
-        // On vérifie si l'utilisateur a rentré des données
-        if ( request.getParameter( "pseudo" ) != null && request.getParameter( "password" ) != null ) {
+            // Actualisation de la page où il se trouve
+            session.setAttribute( "nomPage", "Connexion" );
 
-            ConnexionForm cf = null;
-            try {
-                cf = new ConnexionForm();
-            } catch ( Exception e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            // On vérifie si l'utilisateur a rentré des données
+            if ( request.getParameter( "pseudo" ) != null && request.getParameter( "password" ) != null ) {
+
+                // Création de l'objet ConnexionForm pour y faire rentrer les
+                // données
+                ConnexionForm cf = null;
+                try {
+                    cf = new ConnexionForm();
+                } catch ( Exception e ) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                // Instancation de l'utilisateur qui souhaite se connecter
+                Utilisateur utilisateur = null;
+                try {
+                    utilisateur = cf.connecterUtilisateur( request );
+                } catch ( Exception e ) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+                // Si cette utilisateur existe dans la base, on actualise la
+                // variable de session
+                if ( utilisateur != null )
+                    session.setAttribute( "utilisateur", utilisateur );
+
+                // Envoi d'un message qui informe si il y'a une erreur lors de
+                // l'envoi des données
+                request.setAttribute( "message", cf.getResultat() );
+
             }
 
-            Utilisateur utilisateur = null;
-            try {
-                utilisateur = cf.connecterUtilisateur( request );
-            } catch ( Exception e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            System.out.println( cf.getResultat() );
-
-            if ( utilisateur != null ) {
-                System.out.println( "Prenom : " + utilisateur.getPrenom() );
-                System.out.println( "Nom : " + utilisateur.getNom() );
-
-                // Préparation des attributs en session
-                session.setAttribute( "pseudo", utilisateur.getPseudo() );
-
-            }
-
-            // Préparations des attributs sur la page Connexion.jsp
-            request.setAttribute( "message", cf.getResultat() );
-
+            // Redirection vers Connexion.jsp
+            this.getServletContext().getRequestDispatcher( "/WEB-INF/Connexion.jsp" ).forward( request, response );
         }
-
-        this.getServletContext().getRequestDispatcher( "/WEB-INF/Connexion.jsp" ).forward( request, response );
     }
 
 }
