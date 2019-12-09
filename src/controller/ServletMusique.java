@@ -44,8 +44,12 @@ public class ServletMusique extends HttpServlet {
             // actualisation de la page
             session.setAttribute( "nomPage", "ListeMusique" );
 
+            if ( session.getAttribute( "click" ) == null )
+                session.setAttribute( "click", firstClick );
+
             // ctualisation de l'audio
-            session.setAttribute( "audio", am );
+            if ( session.getAttribute( "audio" ) == null )
+                session.setAttribute( "audio", am );
 
             // On récupère le nom de la playlist ou de l'album selectionné
             String nomListe = request.getParameter( CHAMP_LISTE );
@@ -76,10 +80,10 @@ public class ServletMusique extends HttpServlet {
 
                 if ( session.getAttribute( "count" ) == null )
                     session.setAttribute( "count", count );
-
+                firstClick = (boolean) session.getAttribute( "click" );
                 if ( !firstClick ) {
                     firstClick = true;
-
+                    session.setAttribute( "click", firstClick );
                     am.init();
                     am.setSongName( request.getParameter( "music" ) );
                     am.demarrer();

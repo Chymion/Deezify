@@ -1,6 +1,10 @@
 package model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * ListeMusique est la classe mère des classes Album et Playlist
@@ -29,6 +33,11 @@ public class ListeMusique {
         listeMusique = new ArrayList<Musique>();
         this.nomListe = nom;
         this.utilisateur = uti;
+    }
+
+    public ListeMusique() {
+        listeMusique = new ArrayList<Musique>();
+
     }
 
     /**
@@ -141,6 +150,31 @@ public class ListeMusique {
 
     public String getImage() {
         return this.image;
+    }
+
+    public void rechercher( HttpServletRequest request ) throws Exception {
+        DatabaseConnection db = null;
+        ResultSet resultat = null;
+        try {
+            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
+                    "com.mysql.cj.jdbc.Driver" );
+            resultat = db.getData(
+                    "SELECT musique.NomMusique,Duree,Date,URL,artiste.NomArtiste,artiste.Image,Descriptif FROM musique natural join composer natural join artiste WHERE NomMusique like '%"
+                            + (String) request.getParameter( "recherche" ) + "%' or NomArtiste like '%"
+                            + (String) request.getParameter( "recherche" ) + "%'" );
+            while ( resultat.next() ) {
+                Artiste a = new Artiste( (String) resultat.getString( "artiste.NomArtiste" ) );
+                System.out.println( resultat.getString( "musique.NomMusique" ) );
+                this.ajoutMusique( new Musique( (String) resultat.getString( "musique.NomMusique" ),
+                        (String) resultat.getString( "Duree" ), (String) resultat.getString( "Date" ),
+                        (String) resultat.getString( "URL" ), a ) );
+            }
+            request.setAttribute( "tabMusiqueRecherche", this.listeMusique );
+            request.getSession().setAttribute( "tabMusiqueRechercheSession", this.getListeMusique() );
+
+        } catch ( ClassNotFoundException | SQLException e ) {
+            e.printStackTrace();
+        }
     }
 
     /**

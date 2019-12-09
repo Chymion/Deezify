@@ -20,23 +20,34 @@ import="model.Musique"  %>
         <%@ include file="../Menu.jsp"%>
         
         
-        <%
-               
-        ArrayList<Musique> tabMusique = (ArrayList<Musique>) request.getAttribute( "tabMusique" );
+         <%
+        ArrayList<Musique> tabMusique = null;
+        if (request.getAttribute( "tabMusique" ) != null){
+        	tabMusique = (ArrayList<Musique>) request.getAttribute( "tabMusique" );
+        }
+        else {
+            request.getSession(  ).setAttribute( "estEnModeRecherche", true );
+        	tabMusique = (ArrayList<Musique>) request.getAttribute( "tabMusiqueRecherche" );
+        }
+        
+        if (tabMusique.isEmpty(  ))
+		    out.print( "<h3> Aucun résultat trouvé </h3>" );
+        
         String nomListe = (String) request.getAttribute( "nomListe" );
         
     	Musique ligneActuelle = null;
         
-    	out.print( "<h1>" + nomListe + "</h1>" );
+    	if (request.getAttribute( "nomListe" ) != null)
+    		out.print( "<h1>" + nomListe + "</h1>" );
+    	
         %>
-        
         
         
         <div class="box">
 	
   		 <%   
-  		
-  		 for(int k = 0; k < tabMusique.size() ; k++ ){
+			
+  		 	for(int k = 0; k < tabMusique.size() ; k++ ){
   		     
   		    ligneActuelle = tabMusique.get( k );
   		     
@@ -45,10 +56,10 @@ import="model.Musique"  %>
   		    
   			out.print("<div class = \"elemMusique\">");
   			
-  			out.print("<form action=\"ListeMusique\" method=\"post\">");
+  			out.print("<form action=\"" + request.getSession(  ).getAttribute( "nomPage" ) + "\" method=\"post\">");
   			
   			// Nom de la musique
-  			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"ListeMusique\"> "+
+  			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"" + request.getSession(  ).getAttribute( "nomPage" ) + "\"> "+
   					"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"sousTitre\" name=\"music\" /></form>");
   			
   			

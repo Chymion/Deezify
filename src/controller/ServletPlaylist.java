@@ -26,11 +26,17 @@ public class ServletPlaylist extends HttpServlet {
         HttpSession session = request.getSession();
 
         // Si aucun genre n'a était selectionné, retour vers la page explorer
-        if ( request.getParameter( "genre" ) == null )
+        if ( ( request.getParameter( "genre" ) == null && request.getParameter( "boutonPlay" ) == null ) )
             response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
         else {
 
-            String genre = request.getParameter( CHAMP_GENRE );
+            // Enregistrement du dernier genre cliqué
+            if ( request.getParameter( CHAMP_GENRE ) != null )
+                session.setAttribute( "nomGenre", request.getParameter( CHAMP_GENRE ) );
+
+            String genre = (String) session.getAttribute( "nomGenre" );
+
+            // Actualisation de la page actuelle
             session.setAttribute( "nomPage", "Playlist" );
 
             // Création de l'objet ensembleGenre en session si il n'existe pas
@@ -44,6 +50,8 @@ public class ServletPlaylist extends HttpServlet {
                 }
                 session.setAttribute( "ensembleGenre", e );
             }
+
+            // Gestion du bouton Play/Pause
             if ( request.getParameter( "boutonPlay" ) != null ) {
                 if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
                     ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
@@ -53,6 +61,7 @@ public class ServletPlaylist extends HttpServlet {
                     session.setAttribute( "count", false );
                 }
             }
+
             // Si il y'a un genre déjà existant, il suffit d'actualiser genre de
             // session
             if ( genre != null )
