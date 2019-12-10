@@ -25,6 +25,7 @@ public class ServletMusique extends HttpServlet {
     boolean                    firstClick       = false;
     public EnsembleGenre       ensembleGenre    = null;
     public static boolean      isPlaying        = false;
+    public static float volume = 0.8f;
 
     @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
@@ -35,7 +36,8 @@ public class ServletMusique extends HttpServlet {
 
         // Si aucune playlist ou album a était selectionnée
         if ( ( request.getParameter( "nomListe" ) == null && request.getParameter( "music" ) == null
-                && request.getParameter( "boutonPlay" ) == null ) )
+                && request.getParameter( "boutonPlay" ) == null  && request.getParameter( "boutonLow" ) == null ) &&
+        		 request.getParameter( "boutonUp" ) == null)
             // on se redirige vers la page actuelle
             response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
 
@@ -50,7 +52,8 @@ public class ServletMusique extends HttpServlet {
             // ctualisation de l'audio
             if ( session.getAttribute( "audio" ) == null )
                 session.setAttribute( "audio", am );
-
+            
+            session.setAttribute("vol", volume);
             // On récupère le nom de la playlist ou de l'album selectionné
             String nomListe = request.getParameter( CHAMP_LISTE );
 
@@ -117,7 +120,22 @@ public class ServletMusique extends HttpServlet {
                     ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
                     session.setAttribute( "count", false );
                 }
+                
             }
+            
+            if (request.getParameter("boutonLow") != null)
+            {
+            	volume = (float) session.getAttribute("vol");
+            	session.setAttribute("vol",  volume /= 2.3f);
+            	AudioMaster.setVolume((float)session.getAttribute("vol"));
+            }
+            
+           if ( request.getParameter( "boutonUp" ) != null)
+           {
+        	   volume = (float) session.getAttribute("vol");
+        	   session.setAttribute("vol",  volume *= 2.3f);
+        	   AudioMaster.setVolume((float)session.getAttribute("vol"));
+           }
 
             ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 

@@ -24,7 +24,7 @@ import model.EnsembleGenre;
 public class ServletAccueil extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-
+    public static float volume;
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
@@ -54,6 +54,19 @@ public class ServletAccueil extends HttpServlet {
             }
         }
 
+        if (request.getParameter("boutonLow") != null)
+        {
+        	volume = (float) session.getAttribute("vol");
+        	session.setAttribute("vol",  volume /= 2.3f);
+        	AudioMaster.setVolume((float)session.getAttribute("vol"));
+        }
+        
+       if ( request.getParameter( "boutonUp" ) != null)
+       {
+    	   volume = (float) session.getAttribute("vol");
+    	   session.setAttribute("vol",  volume *= 2.3f);
+    	   AudioMaster.setVolume((float)session.getAttribute("vol"));
+       }
         String nomPage = "Accueil";
         session.setAttribute( "nomPage", nomPage );
 

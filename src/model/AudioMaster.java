@@ -48,6 +48,12 @@ public class AudioMaster {
     public void pause() {
         AL10.alSourcePause( sourceID );
     }
+    
+    public static void setVolume(float volume)
+    {
+    	AL10.alSourcef(sourceID, AL10.AL_GAIN, volume);
+    }
+    
 
     public void continuer() {
         AL10.alSourcePlay( sourceID );

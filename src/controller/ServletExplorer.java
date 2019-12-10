@@ -32,7 +32,7 @@ public class ServletExplorer extends HttpServlet {
     boolean                    firstClick       = false;
     public EnsembleGenre       ensembleGenre    = null;
     public static boolean      isPlaying        = false;
-
+    public static float volume;
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
@@ -92,12 +92,14 @@ public class ServletExplorer extends HttpServlet {
                     session.setAttribute( "count", false );
                 }
             }
+            
 
             request.setAttribute( "tabMusiqueRecherche", session.getAttribute( "tabMusiqueRechercheSession" ) );
             this.getServletContext().getRequestDispatcher( "/WEB-INF/ListeMusique.jsp" ).forward( request,
                     response );
         }
 
+     
         // On vérifie si une donnée a était rentré dans la barre de recherche,
         // si c'est le cas on affiche les résultats
         else if ( request.getParameter( "recherche" ) != null ) {
@@ -139,7 +141,21 @@ public class ServletExplorer extends HttpServlet {
                     session.setAttribute( "count", false );
                 }
             }
-
+            if (request.getParameter("boutonLow") != null)
+            {
+            	volume = (float) session.getAttribute("vol");
+            	session.setAttribute("vol",  volume /= 2.3f);
+            	AudioMaster.setVolume((float)session.getAttribute("vol"));
+            }
+            
+           if ( request.getParameter( "boutonUp" ) != null)
+           {
+        	   volume = (float) session.getAttribute("vol");
+        	   session.setAttribute("vol",  volume *= 2.3f);
+        	   AudioMaster.setVolume((float)session.getAttribute("vol"));
+           }
+      
+            
             // Désactivation du mode recherche (barre)
             session.setAttribute( "estEnModeRecherche", false );
 
