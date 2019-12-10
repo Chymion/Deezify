@@ -12,7 +12,14 @@ h1 {
     text-align: center;
 }
 
-
+h2 {
+	
+	margin-top: 30pt;
+	text-align: center;
+	border-bottom: solid;
+	border-width: 1px;
+	border-color: orange;
+}
 
 #conteneur {
 
@@ -66,24 +73,26 @@ a {
 
 .connexion {
 
-	height: 50pt;
-	font-size: 20pt;
+	/* height: 50pt;*/
+	font-size: 16pt;
     background-color: orange;
     color: white;
     text-decoration: none;
-    padding: 5pt;
+    padding: 3pt;
     margin-right: 10pt;
     margin-top: 10pt;
     border: none;
     border-radius: 10pt;
+    font-family: fantasy;
 }
 
 .sousTitre {
     background-color:black;
     text-align: center;
     color: orange;
-    font-size: 30pt;
+    font-size: 20pt;
     border:none;
+    font-family: fantasy;
 }
 .sousTitre:hover{
 	color:white;
@@ -94,6 +103,16 @@ a {
     text-align: center;
     color: orange;
     font-size: 20pt;
+}
+
+.sousTitre3 {
+	
+	background-color:black;
+    text-align: center;
+    color: orange;
+    font-size: 30pt;
+    border:none;
+    font-family: fantasy;
 }
 
 button {
@@ -203,12 +222,14 @@ button{
 .box{
 	display: flex;
 	flex-wrap: wrap;
+	font-family: fantasy;
 }
 
 .elem{
 	flex: 20 1 400px;
 	flex-basis: auto;
 	justify-content: start;
+	font-family: fantasy;
 }
 .elemMusique{
 	margin-bottom:5%;

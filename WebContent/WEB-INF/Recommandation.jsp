@@ -18,7 +18,7 @@
 
     <body>
     <%@ include file="../Menu.jsp"%>
-    <p class="sousTitre"> Voici ce que nous vous recommandons </p>
+    <p class="sousTitre3"> Voici ce que nous vous recommandons </p>
      <%@ include file="Lecteur.jsp"%>
     </body>
 
