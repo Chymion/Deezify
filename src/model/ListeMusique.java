@@ -156,11 +156,15 @@ public class ListeMusique {
         DatabaseConnection db = null;
         ResultSet resultat = null;
         try {
+
             db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
                     "com.mysql.cj.jdbc.Driver" );
+
+            // Recherche Musique
             resultat = db.getData(
                     "SELECT musique.NomMusique,Duree,Date,URL,artiste.NomArtiste,artiste.Image,Descriptif FROM musique natural join composer natural join artiste WHERE NomMusique like '%"
                             + (String) request.getParameter( "recherche" ) + "%' or NomArtiste like '%"
+                            + (String) request.getParameter( "recherche" ) + "%' or Descriptif like '%"
                             + (String) request.getParameter( "recherche" ) + "%'" );
             while ( resultat.next() ) {
                 Artiste a = new Artiste( (String) resultat.getString( "artiste.NomArtiste" ) );
@@ -171,6 +175,24 @@ public class ListeMusique {
             }
             request.setAttribute( "tabMusiqueRecherche", this.listeMusique );
             request.getSession().setAttribute( "tabMusiqueRechercheSession", this.getListeMusique() );
+
+            // Recherche Playlist
+
+            ArrayList<Playlist> tabPlaylist = new ArrayList<Playlist>();
+
+            resultat = db.getData(
+                    "SELECT DISTINCT * FROM playlist  WHERE  NomGenreMusical like '%"
+                            + (String) request.getParameter( "recherche" ) + "%' or NomPlaylist like '%"
+
+                            + (String) request.getParameter( "recherche" ) + "%' and Pseudo = \"Root\"" );
+
+            while ( resultat.next() ) {
+                tabPlaylist.add(
+                        new Playlist( resultat.getString( "NomPlaylist" ), "Root", resultat.getString( "Image" ) ) );
+            }
+
+            request.setAttribute( "tabPlaylistRecherche", tabPlaylist );
+            request.getSession().setAttribute( "tabPlaylistRechercheSession", tabPlaylist );
 
         } catch ( ClassNotFoundException | SQLException e ) {
             e.printStackTrace();

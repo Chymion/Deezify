@@ -17,7 +17,8 @@ public class ServletProfil extends HttpServlet {
      * 
      */
     private static final long serialVersionUID = 1L;
-    public static float volume;
+    public static float       volume;
+
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
@@ -26,7 +27,7 @@ public class ServletProfil extends HttpServlet {
         // On vérifie si l'utilisateur est connecté
         if ( session.getAttribute( "utilisateur" ) == null )
             // On le redirige vers la page où il était si n'est pas connnecté
-            response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
+            response.sendRedirect( request.getContextPath() + "/Accueil" );
         else {
 
             // On actualise la page sur laquelle il se situe
@@ -42,20 +43,18 @@ public class ServletProfil extends HttpServlet {
                     session.setAttribute( "count", false );
                 }
             }
-            if (request.getParameter("boutonLow") != null)
-            {
-            	volume = (float) session.getAttribute("vol");
-            	session.setAttribute("vol",  volume /= 2.3f);
-            	AudioMaster.setVolume((float)session.getAttribute("vol"));
+
+            if ( request.getParameter( "boutonLow" ) != null ) {
+                volume = (float) session.getAttribute( "vol" );
+                session.setAttribute( "vol", volume /= 2.3f );
+                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
             }
-            
-           if ( request.getParameter( "boutonUp" ) != null)
-           {
-        	   volume = (float) session.getAttribute("vol");
-        	   session.setAttribute("vol",  volume *= 2.3f);
-        	   AudioMaster.setVolume((float)session.getAttribute("vol"));
-           }
-            
+
+            if ( request.getParameter( "boutonUp" ) != null ) {
+                volume = (float) session.getAttribute( "vol" );
+                session.setAttribute( "vol", volume *= 2.3f );
+                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
+            }
             // Redirection vers Profil.jsp
             this.getServletContext().getRequestDispatcher( "/WEB-INF/Profil.jsp" ).forward( request, response );
 

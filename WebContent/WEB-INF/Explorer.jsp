@@ -29,7 +29,7 @@ import="model.Genre"  %>
    		
          <%@ include file="../Menu.jsp"%>
         
-        <p class="sousTitre3"> Recherche </p>
+        <p class="sousTitre"> Recherche </p>
         <form id="conteneurRecherche" method="post" action="Explorer">
             <input  type="text"
                     class="textField"

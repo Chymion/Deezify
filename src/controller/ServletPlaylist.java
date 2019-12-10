@@ -18,7 +18,8 @@ public class ServletPlaylist extends HttpServlet {
 
     public static final String CHAMP_GENRE      = "genre";
     private EnsembleGenre      ensembleGenre;
-    public static float volume;
+    public static float        volume;
+
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
@@ -61,19 +62,18 @@ public class ServletPlaylist extends HttpServlet {
                     session.setAttribute( "count", false );
                 }
             }
-            if (request.getParameter("boutonLow") != null)
-            {
-            	volume = (float) session.getAttribute("vol");
-            	session.setAttribute("vol",  volume /= 2.3f);
-            	AudioMaster.setVolume((float)session.getAttribute("vol"));
+
+            if ( request.getParameter( "boutonLow" ) != null ) {
+                volume = (float) session.getAttribute( "vol" );
+                session.setAttribute( "vol", volume /= 2.3f );
+                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
             }
-            
-           if ( request.getParameter( "boutonUp" ) != null)
-           {
-        	   volume = (float) session.getAttribute("vol");
-        	   session.setAttribute("vol",  volume *= 2.3f);
-        	   AudioMaster.setVolume((float)session.getAttribute("vol"));
-           }
+
+            if ( request.getParameter( "boutonUp" ) != null ) {
+                volume = (float) session.getAttribute( "vol" );
+                session.setAttribute( "vol", volume *= 2.3f );
+                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
+            }
 
             // Si il y'a un genre déjà existant, il suffit d'actualiser genre de
             // session

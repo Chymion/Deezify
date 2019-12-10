@@ -1,12 +1,12 @@
 package model;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class AudioMaster {
 
@@ -14,7 +14,7 @@ public class AudioMaster {
     // contenant la source
     private static ArrayList<Integer> buffers = new ArrayList<Integer>();
     private static int                sourceID;
-    private String songName;
+    private String                    songName;
 
     // Initialisation de OpenAL
     public void init() {
@@ -48,27 +48,23 @@ public class AudioMaster {
     public void pause() {
         AL10.alSourcePause( sourceID );
     }
-    
-    public static void setVolume(float volume)
-    {
-    	AL10.alSourcef(sourceID, AL10.AL_GAIN, volume);
+
+    public static void setVolume( float volume ) {
+        AL10.alSourcef( sourceID, AL10.AL_GAIN, volume );
     }
-    
 
     public void continuer() {
         AL10.alSourcePlay( sourceID );
     }
 
-    public void setSongName(String name)
-    {
-    	this.songName = name;
+    public void setSongName( String name ) {
+        this.songName = name;
     }
-    
-    public String getSongName()
-    {
-    	return this.songName;
+
+    public String getSongName() {
+        return this.songName;
     }
-    
+
     public static int chargerMusique( String file ) {
         // Chargement des bits composant le fichier audio dans le buffer.
         int buffer = AL10.alGenBuffers();
@@ -89,19 +85,16 @@ public class AudioMaster {
         AL.destroy();
     }
 
-    public void demarrer()
-    {
-    	Musique mod = null;
+    public void demarrer() {
+        Musique mod = null;
         try {
-            mod = new Musique(getSongName());
-            System.out.println("Musique en cours: " +  mod.getChemin());
-            int buffer = chargerMusique("controller/" +  mod.getChemin());
-            play (buffer);
-        } catch (Exception e) {
+            mod = new Musique( getSongName() );
+            System.out.println( "Musique en cours: " + mod.getChemin() );
+            int buffer = chargerMusique( "controller/" + mod.getChemin() );
+            play( buffer );
+        } catch ( Exception e ) {
             e.printStackTrace();
         }
     }
-    
-    
-   
+
 }

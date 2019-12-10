@@ -3,7 +3,8 @@
 import="java.util.HashMap" 
 import="java.util.List" 
 import="java.util.Map"
-import="model.Musique"  %>
+import="model.Musique"
+import="model.Playlist"  %>
 
 
 <html>
@@ -21,75 +22,120 @@ import="model.Musique"  %>
         
         
          <%
-        ArrayList<Musique> tabMusique = null;
+         
+        ArrayList<Musique> tabMusique = new ArrayList<Musique>();
+        ArrayList<Playlist> tabPlaylist = new ArrayList<Playlist>();
+        
+        // Si on vient de servletMusique
         if (request.getAttribute( "tabMusique" ) != null){
         	tabMusique = (ArrayList<Musique>) request.getAttribute( "tabMusique" );
+        	String nomListe = (String) request.getAttribute( "nomListe" );
+        	if (request.getAttribute( "nomListe" ) != null)
+        		out.print( "<h1>" + nomListe + "</h1>" );
         }
+        // Si on vient de servletExplorer par la barre de recherche
         else {
             request.getSession(  ).setAttribute( "estEnModeRecherche", true );
         	tabMusique = (ArrayList<Musique>) request.getAttribute( "tabMusiqueRecherche" );
+        	tabPlaylist = (ArrayList<Playlist>) request.getAttribute( "tabPlaylistRecherche" );
+        	
+        	// Si la recherche n'a donné aucun résultat, on en informe l'utilisateur
+            if (tabMusique.isEmpty(  ) && tabPlaylist.isEmpty(  ))
+    		    out.print( "<h3> Aucun résultat trouvé </h3>" );       	
         }
         
-        if (tabMusique.isEmpty(  ))
-		    out.print( "<h3> Aucun résultat trouvé </h3>" );
         
-        String nomListe = (String) request.getAttribute( "nomListe" );
         
-    	Musique ligneActuelle = null;
         
-    	if (request.getAttribute( "nomListe" ) != null)
-    		out.print( "<h1>" + nomListe + "</h1>" );
-    	
+        if (!tabMusique.isEmpty(  ))
+  		    	out.print( "<h2> Musiques </h2>" );
         %>
-        
         
         <div class="box">
 	
-  		 <%   
-			
+  		<%   
+  		 
+  			
+  		 
+  		 	
+  			Musique ligneActuelleMusique = null;		
   		 	for(int k = 0; k < tabMusique.size() ; k++ ){
   		     
-  		    ligneActuelle = tabMusique.get( k );
+  		    	ligneActuelleMusique = tabMusique.get( k );
   		     
   		    
-  		    /*Affichage des informations sur la musique*/
+  		    	/*Affichage des informations sur la musique*/
   		    
-  			out.print("<div class = \"elemMusique\">");
+  				out.print("<div class = \"elemMusique\">");
   			
-  			out.print("<form action=\"" + request.getSession(  ).getAttribute( "nomPage" ) + "\" method=\"post\">");
+  				out.print("<form action=\"" + request.getSession(  ).getAttribute( "nomPage" ) + "\" method=\"post\">");
   			
-  			// Nom de la musique
-  			out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"" + request.getSession(  ).getAttribute( "nomPage" ) + "\"> "+
+  				// Nom de la musique
+  				out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"" + request.getSession(  ).getAttribute( "nomPage" ) + "\"> "+
   					"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"sousTitre\" name=\"music\" /></form>");
   			
   			
-  			out.print("<br/>");
+  				out.print("<br/>");
   			
-  			// Nom artiste
+  				// Nom artiste
  
-  			out.print("Artiste : " + ligneActuelle.getArtiste(  ).getNom(  ) + "<br/>");
+  				out.print("Artiste : " + ligneActuelleMusique.getArtiste(  ).getNom(  ) + "<br/>");
   			
   			
-  			out.print("<br/>");
+  				out.print("<br/>");
   			
-  			//Date de sortie
+  				//Date de sortie
 			
-			out.print("Date de sortie : " + ligneActuelle.getDate(  ));
+				out.print("Date de sortie : " + ligneActuelleMusique.getDate(  ));
 			
 			
-			out.print("<br/>");
+				out.print("<br/>");
   			
-  			//Duree
+  				//Duree
 			
-			out.print("Durée : " + ligneActuelle.getDuree(  ));
+				out.print("Durée : " + ligneActuelleMusique.getDuree(  ));
   			
   			
-			out.print("<br/>");
-			out.print("</form>");
+				out.print("<br/>");
+				out.print("</form>");
 			
-			out.print("</div>");
+				out.print("</div>");
 			
 			
+  		   
+  		 }
+  		 	
+  		 	
+  		 	%>
+  		 	</div>
+  		 	<% if (!tabPlaylist.isEmpty(  ))
+  	  		    out.print( "<h2> Playlists et Albums </h2>" ); %>
+  		 	<div class = "box">
+  		 	<%
+  		 
+  		Playlist ligneActuellePlaylist = null;	 
+  		for(int k = 0; k < tabPlaylist.size() ; k++ ){
+ 		     
+  		    	ligneActuellePlaylist = tabPlaylist.get( k );
+  		     
+  				out.print("<div class = \"elem\">");
+  			
+  				out.print("<form action=\"ListeMusique\" method=\"post\">");
+  				out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuellePlaylist.getNomListe(  )  + "\" class=\"sousTitre\">");
+  				out.print(ligneActuellePlaylist.getNomListe(  ) );
+  				out.print("</button>");
+  				out.print("</form>");
+  			
+  				out.print("<br/>");
+  			
+  				out.print("<td>");
+				out.print("<form action=\"ListeMusique\" method=\"post\">");
+				out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuellePlaylist.getNomListe(  )   + "\" class=\"sousTitre\">");
+				out.print("<img src=\"" +ligneActuellePlaylist.getImage()+ "\" class=\"lienGenre\" ");
+				out.print("</button>");
+				out.print("</form>");
+			
+				out.print("</div>");
   		   
   		 }
         

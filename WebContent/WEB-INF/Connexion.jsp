@@ -18,7 +18,7 @@
 
 <body>
     <%@ include file="../Menu.jsp"%>
-    <p class="sousTitre3"> Connexion </p>
+    <p class="sousTitre"> Connexion </p>
     <div id="conteneurConnexion">
     
     	

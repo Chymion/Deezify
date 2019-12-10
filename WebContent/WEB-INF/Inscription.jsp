@@ -21,7 +21,7 @@
 		}
 		
 		%>
-		<p class="sousTitre3"> Inscription </p>
+		<p class="sousTitre"> Inscription </p>
 		<div id="conteneurConnexion">
 			<form id="conteneurConnexion2" method="post" action="Inscription">
 				<p>
