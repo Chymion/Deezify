@@ -23,6 +23,12 @@ import="model.Utilisateur"  %>
     	
     	<% 
     	
+    	
+    	if (request.getSession().getAttribute( "utilisateur" ) != null)
+    	    out.print( "<h3> Bienvenue <strong>" + ((Utilisateur)request.getSession().getAttribute( "utilisateur" )).getPseudo(  ) + "</strong> !! </h3>" );
+    	
+    	
+    	
     	if (request.getParameter( "deconnexion" ) != null) request.getSession().removeAttribute( "utilisateur" );
     	
     	if (request.getSession().getAttribute( "utilisateur" ) == null){ %>
@@ -40,7 +46,7 @@ import="model.Utilisateur"  %>
         	
             <form action="${ sessionScope.nomPage }"  method="post">
             <p>
-            <input class="connexion" type="submit" value="deconnexion" name="deconnexion"/>
+            <input class="connexion" type="submit" value="Deconnexion" name="deconnexion"/>
             </p>
             </form>
             
@@ -54,12 +60,7 @@ import="model.Utilisateur"  %>
     
     
     
-    <%
-	
-	if (request.getSession().getAttribute( "utilisateur" ) != null)
-	    out.print( "<h2> Bienvenue <strong>" + ((Utilisateur)request.getSession().getAttribute( "utilisateur" )).getPseudo(  ) + "</strong> !!</h2>" );
-	
-	%>
+    
     
     <div id="conteneur">
     

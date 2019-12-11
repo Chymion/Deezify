@@ -21,13 +21,21 @@ h2 {
 	border-color: orange;
 }
 
+h3 {
+	
+	font-size: 16pt;
+	text-decoration: none;
+	margin-right: 10pt;
+	padding-top: 3pt;
+}
+
 #conteneur {
 
     display: flex;
     justify-content: center;
     border: 3px orange outset;
     border-radius: 10pt;
-    width: 50%;
+    width: 70%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -69,29 +77,29 @@ a {
 
     display: flex;
     justify-content: flex-end;
+    margin-top: 10pt;
 }
 
 .connexion {
 
-	/* height: 50pt;*/
 	font-size: 16pt;
     background-color: orange;
     color: white;
     text-decoration: none;
     padding: 3pt;
     margin-right: 10pt;
-    margin-top: 10pt;
     border: none;
     border-radius: 10pt;
     font-family: fantasy;
 }
 
 .sousTitre {
-    background-color:black;
+	
+	background-color: black;
+	border: none;
     text-align: center;
     color: orange;
     font-size: 20pt;
-    border:none;
     font-family: fantasy;
 }
 .sousTitre:hover{
@@ -199,7 +207,8 @@ footer {
 }
 
 .lienGenre{
-	display: table;
+	
+	display: flex;
 	margin-left: auto;
 	margin-right: auto;
 	
@@ -227,28 +236,26 @@ button{
 .box{
 	display: flex;
 	flex-wrap: wrap;
-	font-family: fantasy;
 }
 
 .elem{
-	flex: 20 1 400px;
+	
+	flex: auto;
 	flex-basis: auto;
 	justify-content: start;
-	font-family: fantasy;
+	text-align: center;
+	
+	
 }
 .elemMusique{
-	margin-bottom:5%;
-	flex: 20 1 600px;
+	
+	margin-bottom:1%;
+	flex: auto;
 	flex-basis: auto;
 	justify-content: space-around;
 }
 
-input[type=range].slider {
-	
-	background: #CCC;
-	padding: 1px;
-	margin-left: 5pt;
-}
+
 
 
 
