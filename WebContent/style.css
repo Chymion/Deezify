@@ -193,6 +193,11 @@ footer {
     border: none;
 }
 
+.conteneurVolume {
+	
+	margin-left: 5pt;
+}
+
 .lienGenre{
 	display: table;
 	margin-left: auto;
@@ -244,3 +249,6 @@ input[type=range].slider {
 	padding: 1px;
 	margin-left: 5pt;
 }
+
+
+
