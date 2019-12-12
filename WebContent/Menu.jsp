@@ -32,6 +32,13 @@ import="model.Utilisateur"  %>
     	if (request.getParameter( "deconnexion" ) != null){ 
     	    request.getSession().removeAttribute( "utilisateur" );
     	    request.getSession().removeAttribute( "tabPlaylist" );
+    	    request.getSession().removeAttribute( "supprimerPlaylist" );
+    	    request.getSession().removeAttribute( "tabPlaylist" );
+    	    request.getSession().removeAttribute( "nomListeMaMusique" );
+    	    request.getSession().removeAttribute( "tabMusiqueMaMusique" );
+    	    request.getSession().removeAttribute( "tabPlaylistUtilisateur" );
+    	    response.sendRedirect( request.getContextPath(  ) + "/Accueil" );
+    	    
     	    }
     	
     	if (request.getSession().getAttribute( "utilisateur" ) == null){ %>
@@ -71,11 +78,13 @@ import="model.Utilisateur"  %>
             <a href="/DeezifyWeb/Accueil"> Accueil </a>
         </div>
         
+        <%if (request.getSession().getAttribute( "utilisateur" ) != null){%>
+        
         <div id="boutonMenu">
             <a href="/DeezifyWeb/Recommandations"> Recommandations </a>
         </div>
         
-        <%if (request.getSession().getAttribute( "utilisateur" ) != null){%>
+        <%}if (request.getSession().getAttribute( "utilisateur" ) != null){%>
         
         <div id="boutonMenu">
             <a href="/DeezifyWeb/Musique"> Ma Musique </a>

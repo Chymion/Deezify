@@ -20,7 +20,7 @@ public class ServletListeMusiqueMaMusique extends HttpServlet {
 
     private static final long  serialVersionUID = 1L;
     boolean                    count            = false;
-    public static float        volume;
+
     private List<Musique>      tabMusique       = new ArrayList<Musique>();
 
     public static final String CHAMP_LISTE      = "nomListe";
@@ -29,7 +29,9 @@ public class ServletListeMusiqueMaMusique extends HttpServlet {
     boolean                    firstClick       = false;
     public EnsembleGenre       ensembleGenre    = null;
     public static boolean      isPlaying        = false;
-    public static float        pitch;
+
+    public static float        volume           = 1.0f;
+    public static float        pitch            = 1.0f;
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
@@ -42,6 +44,21 @@ public class ServletListeMusiqueMaMusique extends HttpServlet {
 
             // Actualisation de la page
             session.setAttribute( "nomPage", "ListeMusiqueMaMusique" );
+
+            // Instancation du click si il n'existe pas
+            if ( session.getAttribute( "click" ) == null )
+                session.setAttribute( "click", firstClick );
+
+            // Instanaction de l'audio si il n'existe pas
+            if ( session.getAttribute( "audio" ) == null )
+                session.setAttribute( "audio", am );
+
+            // Instancation du volume
+            session.setAttribute( "vol", volume );
+
+            // Instancation du pitch si il n'existe pas
+
+            session.setAttribute( "pitch", pitch );
 
             // On récupère la liste souhaité à être modifiée
             if ( request.getParameter( "nomListeMaMusique" ) != null ) {
@@ -60,6 +77,34 @@ public class ServletListeMusiqueMaMusique extends HttpServlet {
             }
 
             session.setAttribute( "tabMusiqueMaMusique", tabMusique );
+
+            // Gestion de la musique
+            if ( request.getParameter( "music" ) != null ) {
+
+                if ( session.getAttribute( "count" ) == null )
+                    session.setAttribute( "count", count );
+
+                // Pitch remis par défaut lors de la sélection d'une nouvelle
+                // musique
+                session.setAttribute( "pitch", 1.0f );
+
+                firstClick = (boolean) session.getAttribute( "click" );
+                if ( !firstClick ) {
+                    firstClick = true;
+                    session.setAttribute( "click", firstClick );
+                    am.init();
+                    am.setSongName( request.getParameter( "music" ) );
+                    am.demarrer();
+                } else {
+
+                    count = false;
+                    am.Destruction();
+                    am.init();
+                    am.setSongName( request.getParameter( "music" ) );
+                    am.demarrer();
+                }
+                session.setAttribute( "count", count );
+            }
 
             if ( request.getParameter( "boutonPlay" ) != null ) {
                 if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
@@ -93,29 +138,6 @@ public class ServletListeMusiqueMaMusique extends HttpServlet {
                 pitch = (float) session.getAttribute( "pitch" );
                 session.setAttribute( "pitch", pitch -= 0.1f );
                 AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
-
-            // Gestion de la musique
-            if ( request.getParameter( "music" ) != null ) {
-
-                if ( session.getAttribute( "count" ) == null )
-                    session.setAttribute( "count", count );
-                firstClick = (boolean) session.getAttribute( "click" );
-                if ( !firstClick ) {
-                    firstClick = true;
-                    session.setAttribute( "click", firstClick );
-                    am.init();
-                    am.setSongName( request.getParameter( "music" ) );
-                    am.demarrer();
-                } else {
-
-                    count = false;
-                    am.Destruction();
-                    am.init();
-                    am.setSongName( request.getParameter( "music" ) );
-                    am.demarrer();
-                }
-                session.setAttribute( "count", count );
             }
 
             // Préparation des attributs

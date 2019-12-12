@@ -44,6 +44,26 @@ public class ServletEditerPlaylist extends HttpServlet {
             // Actualisation de la page
             session.setAttribute( "nomPage", "EditerPlaylist" );
 
+            // Instancation du son si il n'existe pas
+            if ( session.getAttribute( "vol" ) == null )
+                session.setAttribute( "vol", firstClick );
+
+            // Instancation du click si il n'existe pas
+            if ( session.getAttribute( "click" ) == null )
+                session.setAttribute( "click", firstClick );
+
+            // Instanaction de l'audio si il n'existe pas
+            if ( session.getAttribute( "audio" ) == null )
+                session.setAttribute( "audio", am );
+
+            // Instancation du volume si il n'existe pas
+            if ( session.getAttribute( "vol" ) == null )
+                session.setAttribute( "vol", volume );
+
+            // Instancation du pitch si il n'existe pas
+            if ( session.getAttribute( "pitch" ) == null )
+                session.setAttribute( "pitch", pitch );
+
             // On récupère la liste souhaité à être modifiée
             if ( request.getParameter( "editerPlaylist" ) != null ) {
                 System.out.println( "editerPlaylist = " + (String) request.getParameter( "editerPlaylist" ) );

@@ -117,7 +117,7 @@
     	<url-pattern>/ListeMusiqueMaMusique</url-pattern>
     </servlet-mapping>
     
-    <servlet>
+     <servlet>
     	<servlet-name>Artiste</servlet-name>
     	<servlet-class>controller.ServletArtiste</servlet-class>
     </servlet>

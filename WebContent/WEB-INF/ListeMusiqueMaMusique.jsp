@@ -71,8 +71,7 @@ import="model.Playlist"  %>
   			
   				// Nom artiste
  
-  				out.print("Artiste : " + ligneActuelleMusique.getArtiste(  ).getNom(  ) + "<br/>");
-  			
+  				out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
   			
   				out.print("<br/>");
   			
@@ -101,7 +100,7 @@ import="model.Playlist"  %>
   		 	%>
   		 	</div>
 	
-	<%@ include file="Lecteur.jsp"%> 		 
+	<%@ include file="Lecteur.jsp" %> 		 
         
 	</body>
 

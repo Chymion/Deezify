@@ -38,11 +38,11 @@ import="model.Playlist"  %>
         // Si on vient de servletExplorer par la barre de recherche
         else {
             
-            if (request.getAttribute( "tabMusiqueRecherche" ) != null) {
-            request.getSession(  ).setAttribute( "estEnModeRecherche", true );
+          
+           
         	tabMusique = (ArrayList<Musique>) request.getAttribute( "tabMusiqueRecherche" );
         	tabPlaylist = (ArrayList<Playlist>) request.getAttribute( "tabPlaylistRecherche" );
-            }
+            
         	// Si la recherche n'a donné aucun résultat, on en informe l'utilisateur
             if (tabMusique.isEmpty(  ) && tabPlaylist.isEmpty(  ))
     		    out.print( "<h3> Aucun résultat trouvé </h3>" );  
@@ -85,7 +85,7 @@ import="model.Playlist"  %>
   			
   				// Nom artiste
  
-  				out.print("<form action=/Deezify_web/Artiste>Artiste : <input name=\"artiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
+  				out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
   			
   			
   				out.print("<br/>");

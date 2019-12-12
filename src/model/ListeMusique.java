@@ -184,7 +184,7 @@ public class ListeMusique {
             ArrayList<Playlist> tabPlaylist = new ArrayList<Playlist>();
 
             resultat = db.getData(
-                    "SELECT DISTINCT * FROM playlist  WHERE  NomGenreMusical like '%"
+                    "SELECT DISTINCT * FROM playlist  WHERE NomPlaylist = \"Root\" AND  NomGenreMusical like '%"
                             + (String) request.getParameter( "recherche" ) + "%' or NomPlaylist like '%"
 
                             + (String) request.getParameter( "recherche" ) + "%' and Pseudo = \"Root\"" );

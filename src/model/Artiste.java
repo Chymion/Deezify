@@ -23,13 +23,13 @@ public class Artiste {
             db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
                     "com.mysql.cj.jdbc.Driver" );
         } catch ( ClassNotFoundException | SQLException e ) {
-            e.printStackTrace();
+
         }
         ResultSet rs = null;
         try {
             rs = db.getData( "Select * from artiste where NomArtiste='" + nom + "'" );
         } catch ( SQLException e ) {
-            e.printStackTrace();
+
         }
 
         try {
@@ -41,7 +41,7 @@ public class Artiste {
             }
 
         } catch ( SQLException e ) {
-            e.printStackTrace();
+
         }
         if ( image != "" ) {
             this.image = image;

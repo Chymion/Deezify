@@ -3,7 +3,12 @@
 import="java.util.ArrayList"
 import="model.Playlist" %>
 
-<!DOCTYPE html>
+
+
+
+
+
+
 <html>
 
     <style>
@@ -11,11 +16,12 @@ import="model.Playlist" %>
     </style>
 
     <head>
-        <title> Ajouter une playlist </title>
+        <title> Ajouter une musique </title>
     </head>
 
     <body>
         <%@ include file="../Menu.jsp"%>
+        
         
         <p class="sousTitre3"> Musique à ajouter </p>
         
@@ -148,6 +154,7 @@ import="model.Playlist" %>
         
         
         <%@ include file="Lecteur.jsp"%>
+        
     </body>
 
 </html>

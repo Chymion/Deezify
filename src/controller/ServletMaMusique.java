@@ -20,8 +20,7 @@ import model.Utilisateur;
 public class ServletMaMusique extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private AudioMaster       am               = null;
-    int                       count            = 0;
+
     public static float       volume;
     private List<Playlist>    tabPlaylist      = new ArrayList<Playlist>();
     public static float       pitch;

@@ -77,13 +77,13 @@ public class Musique {
             db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
                     "com.mysql.cj.jdbc.Driver" );
         } catch ( ClassNotFoundException | SQLException e ) {
-            e.printStackTrace();
+
         }
         ResultSet rs = null;
         try {
             rs = db.getData( "Select * from musique where NomMusique='" + nom + "'" );
         } catch ( SQLException e ) {
-            e.printStackTrace();
+
         }
         ResultSetMetaData resultMeta = (ResultSetMetaData) rs.getMetaData();
 
@@ -100,7 +100,7 @@ public class Musique {
             }
 
         } catch ( SQLException e ) {
-            e.printStackTrace();
+
         }
         if ( duree != "" ) {
             this.nomMusique = nom;
@@ -109,6 +109,8 @@ public class Musique {
             this.chemin = chemin;
 
         }
+
+        rs.close();
     }
 
     public static void main( String[] args ) throws Exception {

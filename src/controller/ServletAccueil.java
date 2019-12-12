@@ -33,7 +33,6 @@ public class ServletAccueil extends HttpServlet {
         // Récupération de la session
         HttpSession session = request.getSession();
 
-        session.setAttribute( "boutonPlayPause Present", false );
         // Création de l'objet genre en session si il n'existe pas
         if ( session.getAttribute( "ensembleGenre" ) == null ) {
             EnsembleGenre e = new EnsembleGenre();

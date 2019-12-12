@@ -33,7 +33,7 @@ public class ServletExplorer extends HttpServlet {
     public EnsembleGenre       ensembleGenre    = null;
     public static boolean      isPlaying        = false;
     public static float        volume           = 0.8f;
-    public static float        pitch;
+    public static float        pitch            = 1.0f;
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
@@ -41,36 +41,53 @@ public class ServletExplorer extends HttpServlet {
         // Récupération de la session
         HttpSession session = request.getSession();
 
-        // Instancation du son
-        session.setAttribute( "vol", volume );
-
         // Actualisation de la page sur laquelle l'utilisateur est
         session.setAttribute( "nomPage", "Explorer" );
 
-        // si l'audio n'existe pas, on l'instancie une seule fois en session
+        // Instancation du click si il n'existe pas
+        if ( session.getAttribute( "click" ) == null )
+            session.setAttribute( "click", firstClick );
+
+        // Instanaction de l'audio si il n'existe pas
         if ( session.getAttribute( "audio" ) == null )
             session.setAttribute( "audio", am );
 
-        // de même pour le booléen firstClick
-        if ( session.getAttribute( "click" ) == null )
-            session.setAttribute( "click", firstClick );
+        // Instancation du volume
+
+        session.setAttribute( "vol", volume );
+
+        // Instancation du pitch si il n'existe pas
+
+        session.setAttribute( "pitch", pitch );
 
         // Par défaut, le mode recherche sur la barre de recherche est désactivé
         if ( session.getAttribute( "estEnModeRecherche" ) == null )
             session.setAttribute( "estEnModeRecherche", false );
 
+        // PARTIE REDIRECTION
+        /***************************************************************************************************************/
+
         // Si une musique a était selectionné ou si le bouton Play/Pause a était
         // cliqué et que l'utilisateur a saisi des données dans la barre
-        if ( ( request.getParameter( "boutonUp" ) != null || request.getParameter( "boutonLow" ) != null
-                || request.getParameter( "music" ) != null )
-                && session.getAttribute( "tabMusiqueRechercheSession" ) != null
-                || ( (boolean) session.getAttribute( "estEnModeRecherche" )
-                        && request.getParameter( "boutonPlay" ) != null ) ) {
+        if ( (boolean) session.getAttribute( "estEnModeRecherche" ) &&
+                ( request.getParameter( "music" ) != null ||
+                        request.getParameter( "boutonPlay" ) != null ||
+                        request.getParameter( "boutonUp" ) != null ||
+                        request.getParameter( "boutonLow" ) != null ||
+                        request.getParameter( "boutonFaster" ) != null
+                        || request.getParameter( "boutonSlower" ) != null ) ) {
 
-            // Gestion de la musique lors d'une nouvelle musique selectionnée
+            // GESTION MUSIQUE
+            // ******************************************************/
             if ( request.getParameter( "music" ) != null ) {
+
                 if ( session.getAttribute( "count" ) == null )
                     session.setAttribute( "count", count );
+
+                // Pitch remis par défaut lors de la sélection d'une nouvelle
+                // musique
+                session.setAttribute( "pitch", 1.0f );
+
                 firstClick = (boolean) session.getAttribute( "click" );
                 if ( !firstClick ) {
                     firstClick = true;
@@ -101,6 +118,18 @@ public class ServletExplorer extends HttpServlet {
                 AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
             }
 
+            if ( request.getParameter( "boutonFaster" ) != null ) {
+                pitch = (float) session.getAttribute( "pitch" );
+                session.setAttribute( "pitch", pitch += 0.1f );
+                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+            }
+
+            if ( request.getParameter( "boutonSlower" ) != null ) {
+                pitch = (float) session.getAttribute( "pitch" );
+                session.setAttribute( "pitch", pitch -= 0.1f );
+                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+            }
+
             // Gestion Pause/Lecture de la musique en cours
             if ( request.getParameter( "boutonPlay" ) != null && session.getAttribute( "audio" ) != null ) {
                 if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
@@ -112,11 +141,16 @@ public class ServletExplorer extends HttpServlet {
                 }
             }
 
+            // ******************************************************/
+
             request.setAttribute( "tabPlaylistRecherche", session.getAttribute( "tabPlaylistRechercheSession" ) );
             request.setAttribute( "tabMusiqueRecherche", session.getAttribute( "tabMusiqueRechercheSession" ) );
             this.getServletContext().getRequestDispatcher( "/WEB-INF/ListeMusique.jsp" ).forward( request,
                     response );
         }
+
+        // PARTIE BOUTON RECHERCHE
+        /***************************************************************************************************************/
 
         // On vérifie si une donnée a était rentré dans la barre de recherche,
         // si c'est le cas on affiche les résultats
@@ -125,6 +159,8 @@ public class ServletExplorer extends HttpServlet {
             // On instancie une liste de musiques que l'on afficheras comme
             // résultat
             ListeMusique liste = new ListeMusique();
+
+            request.getSession().setAttribute( "estEnModeRecherche", true );
 
             try {
                 liste.rechercher( request );
@@ -148,6 +184,8 @@ public class ServletExplorer extends HttpServlet {
                 }
                 session.setAttribute( "ensembleGenre", e );
             }
+
+            request.getSession().setAttribute( "estEnModeRecherche", false );
 
             // Gestion Pause/Lecture
             if ( request.getParameter( "boutonPlay" ) != null && session.getAttribute( "audio" ) != null ) {

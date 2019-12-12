@@ -28,7 +28,6 @@ public class ServletMusique extends HttpServlet {
     public static float        volume           = 1.0f;
     public static float        pitch            = 1.0f;
 
-    @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
@@ -46,29 +45,28 @@ public class ServletMusique extends HttpServlet {
 
         else {
 
-            // actualisation de la page
+            // Actualisation de la page
             session.setAttribute( "nomPage", "ListeMusique" );
 
+            // Instancation du click si il n'existe pas
             if ( session.getAttribute( "click" ) == null )
                 session.setAttribute( "click", firstClick );
 
-            // ctualisation de l'audio
+            // Instanaction de l'audio si il n'existe pas
             if ( session.getAttribute( "audio" ) == null )
                 session.setAttribute( "audio", am );
 
+            // Instancation du volume
             session.setAttribute( "vol", volume );
+
+            // Instancation du pitch si il n'existe pas
+
             session.setAttribute( "pitch", pitch );
-            // On récupère le nom de la playlist ou de l'album selectionné
-            String nomListe = request.getParameter( CHAMP_LISTE );
 
             // Si il y'a un nom déjà existant, il suffit d'actualiser nomListe
-            // de
-            // session
-            if ( nomListe != null )
-                session.setAttribute( "nomListe", nomListe );
-
-            // Dans tous les cas, on actualise nomListe
-            nomListe = (String) session.getAttribute( "nomListe" );
+            // de session
+            if ( request.getParameter( CHAMP_LISTE ) != null )
+                session.setAttribute( "nomListe", (String) request.getParameter( CHAMP_LISTE ) );
 
             // Création de l'objet ensembleGenre en session si il n'existe pas
             if ( session.getAttribute( "ensembleGenre" ) == null ) {
@@ -82,11 +80,18 @@ public class ServletMusique extends HttpServlet {
                 session.setAttribute( "ensembleGenre", e );
             }
 
-            // Gestion de la musique
+            ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
+
+            // Gestion de la sélection d'une nouvelle musique
             if ( request.getParameter( "music" ) != null ) {
+
+                // Pitch remis par défaut lors de la sélection d'une nouvelle
+                // musique
+                session.setAttribute( "pitch", 1.0f );
 
                 if ( session.getAttribute( "count" ) == null )
                     session.setAttribute( "count", count );
+
                 firstClick = (boolean) session.getAttribute( "click" );
                 if ( !firstClick ) {
                     firstClick = true;
@@ -105,16 +110,6 @@ public class ServletMusique extends HttpServlet {
                 session.setAttribute( "count", count );
             }
 
-            /*
-             * // Bouton Play/Pause if ( request.getParameter( "boutonPlay" ) !=
-             * null ) { if ( count == false ) {
-             * 
-             * am.pause(); count = true; } else {
-             * 
-             * am.continuer(); count = false; } session.setAttribute( "count",
-             * count ); }
-             */
-
             // Gestion du bouton Play/Pause
             if ( request.getParameter( "boutonPlay" ) != null ) {
                 if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
@@ -127,6 +122,7 @@ public class ServletMusique extends HttpServlet {
 
             }
 
+            // Gestion du son
             if ( request.getParameter( "boutonLow" ) != null ) {
                 volume = (float) session.getAttribute( "vol" );
                 session.setAttribute( "vol", volume /= 2.3f );
@@ -139,10 +135,12 @@ public class ServletMusique extends HttpServlet {
                 AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
             }
 
+            // Gestion pitch
             if ( request.getParameter( "boutonFaster" ) != null ) {
                 pitch = (float) session.getAttribute( "pitch" );
                 session.setAttribute( "pitch", pitch += 0.1f );
                 AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+
             }
 
             if ( request.getParameter( "boutonSlower" ) != null ) {
@@ -151,12 +149,12 @@ public class ServletMusique extends HttpServlet {
                 AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
             }
 
-            ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
+            // Préparation des attributs si une playlist ou album a bien était
+            // sélectionné
 
-            // Préparation des attributs
-            System.out.println( "nomListe = " + nomListe );
-            request.setAttribute( "tabMusique", ensembleGenre.getListeMusique( nomListe ) );
-            request.setAttribute( "nomListe", nomListe );
+            request.setAttribute( "tabMusique",
+                    ensembleGenre.getListeMusique( (String) session.getAttribute( "nomListe" ) ) );
+            request.setAttribute( "nomListe", (String) session.getAttribute( "nomListe" ) );
 
             // Redirection vers la page ListeMusique.jsp
             this.getServletContext().getRequestDispatcher( "/WEB-INF/ListeMusique.jsp" ).forward( request, response );
