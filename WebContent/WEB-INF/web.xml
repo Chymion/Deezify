@@ -96,5 +96,26 @@
     	<url-pattern>/ListeMusique</url-pattern>
     </servlet-mapping>
     
+    
+    <servlet>
+    	<servlet-name>EditerPlaylist</servlet-name>
+    	<servlet-class>controller.ServletEditerPlaylist</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>EditerPlaylist</servlet-name>
+    	<url-pattern>/EditerPlaylist</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>ListeMusiqueMaMusique</servlet-name>
+    	<servlet-class>controller.ServletListeMusiqueMaMusique</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>ListeMusiqueMaMusique</servlet-name>
+    	<url-pattern>/ListeMusiqueMaMusique</url-pattern>
+    </servlet-mapping>
+    
 	
 </web-app>

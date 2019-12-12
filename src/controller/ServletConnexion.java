@@ -36,7 +36,7 @@ public class ServletConnexion extends HttpServlet {
         // On vérifie si l'utilisateur est connecté
         if ( session.getAttribute( "utilisateur" ) != null )
             // Si ce n'est pas le cas, on le redirige vers la page actuelle
-            response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
+            response.sendRedirect( request.getContextPath() + "/Accueil" );
         else {
 
             // Actualisation de la page où il se trouve

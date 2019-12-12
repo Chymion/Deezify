@@ -29,7 +29,10 @@ import="model.Utilisateur"  %>
     	
     	
     	
-    	if (request.getParameter( "deconnexion" ) != null) request.getSession().removeAttribute( "utilisateur" );
+    	if (request.getParameter( "deconnexion" ) != null){ 
+    	    request.getSession().removeAttribute( "utilisateur" );
+    	    request.getSession().removeAttribute( "tabPlaylist" );
+    	    }
     	
     	if (request.getSession().getAttribute( "utilisateur" ) == null){ %>
     
@@ -96,4 +99,3 @@ import="model.Utilisateur"  %>
     </div>
     
 </header>
-

@@ -26,7 +26,7 @@ public class ServletMusique extends HttpServlet {
     public EnsembleGenre       ensembleGenre    = null;
     public static boolean      isPlaying        = false;
     public static float        volume           = 1.0f;
-    public static float 	   pitch   			= 1.0f;
+    public static float        pitch            = 1.0f;
 
     @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
@@ -38,8 +38,9 @@ public class ServletMusique extends HttpServlet {
         // Si aucune playlist ou album a était selectionnée
         if ( ( request.getParameter( "nomListe" ) == null && request.getParameter( "music" ) == null
                 && request.getParameter( "boutonPlay" ) == null && request.getParameter( "boutonLow" ) == null ) &&
-                request.getParameter( "boutonUp" ) == null && request.getParameter( "boutonSlower" ) == null  && 
-        request.getParameter( "boutonFaster" ) == null )  
+                request.getParameter( "boutonUp" ) == null && request.getParameter( "deconnexion" ) == null
+                && request.getParameter( "boutonSlower" ) == null &&
+                request.getParameter( "boutonFaster" ) == null )
             // on se redirige vers la page actuelle
             response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
 
@@ -149,10 +150,11 @@ public class ServletMusique extends HttpServlet {
                 session.setAttribute( "pitch", pitch -= 0.1f );
                 AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
             }
-            
+
             ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 
             // Préparation des attributs
+            System.out.println( "nomListe = " + nomListe );
             request.setAttribute( "tabMusique", ensembleGenre.getListeMusique( nomListe ) );
             request.setAttribute( "nomListe", nomListe );
 

@@ -19,7 +19,8 @@ public class ServletPlaylist extends HttpServlet {
     public static final String CHAMP_GENRE      = "genre";
     private EnsembleGenre      ensembleGenre;
     public static float        volume;
-    public static float       pitch;
+    public static float        pitch;
+
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
@@ -27,7 +28,8 @@ public class ServletPlaylist extends HttpServlet {
         HttpSession session = request.getSession();
 
         // Si aucun genre n'a était selectionné, retour vers la page explorer
-        if ( ( request.getParameter( "genre" ) == null && request.getParameter( "boutonPlay" ) == null ) )
+        if ( ( request.getParameter( "genre" ) == null && request.getParameter( "boutonPlay" ) == null )
+                && request.getParameter( "deconnexion" ) == null )
             response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
         else {
 
@@ -74,7 +76,7 @@ public class ServletPlaylist extends HttpServlet {
                 session.setAttribute( "vol", volume *= 2.3f );
                 AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
             }
-            
+
             if ( request.getParameter( "boutonFaster" ) != null ) {
                 pitch = (float) session.getAttribute( "pitch" );
                 session.setAttribute( "pitch", pitch += 0.1f );

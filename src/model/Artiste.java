@@ -3,8 +3,6 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
-
 public class Artiste {
     String                    nom         = null;
     String                    image       = null;
@@ -33,17 +31,14 @@ public class Artiste {
         } catch ( SQLException e ) {
             e.printStackTrace();
         }
-        ResultSetMetaData resultMeta = (ResultSetMetaData) rs.getMetaData();
 
         try {
-            while ( rs.next() )
-                for ( int i = 1; i <= resultMeta.getColumnCount(); i++ ) {
-                    if ( i == 2 )
-                        image = rs.getObject( i ).toString();
-                    if ( i == 3 )
-                        description = rs.getObject( i ).toString();
+            while ( rs.next() ) {
 
-                }
+                image = rs.getString( "Image" );
+
+                description = rs.getString( "Descriptif" );
+            }
 
         } catch ( SQLException e ) {
             e.printStackTrace();
@@ -54,6 +49,7 @@ public class Artiste {
             this.nom = nom;
         }
 
+        rs.close();
     }
 
     public String getNom() {

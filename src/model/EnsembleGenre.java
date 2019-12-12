@@ -236,7 +236,7 @@ public class EnsembleGenre {
 
         }
 
-        return null;
+        return new ArrayList<Musique>();
 
     }
 

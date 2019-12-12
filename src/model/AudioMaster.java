@@ -8,8 +8,9 @@ import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
 
 /***
- * Initialisation du contexte OpenAL.
- * Permet de jouer un fichier audio au format wav
+ * Initialisation du contexte OpenAL. Permet de jouer un fichier audio au format
+ * wav
+ * 
  * @author Orane ADJALI
  *
  */
@@ -35,7 +36,8 @@ public class AudioMaster {
     }
 
     /***
-     * Joue le buffer d'entier passé en paramètre
+     * Joue le buffer d'entier passÃ© en paramÃ¨tre
+     * 
      * @param buffer
      */
     public static void play( int buffer ) {
@@ -50,10 +52,9 @@ public class AudioMaster {
     public static void setVolume( float volume ) {
         AL10.alSourcef( sourceID, AL10.AL_GAIN, volume );
     }
-    
-    public static void modifierPitch(float pitch)
-    {
-    	  AL10.alSourcef( sourceID, AL10.AL_PITCH, pitch );
+
+    public static void modifierPitch( float pitch ) {
+        AL10.alSourcef( sourceID, AL10.AL_PITCH, pitch );
     }
 
     public void continuer() {
@@ -69,8 +70,10 @@ public class AudioMaster {
     }
 
     /***
-     * Charge la musique passée en paramètre (String) dans un buffer
-     * Specification des proprietes elementaires de la source: Gain, Pitch, Position
+     * Charge la musique passÃ©e en paramÃ¨tre (String) dans un buffer
+     * Specification des proprietes elementaires de la source: Gain, Pitch,
+     * Position
+     * 
      * @param file
      * @return buffer
      */
@@ -82,7 +85,7 @@ public class AudioMaster {
         AL10.alBufferData( buffer, waveFile.format,
                 waveFile.data, waveFile.samplerate );
         waveFile.dispose();
-        //Parametrage des proprietes de la source
+        // Parametrage des proprietes de la source
         sourceID = AL10.alGenSources();
         AL10.alSourcef( sourceID, AL10.AL_GAIN, 1 );
         AL10.alSourcef( sourceID, AL10.AL_PITCH, 1 );
@@ -94,9 +97,9 @@ public class AudioMaster {
     public void Destruction() {
         AL.destroy();
     }
-    
+
     /***
-     * Creation d'un objet musique, recuperation du chemin vers la musique et 
+     * Creation d'un objet musique, recuperation du chemin vers la musique et
      * lancement de la musique
      */
     public void demarrer() {

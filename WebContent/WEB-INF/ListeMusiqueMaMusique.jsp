@@ -35,20 +35,7 @@ import="model.Playlist"  %>
         	if (request.getAttribute( "nomListe" ) != null)
         		out.print( "<h1>" + nomListe + "</h1>" );
         }
-        // Si on vient de servletExplorer par la barre de recherche
-        else {
-            
-            if (request.getAttribute( "tabMusiqueRecherche" ) != null) {
-            request.getSession(  ).setAttribute( "estEnModeRecherche", true );
-        	tabMusique = (ArrayList<Musique>) request.getAttribute( "tabMusiqueRecherche" );
-        	tabPlaylist = (ArrayList<Playlist>) request.getAttribute( "tabPlaylistRecherche" );
-            }
-        	// Si la recherche n'a donné aucun résultat, on en informe l'utilisateur
-            if (tabMusique.isEmpty(  ) && tabPlaylist.isEmpty(  ))
-    		    out.print( "<h3> Aucun résultat trouvé </h3>" );  
-        
-            
-        }
+     
         
         
         
@@ -79,7 +66,6 @@ import="model.Playlist"  %>
   				// Nom de la musique
   				out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"" + request.getSession(  ).getAttribute( "nomPage" ) + "\"> "+
   					"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"sousTitre\" name=\"music\" /></form>");
-  			
   			
   				out.print("<br/>");
   			
@@ -114,40 +100,6 @@ import="model.Playlist"  %>
   		 	
   		 	%>
   		 	</div>
-  		 	<% if (!tabPlaylist.isEmpty(  ))
-  	  		    out.print( "<h2> Playlists et Albums </h2>" ); %>
-  		 	<div class = "box">
-  		 	<%
-  		 
-  		Playlist ligneActuellePlaylist = null;	 
-  		for(int k = 0; k < tabPlaylist.size() ; k++ ){
- 		     
-  		    	ligneActuellePlaylist = tabPlaylist.get( k );
-  		     
-  				out.print("<div class = \"elem\">");
-  			
-  				out.print("<form action=\"ListeMusique\" method=\"post\">");
-  				out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuellePlaylist.getNomListe(  )  + "\" class=\"sousTitre\">");
-  				out.print(ligneActuellePlaylist.getNomListe(  ) );
-  				out.print("</button>");
-  				out.print("</form>");
-  			
-  				out.print("<br/>");
-  			
-  				out.print("<td>");
-				out.print("<form action=\"ListeMusique\" method=\"post\">");
-				out.print("<button type=\"submit\" name=\"nomListe\" value=\"" +  ligneActuellePlaylist.getNomListe(  )   + "\" class=\"sousTitre\">");
-				out.print("<img src=\"" +ligneActuellePlaylist.getImage()+ "\" class=\"lienGenre\" ");
-				out.print("</button>");
-				out.print("</form>");
-			
-				out.print("</div>");
-  		   
-  		 }
-        
-  		 %> 
-  	
-	</div>
 	
 	<%@ include file="Lecteur.jsp"%> 		 
         

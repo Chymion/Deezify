@@ -153,8 +153,10 @@ public class ListeMusique {
     }
 
     public void rechercher( HttpServletRequest request ) throws Exception {
+
         DatabaseConnection db = null;
         ResultSet resultat = null;
+
         try {
 
             db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
@@ -164,8 +166,8 @@ public class ListeMusique {
             resultat = db.getData(
                     "SELECT musique.NomMusique,Duree,Date,URL,artiste.NomArtiste,artiste.Image,Descriptif FROM musique natural join composer natural join artiste WHERE NomMusique like '%"
                             + (String) request.getParameter( "recherche" ) + "%' or NomArtiste like '%"
-                            + (String) request.getParameter( "recherche" ) + "%' or Descriptif like '%"
                             + (String) request.getParameter( "recherche" ) + "%'" );
+
             while ( resultat.next() ) {
                 Artiste a = new Artiste( (String) resultat.getString( "artiste.NomArtiste" ) );
                 System.out.println( resultat.getString( "musique.NomMusique" ) );
@@ -173,6 +175,7 @@ public class ListeMusique {
                         (String) resultat.getString( "Duree" ), (String) resultat.getString( "Date" ),
                         (String) resultat.getString( "URL" ), a ) );
             }
+
             request.setAttribute( "tabMusiqueRecherche", this.listeMusique );
             request.getSession().setAttribute( "tabMusiqueRechercheSession", this.getListeMusique() );
 
