@@ -18,6 +18,7 @@ public class ServletMaMusique extends HttpServlet {
     private AudioMaster       am               = null;
     int                       count            = 0;
     public static float       volume;
+    public static float       pitch;
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
@@ -45,6 +46,17 @@ public class ServletMaMusique extends HttpServlet {
             volume = (float) session.getAttribute( "vol" );
             session.setAttribute( "vol", volume *= 2.3f );
             AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
+        }
+        if ( request.getParameter( "boutonFaster" ) != null ) {
+            pitch = (float) session.getAttribute( "pitch" );
+            session.setAttribute( "pitch", pitch += 0.1f );
+            AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+        }
+
+        if ( request.getParameter( "boutonSlower" ) != null ) {
+            pitch = (float) session.getAttribute( "pitch" );
+            session.setAttribute( "pitch", pitch -= 0.1f );
+            AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
         }
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/MaMusique.jsp" ).forward( request, response );

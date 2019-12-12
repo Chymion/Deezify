@@ -1,6 +1,5 @@
 package model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.lwjgl.LWJGLException;
@@ -8,15 +7,24 @@ import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
 
+/***
+ * Initialisation du contexte OpenAL.
+ * Permet de jouer un fichier audio au format wav
+ * @author Orane ADJALI
+ *
+ */
+
 public class AudioMaster {
 
-    // Buffer contenant le flux de donnÃ©es de la musique. Et un entier
+    // Buffer contenant le flux de donnees de la musique. Et un entier
     // contenant la source
     private static ArrayList<Integer> buffers = new ArrayList<Integer>();
     private static int                sourceID;
     private String                    songName;
 
-    // Initialisation de OpenAL
+    /***
+     * Initialisation du contexte OpenAL
+     */
     public void init() {
         try {
             AL.create();
@@ -26,20 +34,10 @@ public class AudioMaster {
         }
     }
 
-    public static void playSong( int buf ) throws IOException {
-        // Si on entre la lettre 'p', la musique se lance.
-        // Si on entre la lettre 'q', la musique se quitte
-        char c = ' ';
-        while ( c != 'q' ) {
-            c = (char) System.in.read();
-
-            if ( c == 'p' ) {
-                play( buf );
-            }
-        }
-    }
-
-    // Jouer la source
+    /***
+     * Joue le buffer d'entier passé en paramètre
+     * @param buffer
+     */
     public static void play( int buffer ) {
         AL10.alSourcei( sourceID, AL10.AL_BUFFER, buffer );
         AL10.alSourcePlay( sourceID );
@@ -51,6 +49,11 @@ public class AudioMaster {
 
     public static void setVolume( float volume ) {
         AL10.alSourcef( sourceID, AL10.AL_GAIN, volume );
+    }
+    
+    public static void modifierPitch(float pitch)
+    {
+    	  AL10.alSourcef( sourceID, AL10.AL_PITCH, pitch );
     }
 
     public void continuer() {
@@ -65,6 +68,12 @@ public class AudioMaster {
         return this.songName;
     }
 
+    /***
+     * Charge la musique passée en paramètre (String) dans un buffer
+     * Specification des proprietes elementaires de la source: Gain, Pitch, Position
+     * @param file
+     * @return buffer
+     */
     public static int chargerMusique( String file ) {
         // Chargement des bits composant le fichier audio dans le buffer.
         int buffer = AL10.alGenBuffers();
@@ -73,6 +82,7 @@ public class AudioMaster {
         AL10.alBufferData( buffer, waveFile.format,
                 waveFile.data, waveFile.samplerate );
         waveFile.dispose();
+        //Parametrage des proprietes de la source
         sourceID = AL10.alGenSources();
         AL10.alSourcef( sourceID, AL10.AL_GAIN, 1 );
         AL10.alSourcef( sourceID, AL10.AL_PITCH, 1 );
@@ -80,11 +90,15 @@ public class AudioMaster {
         return buffer;
     }
 
-    // Libï¿½ration des ressources
+    // Liberation des ressources
     public void Destruction() {
         AL.destroy();
     }
-
+    
+    /***
+     * Creation d'un objet musique, recuperation du chemin vers la musique et 
+     * lancement de la musique
+     */
     public void demarrer() {
         Musique mod = null;
         try {

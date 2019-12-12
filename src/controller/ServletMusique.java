@@ -25,7 +25,8 @@ public class ServletMusique extends HttpServlet {
     boolean                    firstClick       = false;
     public EnsembleGenre       ensembleGenre    = null;
     public static boolean      isPlaying        = false;
-    public static float        volume           = 0.8f;
+    public static float        volume           = 1.0f;
+    public static float 	   pitch   			= 1.0f;
 
     @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
@@ -37,7 +38,8 @@ public class ServletMusique extends HttpServlet {
         // Si aucune playlist ou album a était selectionnée
         if ( ( request.getParameter( "nomListe" ) == null && request.getParameter( "music" ) == null
                 && request.getParameter( "boutonPlay" ) == null && request.getParameter( "boutonLow" ) == null ) &&
-                request.getParameter( "boutonUp" ) == null )
+                request.getParameter( "boutonUp" ) == null && request.getParameter( "boutonSlower" ) == null  && 
+        request.getParameter( "boutonFaster" ) == null )  
             // on se redirige vers la page actuelle
             response.sendRedirect( request.getContextPath() + "/" + session.getAttribute( "nomPage" ) );
 
@@ -54,6 +56,7 @@ public class ServletMusique extends HttpServlet {
                 session.setAttribute( "audio", am );
 
             session.setAttribute( "vol", volume );
+            session.setAttribute( "pitch", pitch );
             // On récupère le nom de la playlist ou de l'album selectionné
             String nomListe = request.getParameter( CHAMP_LISTE );
 
@@ -135,6 +138,18 @@ public class ServletMusique extends HttpServlet {
                 AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
             }
 
+            if ( request.getParameter( "boutonFaster" ) != null ) {
+                pitch = (float) session.getAttribute( "pitch" );
+                session.setAttribute( "pitch", pitch += 0.1f );
+                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+            }
+
+            if ( request.getParameter( "boutonSlower" ) != null ) {
+                pitch = (float) session.getAttribute( "pitch" );
+                session.setAttribute( "pitch", pitch -= 0.1f );
+                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+            }
+            
             ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 
             // Préparation des attributs

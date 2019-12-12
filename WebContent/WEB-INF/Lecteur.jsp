@@ -13,6 +13,9 @@
     	<%  
     		// Il suffit de vérifier si la variable count est présente ou pas pour lancer le bouton Play/Pause et le volume
     		if ( request.getSession().getAttribute( "count" ) != null  ){
+    			
+    			out.print("<input type=\"submit\"value=\"<\" class=\"boutonMusique\" name=\"boutonFaster\" />");
+	    		out.print("<input type=\"submit\"value=\">\" class=\"boutonMusique\" name=\"boutonSlower\" />");
 	    		out.print("<input type=\"submit\"value=\"Play/pause\" class=\"boutonMusique\" name=\"boutonPlay\" />");
 	    		out.print("<div class=\"conteneurVolume\">");
 	    		out.print("<input type=\"submit\"value=\"-\" class=\"boutonMusique\" name=\"boutonLow\" />");

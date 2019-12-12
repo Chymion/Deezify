@@ -15,6 +15,7 @@ import model.AudioMaster;
 public class ServletRecommandation extends HttpServlet {
 
     public static float volume;
+    public static float       pitch;
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
@@ -43,6 +44,18 @@ public class ServletRecommandation extends HttpServlet {
             AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
         }
 
+        if ( request.getParameter( "boutonFaster" ) != null ) {
+            pitch = (float) session.getAttribute( "pitch" );
+            session.setAttribute( "pitch", pitch += 0.1f );
+            AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+        }
+
+        if ( request.getParameter( "boutonSlower" ) != null ) {
+            pitch = (float) session.getAttribute( "pitch" );
+            session.setAttribute( "pitch", pitch -= 0.1f );
+            AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+        }
+        
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Recommandation.jsp" ).forward( request, response );
     }
 

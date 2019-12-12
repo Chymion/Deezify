@@ -33,6 +33,7 @@ public class ServletExplorer extends HttpServlet {
     public EnsembleGenre       ensembleGenre    = null;
     public static boolean      isPlaying        = false;
     public static float        volume           = 0.8f;
+    public static float       pitch;
 
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
@@ -169,6 +170,17 @@ public class ServletExplorer extends HttpServlet {
                 volume = (float) session.getAttribute( "vol" );
                 session.setAttribute( "vol", volume *= 2.3f );
                 AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
+            }
+            if ( request.getParameter( "boutonFaster" ) != null ) {
+                pitch = (float) session.getAttribute( "pitch" );
+                session.setAttribute( "pitch", pitch += 0.1f );
+                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+            }
+
+            if ( request.getParameter( "boutonSlower" ) != null ) {
+                pitch = (float) session.getAttribute( "pitch" );
+                session.setAttribute( "pitch", pitch -= 0.1f );
+                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
             }
 
             // Désactivation du mode recherche (barre)
