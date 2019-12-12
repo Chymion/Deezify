@@ -117,5 +117,15 @@
     	<url-pattern>/ListeMusiqueMaMusique</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+    	<servlet-name>Artiste</servlet-name>
+    	<servlet-class>controller.ServletArtiste</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>Artiste</servlet-name>
+    	<url-pattern>/Artiste</url-pattern>
+    </servlet-mapping>
+    
 	
 </web-app>
