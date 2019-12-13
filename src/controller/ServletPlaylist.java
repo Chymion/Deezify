@@ -58,40 +58,8 @@ public class ServletPlaylist extends HttpServlet {
                 session.setAttribute( "ensembleGenre", e );
             }
 
-            // Gestion du bouton Play/Pause
-            if ( request.getParameter( "boutonPlay" ) != null ) {
-                if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
-                    session.setAttribute( "count", true );
-                } else {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
-                    session.setAttribute( "count", false );
-                }
-            }
-
-            if ( request.getParameter( "boutonLow" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume /= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            if ( request.getParameter( "boutonUp" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume *= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            if ( request.getParameter( "boutonFaster" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch += 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
-
-            if ( request.getParameter( "boutonSlower" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch -= 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
+            // Gestion des boutons
+            AudioMaster.gestionEvenements(request, session);
 
             // Si il y'a un genre déjà existant, il suffit d'actualiser genre de
             // session

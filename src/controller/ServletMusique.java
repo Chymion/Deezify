@@ -11,13 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import model.AudioMaster;
 import model.EnsembleGenre;
-/**
- * Controlleur de la page ListeMusique.jsp
- * @author Antonin
- *
- */
+
 public class ServletMusique extends HttpServlet {
 
+    /**
+     * 
+     */
     private static final long  serialVersionUID = 1L;
 
     public static final String CHAMP_LISTE      = "nomListe";
@@ -29,6 +28,7 @@ public class ServletMusique extends HttpServlet {
     public static float        volume           = 1.0f;
     public static float        pitch            = 1.0f;
 
+    @SuppressWarnings( { "null" } )
     protected void service( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
@@ -46,28 +46,21 @@ public class ServletMusique extends HttpServlet {
 
         else {
 
-            // Actualisation de la page
+            // actualisation de la page
             session.setAttribute( "nomPage", "ListeMusique" );
 
-            // Instancation du click si il n'existe pas
-            if ( session.getAttribute( "click" ) == null )
-                session.setAttribute( "click", firstClick );
-
-            // Instanaction de l'audio si il n'existe pas
-            if ( session.getAttribute( "audio" ) == null )
-                session.setAttribute( "audio", am );
-
-            // Instancation du volume
-            session.setAttribute( "vol", volume );
-
-            // Instancation du pitch si il n'existe pas
-
-            session.setAttribute( "pitch", pitch );
+            
+            // On récupère le nom de la playlist ou de l'album selectionné
+            String nomListe = request.getParameter( CHAMP_LISTE );
 
             // Si il y'a un nom déjà existant, il suffit d'actualiser nomListe
-            // de session
-            if ( request.getParameter( CHAMP_LISTE ) != null )
-                session.setAttribute( "nomListe", (String) request.getParameter( CHAMP_LISTE ) );
+            // de
+            // session
+            if ( nomListe != null )
+                session.setAttribute( "nomListe", nomListe );
+
+            // Dans tous les cas, on actualise nomListe
+            nomListe = (String) session.getAttribute( "nomListe" );
 
             // Création de l'objet ensembleGenre en session si il n'existe pas
             if ( session.getAttribute( "ensembleGenre" ) == null ) {
@@ -81,81 +74,19 @@ public class ServletMusique extends HttpServlet {
                 session.setAttribute( "ensembleGenre", e );
             }
 
-            ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
+            // Gestion de la musique
+            AudioMaster.startSong(request, session);
 
-            // Gestion de la sélection d'une nouvelle musique
-            if ( request.getParameter( "music" ) != null ) {
-
-                // Pitch remis par défaut lors de la sélection d'une nouvelle
-                // musique
-                session.setAttribute( "pitch", 1.0f );
-
-                if ( session.getAttribute( "count" ) == null )
-                    session.setAttribute( "count", count );
-
-                firstClick = (boolean) session.getAttribute( "click" );
-                if ( !firstClick ) {
-                    firstClick = true;
-                    session.setAttribute( "click", firstClick );
-                    am.init();
-                    am.setSongName( request.getParameter( "music" ) );
-                    am.demarrer();
-                } else {
-
-                    count = false;
-                    am.Destruction();
-                    am.init();
-                    am.setSongName( request.getParameter( "music" ) );
-                    am.demarrer();
-                }
-                session.setAttribute( "count", count );
-            }
 
             // Gestion du bouton Play/Pause
-            if ( request.getParameter( "boutonPlay" ) != null ) {
-                if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
-                    session.setAttribute( "count", true );
-                } else {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
-                    session.setAttribute( "count", false );
-                }
+            AudioMaster.gestionEvenements(request, session);
 
-            }
+            ensembleGenre = (EnsembleGenre) session.getAttribute( "ensembleGenre" );
 
-            // Gestion du son
-            if ( request.getParameter( "boutonLow" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume /= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            if ( request.getParameter( "boutonUp" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume *= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            // Gestion pitch
-            if ( request.getParameter( "boutonFaster" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch += 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-
-            }
-
-            if ( request.getParameter( "boutonSlower" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch -= 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
-
-            // Préparation des attributs si une playlist ou album a bien était
-            // sélectionné
-
-            request.setAttribute( "tabMusique",
-                    ensembleGenre.getListeMusique( (String) session.getAttribute( "nomListe" ) ) );
-            request.setAttribute( "nomListe", (String) session.getAttribute( "nomListe" ) );
+            // Préparation des attributs
+            System.out.println( "nomListe = " + nomListe );
+            request.setAttribute( "tabMusique", ensembleGenre.getListeMusique( nomListe ) );
+            request.setAttribute( "nomListe", nomListe );
 
             // Redirection vers la page ListeMusique.jsp
             this.getServletContext().getRequestDispatcher( "/WEB-INF/ListeMusique.jsp" ).forward( request, response );

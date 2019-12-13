@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.lwjgl.openal.AL10;
@@ -21,12 +24,15 @@ public class AudioMaster {
     // contenant la source
     private static ArrayList<Integer> buffers = new ArrayList<Integer>();
     private static int                sourceID;
-    private String                    songName;
-
+    private static String             songName;
+    private static float 			  volume = 1.0f;
+    private static float 			  pitch = 1.0f;
+    private  static boolean 		  count = false;
+    private static boolean 			  firstClick = false;
     /***
      * Initialisation du contexte OpenAL
      */
-    public void init() {
+    public static void init() {
         try {
             AL.create();
         } catch ( LWJGLException e ) {
@@ -61,12 +67,12 @@ public class AudioMaster {
         AL10.alSourcePlay( sourceID );
     }
 
-    public void setSongName( String name ) {
-        this.songName = name;
+    public static void setSongName( String name ) {
+       songName = name;
     }
 
-    public String getSongName() {
-        return this.songName;
+    public static String getSongName() {
+        return songName;
     }
 
     /***
@@ -93,8 +99,79 @@ public class AudioMaster {
         return buffer;
     }
 
+    public static void startSong(HttpServletRequest request, HttpSession session)
+    {
+    	if ( request.getParameter( "music" ) != null ) {
+
+            if ( session.getAttribute( "count" ) == null )
+                session.setAttribute( "count", count );
+
+            // Pitch remis par défaut lors de la sélection d'une nouvelle
+            // musique
+            session.setAttribute( "pitch", 1.0f );
+            session.setAttribute("vol", volume);
+
+            firstClick = (boolean) session.getAttribute( "click" );
+            if ( !firstClick ) {
+                firstClick = true;
+                session.setAttribute( "click", firstClick );
+                init();
+                setSongName( request.getParameter( "music" ) );
+                demarrer();
+            } else {
+
+                count = false;
+                Destruction();
+                init();
+                setSongName( request.getParameter( "music" ) );
+                demarrer();
+            }
+            session.setAttribute( "count", count );
+        }
+    }
+    
+    public static void gestionEvenements(HttpServletRequest request, HttpSession session)
+    {
+    	session.setAttribute( "vol", volume );
+        session.setAttribute( "pitch", pitch );
+    	 if ( request.getParameter( "boutonPlay" ) != null ) {
+             if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
+                 ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
+                 session.setAttribute( "count", true );
+             } else {
+                 ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
+                 session.setAttribute( "count", false );
+             }
+         }
+
+         if ( request.getParameter( "boutonLow" ) != null ) {
+             volume = (float) session.getAttribute( "vol" );
+             session.setAttribute( "vol", volume /= 2.3f );
+             AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
+         }
+
+         if ( request.getParameter( "boutonUp" ) != null ) {
+             volume = (float) session.getAttribute( "vol" );
+             session.setAttribute( "vol", volume *= 2.3f );
+             AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
+
+         }
+
+         if ( request.getParameter( "boutonFaster" ) != null ) {
+             pitch = (float) session.getAttribute( "pitch" );
+             session.setAttribute( "pitch", pitch += 0.1f );
+             AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+         }
+
+         if ( request.getParameter( "boutonSlower" ) != null ) {
+             pitch = (float) session.getAttribute( "pitch" );
+             session.setAttribute( "pitch", pitch -= 0.1f );
+             AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
+         }
+    }
+    
     // Liberation des ressources
-    public void Destruction() {
+    public static void Destruction() {
         AL.destroy();
     }
 
@@ -102,7 +179,7 @@ public class AudioMaster {
      * Creation d'un objet musique, recuperation du chemin vers la musique et
      * lancement de la musique
      */
-    public void demarrer() {
+    public static void demarrer() {
         Musique mod = null;
         try {
             mod = new Musique( getSongName() );

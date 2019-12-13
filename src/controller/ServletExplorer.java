@@ -79,67 +79,9 @@ public class ServletExplorer extends HttpServlet {
 
             // GESTION MUSIQUE
             // ******************************************************/
-            if ( request.getParameter( "music" ) != null ) {
-
-                if ( session.getAttribute( "count" ) == null )
-                    session.setAttribute( "count", count );
-
-                // Pitch remis par défaut lors de la sélection d'une nouvelle
-                // musique
-                session.setAttribute( "pitch", 1.0f );
-
-                firstClick = (boolean) session.getAttribute( "click" );
-                if ( !firstClick ) {
-                    firstClick = true;
-                    session.setAttribute( "click", firstClick );
-                    am.init();
-                    am.setSongName( request.getParameter( "music" ) );
-                    am.demarrer();
-                } else {
-
-                    count = false;
-                    am.Destruction();
-                    am.init();
-                    am.setSongName( request.getParameter( "music" ) );
-                    am.demarrer();
-                }
-                session.setAttribute( "count", count );
-            }
-
-            if ( request.getParameter( "boutonLow" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume /= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            if ( request.getParameter( "boutonUp" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume *= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            if ( request.getParameter( "boutonFaster" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch += 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
-
-            if ( request.getParameter( "boutonSlower" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch -= 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
-
-            // Gestion Pause/Lecture de la musique en cours
-            if ( request.getParameter( "boutonPlay" ) != null && session.getAttribute( "audio" ) != null ) {
-                if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
-                    session.setAttribute( "count", true );
-                } else {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
-                    session.setAttribute( "count", false );
-                }
-            }
+            
+        	AudioMaster.startSong(request, session);
+          
 
             // ******************************************************/
 
@@ -188,40 +130,7 @@ public class ServletExplorer extends HttpServlet {
             request.getSession().setAttribute( "estEnModeRecherche", false );
 
             // Gestion Pause/Lecture
-            if ( request.getParameter( "boutonPlay" ) != null && session.getAttribute( "audio" ) != null ) {
-                if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
-                    session.setAttribute( "count", true );
-                } else {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
-                    session.setAttribute( "count", false );
-                }
-            }
-
-            if ( request.getParameter( "boutonLow" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume /= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            if ( request.getParameter( "boutonUp" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume *= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            if ( request.getParameter( "boutonFaster" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch += 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
-
-            if ( request.getParameter( "boutonSlower" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch -= 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
-
+            AudioMaster.gestionEvenements(request, session);
             // Désactivation du mode recherche (barre)
             session.setAttribute( "estEnModeRecherche", false );
 

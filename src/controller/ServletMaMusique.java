@@ -86,40 +86,7 @@ public class ServletMaMusique extends HttpServlet {
 
             }
 
-            if ( request.getParameter( "boutonPlay" ) != null ) {
-                if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
-                    session.setAttribute( "count", true );
-                } else {
-                    ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
-                    session.setAttribute( "count", false );
-                }
-            }
-
-            if ( request.getParameter( "boutonLow" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume /= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-            }
-
-            if ( request.getParameter( "boutonUp" ) != null ) {
-                volume = (float) session.getAttribute( "vol" );
-                session.setAttribute( "vol", volume *= 2.3f );
-                AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-
-            }
-
-            if ( request.getParameter( "boutonFaster" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch += 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
-
-            if ( request.getParameter( "boutonSlower" ) != null ) {
-                pitch = (float) session.getAttribute( "pitch" );
-                session.setAttribute( "pitch", pitch -= 0.1f );
-                AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-            }
+            AudioMaster.gestionEvenements(request, session);
 
             this.getServletContext().getRequestDispatcher( "/WEB-INF/MaMusique.jsp" ).forward( request, response );
         }
