@@ -1,6 +1,9 @@
 package model;
 
 import java.sql.ResultSet;
+/*Cette classe permet de gérer les playlists
+ * @author Antonin
+ */
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -8,7 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Playlist extends ListeMusique {
 
-    private static DatabaseConnection db;
+    static DatabaseConnection db;
+    /**
+     * Créer une playlist et fait la connection avec la base de données
+     * @param nom
+     * @param uti
+     * @param image
+     */
 
     public Playlist( String nom, String uti, String image ) {
         super( nom, uti );
@@ -22,6 +31,9 @@ public class Playlist extends ListeMusique {
         }
 
     }
+    /*Permet d'ajouter une nouvelle playlist dans la base de données
+     * @throws SQLException
+     */
 
     public void ajouterPlaylist() throws SQLException {
 
@@ -30,6 +42,12 @@ public class Playlist extends ListeMusique {
                         + "\", \"\", \"\" ) " );
 
     }
+    /**
+     * renvoie une liste de playlist qui appartiennent à un utilisateur
+     * @param request
+     * @param user
+     * @throws SQLException
+     */
 
     public static void actualiserPlaylist( HttpServletRequest request, Utilisateur user ) throws SQLException {
 
@@ -58,6 +76,13 @@ public class Playlist extends ListeMusique {
 
         rs.close();
     }
+    /**
+     * renvoie la liste des musiques qui ne sont pas dans la playlist donner en paramètre
+     * @param nomListe
+     * @param pseudo
+     * @return liste de musiques
+     * @throws Exception
+     */
 
     public static ArrayList<Musique> getMusiqueDisponible( String nomListe, String pseudo ) throws Exception {
 
@@ -77,6 +102,13 @@ public class Playlist extends ListeMusique {
         return tabMusique;
 
     }
+    /**
+     * renvoie la liste des musiques qui  sont dans la playlist donner en paramètre
+     * @param nomListe
+     * @param pseudo
+     * @returnliste de musiques
+     * @throws Exception
+     */
 
     public static ArrayList<Musique> getMusiqueActuel( String nomListe, String pseudo ) throws Exception {
 
@@ -96,6 +128,12 @@ public class Playlist extends ListeMusique {
         return tabMusique;
 
     }
+    /**
+     * Permet d'ajouter une musique à une playlist
+     * @param nomListe
+     * @param nomMusique
+     * @throws Exception
+     */
 
     public static void ajouterMusique( String nomListe, String nomMusique ) throws Exception {
 
@@ -105,6 +143,12 @@ public class Playlist extends ListeMusique {
                 "INSERT INTO appartient VALUES (\"" + nomListe + "\", \"" + nomMusique + "\" )" );
 
     }
+    /**
+     * Permet d'enlever une musique d'une playlist
+     * @param nomListe
+     * @param nomMusique
+     * @throws Exception
+     */
 
     public static void supprimerMusique( String nomListe, String nomMusique ) throws Exception {
 
@@ -113,6 +157,11 @@ public class Playlist extends ListeMusique {
                         + "\"" );
 
     }
+    /**
+     * Supprime une playlist en commencant par enlever toutes les musiques quelle contient
+     * @param nomListe
+     * @throws Exception
+     */
 
     public static void supprimerPlaylist( String nomListe ) throws Exception {
 
@@ -129,43 +178,5 @@ public class Playlist extends ListeMusique {
                         + "\"" );
 
     }
-
-    /*
-     * public Playlist(String nom,String uti) throws Exception { super(nom,uti);
-     * String nomM=null; String dure=null; String date=null; String URL = null;
-     * String nomartiste=null; String image=null; String des=null; Musique
-     * m=null; Artiste art=null; String genre=null; try { db = new
-     * DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root",
-     * "root","com.mysql.cj.jdbc.Driver" ); } catch ( ClassNotFoundException |
-     * SQLException e ) { e.printStackTrace(); } ResultSet rs = null; try { rs =
-     * db.displayData(
-     * "Select musique.NomMusique,Pseudo,Duree,Date,URL,artiste.NomArtiste,playlist.Image,Descriptif,NomGenreMusical from playlist natural join appartient natural join musique, composer, artiste where playlist.NomPlaylist='"
-     * +nom+"' and Album=0 AND musique.NomMusique=composer.NomMusique AND composer.NomArtiste=artiste.NomArtiste"
-     * ); } catch ( SQLException e ) { e.printStackTrace(); } ResultSetMetaData
-     * resultMeta= (ResultSetMetaData) rs.getMetaData(); try { while ( rs.next()
-     * ) { for(int i = 1; i <= resultMeta.getColumnCount(); i++) { if(i==1)
-     * nomM=(rs.getObject(i).toString()); if(i==2)
-     * uti=rs.getObject(i).toString(); if(i==3)dure=rs.getObject(i).toString();
-     * if(i==4)date=rs.getObject(i).toString();
-     * if(i==5)URL=rs.getObject(i).toString();
-     * if(i==6)nomartiste=rs.getObject(i).toString();
-     * if(i==7)image=rs.getObject(i).toString();
-     * if(i==8)des=rs.getObject(i).toString();
-     * if(i==9)genre=rs.getObject(i).toString();
-     * 
-     * } art=new Artiste(nomartiste,image,des); m=new Musique(nomM, dure, date,
-     * URL,art); //this.listeMusique.ajoutMusique(m); this.listeMusique.add(m);
-     * }
-     * 
-     * } catch ( SQLException e ) { e.printStackTrace(); }
-     * //this.nbMusique=this.listeMusique.size(); this.utilisateur=uti; } public
-     * static void main(String[]args) throws Exception { Playlist a=new
-     * Playlist("Musique pop","Root");
-     * //System.out.println(a.listeMusique.get(1).artiste.nom+"  "+a.
-     * listeMusique.get(1).nomMusique+"  "+a.listeMusique.get(1).date );
-     * a.affiche();
-     * 
-     * }
-     */
 
 }

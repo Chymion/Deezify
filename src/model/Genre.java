@@ -14,8 +14,6 @@ public class Genre {
 
     private String         nom         = "";
     private String         url         = "";
-    // private ArrayList<ListeMusique> list = null;
-
     private List<Playlist> tabPlaylist = new ArrayList<Playlist>();
     private List<Album>    tabAlbum    = new ArrayList<Album>();
 

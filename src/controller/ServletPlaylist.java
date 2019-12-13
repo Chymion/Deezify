@@ -11,7 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import model.AudioMaster;
 import model.EnsembleGenre;
-
+/**
+ * Controlleur de la page Plailist.jsp
+ * @author Antonin
+ *
+ */
 public class ServletPlaylist extends HttpServlet {
 
     private static final long  serialVersionUID = 1L;

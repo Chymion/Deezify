@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.InscriptionForm;
-
+/**
+ * Controlleur de la page Inscription.jsp
+ * @author Antonin
+ *
+ */
 @WebServlet( "/ServletInscription" )
 public class ServletInscription extends HttpServlet {
 

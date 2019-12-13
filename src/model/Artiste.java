@@ -2,19 +2,33 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * Permet de gérer le artistes
+ * @author Antonin
+ *
+ */
 public class Artiste {
-    String                    nom         = null;
-    String                    image       = null;
-    String                    description = null;
+    private String                    nom         = null;
+    private String                    image       = null;
+    private String                    description = null;
     static DatabaseConnection db          = null;
-
+    /**
+     * Cr&ation d'un objet artiste grâce aux paramètres
+     * @param nom
+     * @param image
+     * @param des
+     */
     public Artiste( String nom, String image, String des ) {
         this.nom = nom;
         this.image = image;
         this.description = des;
 
     }
+    /**
+     * Cr&er un objet artiste avec la base de données grâce à sont nom  
+     * @param nom
+     * @throws Exception
+     */
 
     public Artiste( String nom ) throws Exception {
         String image = "";
@@ -81,11 +95,5 @@ public class Artiste {
         System.out.println( this.getDescription() );
     }
 
-    public static void main( String[] args ) throws Exception {
-        Artiste a = new Artiste( "Eminem" );
-        System.out.println( a.nom );
-        System.out.println( a.image );
-        a.AfficheArtiste();
-    }
 
 }

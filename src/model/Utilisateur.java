@@ -2,7 +2,9 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/*Cette classe permet de créer de nouveau utilisateur et de faire en sorte qu'il puissent se connecter.
+ * @author guill
+ */
 public class Utilisateur {
     private int                id;
     private String             password;

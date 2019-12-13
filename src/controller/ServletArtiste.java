@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ServletArtiste
+ * @author Théo
  */
 @WebServlet("/ServletArtiste")
 public class ServletArtiste extends HttpServlet {

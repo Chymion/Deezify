@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.AudioMaster;
-
+/**
+ * Controlleur de la page Recommandation.jsp
+ * @author Antonin
+ *
+ */
 @WebServlet( name = "ServletRecommandation" )
 public class ServletRecommandation extends HttpServlet {
 

@@ -15,7 +15,11 @@ import javax.servlet.http.HttpSession;
 import model.AudioMaster;
 import model.Playlist;
 import model.Utilisateur;
-
+/**
+ * Controlleur de la page MaMusique.jsp
+ * @author Antonin
+ *
+ */
 @WebServlet( name = "ServletMaMusique" )
 public class ServletMaMusique extends HttpServlet {
 

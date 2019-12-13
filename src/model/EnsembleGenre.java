@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class EnsembleGenre {
 
-    ArrayList<Genre>   tabGenre = null;
-    DatabaseConnection db       = null;
+    private  ArrayList<Genre>   tabGenre = null;
+    private DatabaseConnection db       = null;
 
     /**
      * Constructeur qui instancie la base et un tableau de genres
@@ -58,8 +58,7 @@ public class EnsembleGenre {
     /**
      * Ajoute un genre à tabGenre
      * 
-     * @param g
-     *            un genre
+     * @param g  un genre
      */
 
     public void ajouter( Genre g ) {
@@ -115,7 +114,7 @@ public class EnsembleGenre {
     }
 
     /**
-     * Permet de remplir tabGenre de playlists/albums qui eux même contiendront
+     * Permet de remplir tabGenre de genre qui eux même sont remplie de playlists/albums qui eux même contiendront
      * des objets Musique
      * 
      * @throws SQLException
@@ -130,10 +129,10 @@ public class EnsembleGenre {
         Playlist lp = null;
         Album la = null;
         Genre genre = null;
-        int nbgenre = -1;
+        int nbgenre = -1;//pour insérer l'album,la playlist et la musique au bonne endroit
         int nbplay = -1;
         int nbAlbum = -1;
-        boolean estAlbum = false;
+        boolean estAlbum = false;// variable pour savoir si l'on est dans un album ou une playlist
 
         ResultSet reqGenre = null;
         try {
@@ -193,10 +192,10 @@ public class EnsembleGenre {
 
             m = new Musique( reqGenre.getString( "NomMusique" ), reqGenre.getString( "Duree" ),
                     reqGenre.getString( "Date" ), reqGenre.getString( "URL" ), artiste );
-            if ( estAlbum )
+            if ( estAlbum )//ont met la musique dans l'album
                 this.tabGenre.get( nbgenre ).getTabAlbum().get( nbAlbum ).ajoutMusique( m );
 
-            else
+            else//ont met la musique dans la playlist
                 this.tabGenre.get( nbgenre ).getTabPlaylist().get( nbplay ).ajoutMusique( m );
 
         }
@@ -254,7 +253,7 @@ public class EnsembleGenre {
                 System.out.println( tabGenre.get( i ).getTabAlbum().get( j ).getNomListe() + " :" );
                 for ( int k = 0; k < tabGenre.get( i ).getTabAlbum().get( j ).getListeMusique().size(); k++ ) {
                     System.out
-                            .print( tabGenre.get( i ).getTabAlbum().get( j ).getListeMusique().get( k ).nomMusique
+                            .print( tabGenre.get( i ).getTabAlbum().get( j ).getListeMusique().get( k ).getNomMusique()
                                     + " /" );
                 }
                 System.out.println();
@@ -265,7 +264,7 @@ public class EnsembleGenre {
                 System.out.println( tabGenre.get( i ).getTabPlaylist().get( j ).getNomListe() + " :" );
                 for ( int k = 0; k < tabGenre.get( i ).getTabPlaylist().get( j ).getListeMusique().size(); k++ ) {
                     System.out
-                            .print( tabGenre.get( i ).getTabPlaylist().get( j ).getListeMusique().get( k ).nomMusique
+                            .print( tabGenre.get( i ).getTabPlaylist().get( j ).getListeMusique().get( k ).getNomMusique()
                                     + " /" );
                 }
                 System.out.println();

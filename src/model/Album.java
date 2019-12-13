@@ -3,6 +3,11 @@ package model;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+/**
+ * Permet de gérer les albums
+ * @author guill
+ *
+ */
 
 public class Album extends ListeMusique {
     @SuppressWarnings( "unused" )

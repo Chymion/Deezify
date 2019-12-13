@@ -11,12 +11,13 @@ import javax.servlet.http.HttpSession;
 
 import model.AudioMaster;
 import model.EnsembleGenre;
-
+/**
+ * Controlleur de la page ListeMusique.jsp
+ * @author Antonin
+ *
+ */
 public class ServletMusique extends HttpServlet {
 
-    /**
-     * 
-     */
     private static final long  serialVersionUID = 1L;
 
     public static final String CHAMP_LISTE      = "nomListe";

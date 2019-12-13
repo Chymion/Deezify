@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.AudioMaster;
-
+/**
+ * Controlleur de la page Profil.jsp
+ * @author Antonin
+ *
+ */
 @WebServlet( name = "ServletProfil" )
 public class ServletProfil extends HttpServlet {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     public static float       volume;
     public static float       pitch;

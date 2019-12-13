@@ -15,7 +15,11 @@ import model.EnsembleGenre;
 import model.Musique;
 import model.Playlist;
 import model.Utilisateur;
-
+/**
+ * Controlleur pour la page &diter playlist
+ * @author Antonin
+ *
+ */
 public class ServletEditerPlaylist extends HttpServlet {
 
     private static final long  serialVersionUID    = 1L;

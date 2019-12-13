@@ -3,9 +3,18 @@ package model;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-
+/**
+ * Cette classe permet de gérer les musiques
+ * @author Antonin
+ *
+ */
 public class Musique {
-    Artiste artiste;
+   private Artiste artiste;
+   private String                    nomMusique;
+   private String                    duree;
+   private String                    date;
+   private String                    chemin;
+   static DatabaseConnection db = null;
 
     public Artiste getArtiste() {
         return artiste;
@@ -22,21 +31,6 @@ public class Musique {
     public void setDuree( String duree ) {
         this.duree = duree;
     }
-
-    String                    nomMusique;
-    String                    duree;
-    String                    date;
-    String                    chemin;
-    static DatabaseConnection db = null;
-
-    public Musique( String nomMusique, String duree, String date, String chemin, Artiste art ) {
-        this.nomMusique = nomMusique;
-        this.duree = duree;
-        this.date = date;
-        this.chemin = chemin;
-        this.artiste = art;
-    }
-
     public String getNomMusique() {
         return nomMusique;
     }
@@ -68,6 +62,27 @@ public class Musique {
     public static void setDb( DatabaseConnection db ) {
         Musique.db = db;
     }
+    /**
+     * Créer un nouvel objet musique
+     * @param nomMusique
+     * @param duree
+     * @param date
+     * @param chemin
+     * @param art
+     */
+
+    public Musique( String nomMusique, String duree, String date, String chemin, Artiste art ) {
+        this.nomMusique = nomMusique;
+        this.duree = duree;
+        this.date = date;
+        this.chemin = chemin;
+        this.artiste = art;
+    }
+    /**
+     * Créer un objet musique à partir de la base de données grâce à sont nom
+     * @param nom
+     * @throws Exception
+     */
 
     public Musique( String nom ) throws Exception {
         String duree = "";
@@ -111,14 +126,6 @@ public class Musique {
         }
 
         rs.close();
-    }
-
-    public static void main( String[] args ) throws Exception {
-        Musique m = new Musique( "Believer" );
-        System.out.println( m.getNomMusique() );
-        System.out.println( m.getDuree() );
-        System.out.println( m.getDate() );
-        System.out.println( m.getChemin() );
     }
 
 }

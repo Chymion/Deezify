@@ -16,8 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ListeMusique {
 
     protected ArrayList<Musique> listeMusique;
-    // int nbMusique;
-    // int tempsLecture;// a voir si ont le fait mais je pense pas
     protected String             nomListe;
     protected String             utilisateur;
     protected String             image;
@@ -56,7 +54,6 @@ public class ListeMusique {
         }
         if ( compteur == this.listeMusique.size() ) {
             this.listeMusique.add( m );
-            // this.nbMusique++;
         }
     }
 
@@ -151,6 +148,11 @@ public class ListeMusique {
     public String getImage() {
         return this.image;
     }
+    /**
+     * Charge en sesion les musiques qui correspondent à la recheche faite sur explorer
+     * @param request
+     * @throws Exception
+     */
 
     public void rechercher( HttpServletRequest request ) throws Exception {
 
