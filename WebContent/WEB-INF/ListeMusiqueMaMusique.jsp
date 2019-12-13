@@ -66,14 +66,14 @@ import="model.Playlist"  %>
   				// Nom de la musique
   				out.print(" <form id=\"conteneurLecteur\" method=\"post\" action=\"" + request.getSession(  ).getAttribute( "nomPage" ) + "\"> "+
   					"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"sousTitre\" name=\"music\" /></form>");
-  			
-  				out.print("<br/>");
+				
+
   			
   				// Nom artiste
  
   				out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
   			
-  				out.print("<br/>");
+
   			
   				//Date de sortie
 			

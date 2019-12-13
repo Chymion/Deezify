@@ -19,7 +19,7 @@
 	<% Utilisateur utilisateur = (Utilisateur)session.getAttribute( "utilisateur" ); %>
     <body>
         <%@ include file="../Menu.jsp"%>
-        <p class="sousTitre"> Profil </p>
+        <p class="sousTitre3"> Profil </p>
         <p class="sousTitre2"> nom : <% out.print(utilisateur.getNom(  )); %> </p>
         <p class="sousTitre2"> prenom : <% out.print(utilisateur.getPrenom(  )); %> </p>
         <p class="sousTitre2"> Pseudo : <% out.print(utilisateur.getPseudo(  )); %> </p>

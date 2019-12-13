@@ -53,14 +53,12 @@ import="model.Playlist" %>
   					"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"sousTitre\" name=\"boutonAjouter\" /></form>");
   			
   			
-  				out.print("<br/>");
   			
   				// Nom artiste
  
-  				out.print("Artiste : " + ligneActuelleMusique.getArtiste(  ).getNom(  ) + "<br/>");
+  			  	out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
+
   			
-  			
-  				out.print("<br/>");
   			
   				//Date de sortie
 			
@@ -118,14 +116,14 @@ import="model.Playlist" %>
   					"<input type=\"submit\" value=\"" + tabMusique.get(k).getNomMusique(  ) + "\" class=\"sousTitre\" name=\"boutonSupprimer\" /></form>");
   			
   			
-  				out.print("<br/>");
   			
   				// Nom artiste
+  				
+  				out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
+
  
-  				out.print("Artiste : " + ligneActuelleMusique.getArtiste(  ).getNom(  ) + "<br/>");
   			
   			
-  				out.print("<br/>");
   			
   				//Date de sortie
 			

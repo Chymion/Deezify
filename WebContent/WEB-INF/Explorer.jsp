@@ -68,7 +68,7 @@ import="model.Genre"  %>
   			out.print("</button>");
   			out.print("</form>");
   			
-  			out.print("<br/>");
+  			//out.print("<br/>");
   			
   			out.print("<td>");
 			out.print("<form action=\"Playlist\" method=\"post\">");

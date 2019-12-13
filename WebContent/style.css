@@ -201,9 +201,30 @@ footer {
     border: none;
 }
 
+
+.boutonPlayPause {
+	
+	text-align: center;
+	border-radius: 50%;
+	background-color: orange;
+	color: white;
+	border: none;
+	height: 50pt;
+	width: 50pt;
+}
+
 .conteneurVolume {
 	
 	margin-left: 5pt;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.conteneurPitch {
+	
+	margin-right: 5pt;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 .lienGenre{
@@ -244,13 +265,23 @@ button{
 	flex-basis: auto;
 	justify-content: start;
 	text-align: center;
+	margin:1%;
+	border: solid;
+	border-width: 1px;
+	border-color: white;
+	border-radius: 10pt;
 	
 	
 }
 .elemMusique{
 	
-	margin-bottom:1%;
+	margin:1%;
+	padding: 1%;
 	flex: auto;
 	flex-basis: auto;
 	justify-content: space-around;
+	border: solid;
+	border-width: 1px;
+	border-color: white;
+	border-radius: 10pt;
 }
