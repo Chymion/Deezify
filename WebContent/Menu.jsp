@@ -57,7 +57,7 @@ import="model.Utilisateur"  %>
         	
             <form action="${ sessionScope.nomPage }"  method="post">
             <p>
-            <input class="connexion" type="submit" value="Deconnexion" name="deconnexion"/>
+            <input class="connexion" type="submit" value="Déconnexion" name="deconnexion"/>
             </p>
             </form>
             

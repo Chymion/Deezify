@@ -20,7 +20,7 @@ public final class ConnexionForm {
     private DatabaseConnection  db;
 
     /**
-     * Constructeur permettant de se connecter à la base
+     * Constructeur permettant de se connecter ï¿½ la base
      * 
      * @throws Exception
      */
@@ -33,11 +33,11 @@ public final class ConnexionForm {
     }
 
     /**
-     * Renvoi un booléen si l'utilisateur existe déjà ou non dans la base
+     * Renvoi un boolï¿½en si l'utilisateur existe dï¿½jï¿½ ou non dans la base
      * 
      * @param pseudo
      * @param mdp
-     * @return un booléen
+     * @return un boolï¿½en
      * @throws Exception
      */
 
@@ -45,10 +45,10 @@ public final class ConnexionForm {
 
         ResultSet rs = null;
 
-        // On récupère tous les utilisateurs
+        // On rï¿½cupï¿½re tous les utilisateurs
         rs = this.db.getData( "SELECT Pseudo, MotDePasse from utilisateur" );
 
-        // On vérifie si l'utilisateur est présent
+        // On vï¿½rifie si l'utilisateur est prï¿½sent
         while ( rs.next() )
             if ( rs.getString( "Pseudo" ).equals( pseudo.trim() ) && rs.getString( "MotDePasse" ).equals( mdp.trim() ) )
                 return true;
@@ -58,18 +58,18 @@ public final class ConnexionForm {
     }
 
     /**
-     * Permet de faire connecter l'utilisateur si il est déjà présent dans la
+     * Permet de faire connecter l'utilisateur si il est dï¿½jï¿½ prï¿½sent dans la
      * base
      * 
      * @param request
-     *            requête envoyé
+     *            requï¿½te envoyï¿½
      * @return un utilisateur
      * @throws Exception
      */
 
     public Utilisateur connecterUtilisateur( HttpServletRequest request ) throws Exception {
 
-        /* Récupération des champs du formulaire */
+        /* Rï¿½cupï¿½ration des champs du formulaire */
         String motDePasse = getValeurChamp( request, CHAMP_PASS );
         String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
 
@@ -77,11 +77,11 @@ public final class ConnexionForm {
             if ( this.existe( pseudo, motDePasse ) ) {
 
                 Utilisateur utilisateur = new Utilisateur( pseudo, motDePasse );
-                resultat = "Connexion réussie\n";
+                resultat = "Connexion rÃ©ussie\n";
                 return utilisateur;
             } else {
 
-                resultat = "Échec de la connexion, cet utilisateur n'existe pas\n";
+                resultat = "Echec de la connexion, cet utilisateur n'existe pas\n";
 
             }
 
@@ -89,36 +89,36 @@ public final class ConnexionForm {
     }
 
     /**
-     * Permet de vérifier les données rentrées par l'utilisateur
+     * Permet de vï¿½rifier les donnï¿½es rentrï¿½es par l'utilisateur
      * 
      * @param pseudo
      * @param motDePasse
-     * @return booléen : true si les données son saisies ( aucun champ vide ),
+     * @return boolï¿½en : true si les donnï¿½es son saisies ( aucun champ vide ),
      *         false sinon
      */
 
     private boolean verificationChamps( String pseudo, String motDePasse ) {
 
-        // Si ni le pseudo et motdepasse non étaient saisi
+        // Si ni le pseudo et motdepasse non ï¿½taient saisi
         if ( pseudo == null && motDePasse == null ) {
             resultat = "Veuillez rentrer votre mot de passe et votre pseudo\n";
             return false;
-            // si le pseudo na pas été saisi
+            // si le pseudo na pas ï¿½tï¿½ saisi
         } else if ( pseudo == null ) {
             resultat = "Veuillez rentrer votre pseudo\n";
             return false;
-            // si le mot de pase n'a pas été saisi
+            // si le mot de pase n'a pas ï¿½tï¿½ saisi
         } else if ( motDePasse == null ) {
             resultat = "Veuillez rentrer un mot de passe\n";
             return false;
-            // si tous a été saisi
+            // si tous a ï¿½tï¿½ saisi
         } else
             return true;
 
     }
 
     /**
-     * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
+     * Mï¿½thode utilitaire qui retourne null si un champ est vide, et son contenu
      * 
      * @param request
      * @param nomChamp

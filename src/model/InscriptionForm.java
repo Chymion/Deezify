@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Cette classe permet d'insérer un nouvelle utilisateur dans la base de données
+ * Cette classe permet d'insï¿½rer un nouvelle utilisateur dans la base de donnï¿½es
  * 
  * @author guill
  */
@@ -22,7 +22,7 @@ public class InscriptionForm {
     private DatabaseConnection  db;
 
     /**
-     * Constructeur permettant de se connecter à la base
+     * Constructeur permettant de se connecter ï¿½ la base
      * 
      * @throws Exception
      */
@@ -35,7 +35,7 @@ public class InscriptionForm {
     }
 
     /**
-     * Insére un nouvelle utilisateur si les conditions sont remplies
+     * Insï¿½re un nouvelle utilisateur si les conditions sont remplies
      * 
      * @param request
      * @throws Exception
@@ -47,7 +47,7 @@ public class InscriptionForm {
                 || stringToHtmlString( request.getParameter( "nom" ) )
                 || stringToHtmlString( request.getParameter( "pseudo" ) )
                 || stringToHtmlString( request.getParameter( "motDePasse" ) ) ) {
-            this.resultat += "\nVous ne pouvez pas mettre les caractères suivants &, <, >,\"";
+            this.resultat += "\nVous ne pouvez pas mettre les caractÃ¨res suivants &, <, >,\"";
         }
 
         else if ( request.getParameter( "prenom" ).trim().equals( "" )
@@ -57,7 +57,7 @@ public class InscriptionForm {
                 || request.getParameter( "email" ).trim().equals( "" ) ||
                 request.getParameter( "motDePasse" ).trim().equals( "" ) ) {
 
-            this.resultat += "\nVous avez oublié de remplir des informations";
+            this.resultat += "\nVous avez oubliÃ© de remplir des informations";
 
         } else {
 
@@ -69,7 +69,7 @@ public class InscriptionForm {
 
             if ( !this.estDansBase( pseudo, email ) && ( this.validationEmail( email ) )
                     && this.validationMotDePasse( motDePasse ) ) {
-                this.resultat = "Votre compte a bien était créé !! Connectez vous pour y accéder";
+                this.resultat = "Votre compte a bien Ã©tÃ© crÃ©Ã© !! Connectez vous pour y accÃ©der";
                 new Utilisateur( prenom, nom, pseudo, email, motDePasse );
             }
 
@@ -78,31 +78,31 @@ public class InscriptionForm {
     }
 
     /**
-     * Permet de savoir si les identifiants souhaités ne sont pas déjà utilisés
+     * Permet de savoir si les identifiants souhaitï¿½s ne sont pas dï¿½jï¿½ utilisï¿½s
      * par un autre utilisateur
      * 
      * @param pseudo
      * @param email
-     * @return un booléen nous informant si les données envoyées sont déjà
-     *         utilisées par un autre utilisateur
+     * @return un boolï¿½en nous informant si les donnï¿½es envoyï¿½es sont dï¿½jï¿½
+     *         utilisï¿½es par un autre utilisateur
      * @throws Exception
      */
 
     private boolean estDansBase( String pseudo, String email ) throws Exception {
 
-        // On récupère tous les utilisateurs
+        // On rï¿½cupï¿½re tous les utilisateurs
         ResultSet rs = null;
         rs = this.db.getData( "SELECT Pseudo, Email from utilisateur" );
 
         while ( rs.next() ) {
 
             if ( rs.getString( "Pseudo" ).equals( pseudo.trim() ) ) {
-                resultat = "\nUn utilisateur a déjà le même pseudo que vous !!";
+                resultat = "\nUn utilisateur a dÃ©jÃ  le mÃªme pseudo que vous !!";
                 return true;
             }
 
             if ( rs.getString( "Email" ).equals( email.trim() ) ) {
-                resultat = "\nUn utilisateur a déjà la même adresse que vous !!";
+                resultat = "\nUn utilisateur a dÃ©jÃ  la mÃªme adresse que vous !!";
                 return true;
             }
 
@@ -113,17 +113,17 @@ public class InscriptionForm {
     }
 
     /**
-     * Permet de savoir si le mot de passe souhaité respecte les conditions
+     * Permet de savoir si le mot de passe souhaitï¿½ respecte les conditions
      * 
      * @param motDePasse
-     * @return un booléen : true si le mot est supérieur à 3, false sinon
+     * @return un boolï¿½en : true si le mot est supï¿½rieur ï¿½ 3, false sinon
      * @throws Exception
      */
 
     private boolean validationMotDePasse( String motDePasse ) throws Exception {
         if ( motDePasse != null ) {
             if ( motDePasse.length() < 3 ) {
-                resultat += "\nLe mot de passe doit contenir au moins 3 caractères.";
+                resultat += "\nLe mot de passe doit contenir au moins 3 caractÃ¨res.";
                 return false;
             }
         } else {
@@ -134,10 +134,10 @@ public class InscriptionForm {
     }
 
     /**
-     * Permet de savoir si l'émail souhaité respecte les conditions
+     * Permet de savoir si l'ï¿½mail souhaitï¿½ respecte les conditions
      * 
      * @param email
-     * @return un booléen : true si la chaine ressemble à une adresse email,
+     * @return un boolï¿½en : true si la chaine ressemble ï¿½ une adresse email,
      *         false sinon
      * @throws Exception
      */
@@ -169,7 +169,7 @@ public class InscriptionForm {
     /**
      * 
      * @param s
-     * @return la donnée entrée par l'utilisateur sans les failles XSS
+     * @return la donnï¿½e entrï¿½e par l'utilisateur sans les failles XSS
      */
 
     private boolean stringToHtmlString( String s ) {

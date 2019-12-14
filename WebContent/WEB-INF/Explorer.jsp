@@ -35,7 +35,7 @@ import="model.Genre"  %>
                     class="textField"
                     id="recherche"
                     name="recherche"/>
-            <button class="buttonExplorer"> rechercher </button>
+            <button class="buttonExplorer"> Rechercher </button>
             
         </form>
         

@@ -25,7 +25,7 @@ import="model.Playlist" %>
       <p class="sousTitre3"> Ma Musique </p>
       
     	<form class="CreerPlaylist" method="post" action="Musique">
-        	<button type="submit" value="boutonPlaylist" class="boutonMusique" name="boutonPlaylist"> Créer une nouvelle playlist </button>      
+        	<button type="submit" value="boutonPlaylist" class="button2" name="boutonPlaylist"> Créer une nouvelle playlist </button>      
     	</form>
           
      <%     
@@ -71,11 +71,11 @@ import="model.Playlist" %>
  			
  			
 			out.print("<form action=\"EditerPlaylist\" method=\"post\">");		
-			out.print("<button type=\"submit\" name=\"editerPlaylist\" value=\""+ ligneActuelle.getNomListe(  ) +"\" class=\"sousTitre\">éditer playlist</button>");
+			out.print("<button type=\"submit\" name=\"editerPlaylist\" value=\""+ ligneActuelle.getNomListe(  ) +"\" class=\"button\">Editer</button>");
 			out.print("</form>");
 			
 			out.print("<form action=\"Musique\" method=\"post\">");		
-			out.print("<button type=\"submit\" name=\"supprimerPlaylist\" value=\""+ ligneActuelle.getNomListe(  ) +"\" class=\"sousTitre\">Supprimer</button>");
+			out.print("<button type=\"submit\" name=\"supprimerPlaylist\" value=\""+ ligneActuelle.getNomListe(  ) +"\" class=\"button\">Supprimer</button>");
 			out.print("</form>");
 			
 			out.print("</div>");

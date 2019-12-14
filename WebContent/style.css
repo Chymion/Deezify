@@ -27,6 +27,7 @@ h3 {
 	text-decoration: none;
 	margin-right: 10pt;
 	padding-top: 3pt;
+	text-align: center;
 }
 
 #conteneur {
@@ -90,7 +91,6 @@ a {
     margin-right: 10pt;
     border: none;
     border-radius: 10pt;
-    font-family: fantasy;
 }
 
 .sousTitre {
@@ -125,11 +125,38 @@ a {
 
 button {
 
-    background-color: orange;
-    padding: 10pt;
-    color: white;
     font-size: 16pt;
+    background-color: orange;
+    color: white;
+    text-decoration: none;
+    padding: 3pt;
+    margin-right: 10pt;
     border: none;
+    border-radius: 10pt;
+}
+
+.button {
+
+    font-size: 16pt;
+    background-color: orange;
+    color: white;
+    text-decoration: none;
+    padding: 3pt;
+    border: none;
+    border-radius: 10pt;
+    width: 100pt;
+}
+
+.button2 {
+
+    font-size: 16pt;
+    background-color: orange;
+    color: white;
+    text-decoration: none;
+    padding: 3pt;
+    margin-left: 15pt;
+    border: none;
+    border-radius: 10pt;
 }
 
 #conteneurRecherche {
@@ -246,9 +273,9 @@ section {
 	padding-right: 200pt;
 }
 
-button{
+/*button{
 	background-color: black;
-}
+}*/
 
 .buttonExplorer{
 	background-color: orange;
