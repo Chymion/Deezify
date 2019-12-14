@@ -15,19 +15,13 @@ import="java.util.List"
 import="java.util.Map"
 import="model.Musique"
 import="model.Utilisateur"  %>
-<!DOCTYPE html>
+
 <header>
 
 	
     <div id="conteneurRight">
     	
     	<% 
-    	
-    	
-    	if (request.getSession().getAttribute( "utilisateur" ) != null)
-    	    out.print( "<h3> Bienvenue <strong>" + ((Utilisateur)request.getSession().getAttribute( "utilisateur" )).getPseudo(  ) + "</strong> !! </h3>" );
-    	
-    	
     	
     	if (request.getParameter( "deconnexion" ) != null){ 
     	    request.getSession().removeAttribute( "utilisateur" );
@@ -37,9 +31,16 @@ import="model.Utilisateur"  %>
     	    request.getSession().removeAttribute( "nomListeMaMusique" );
     	    request.getSession().removeAttribute( "tabMusiqueMaMusique" );
     	    request.getSession().removeAttribute( "tabPlaylistUtilisateur" );
-    	    response.sendRedirect( request.getContextPath(  ) + "/Accueil" );
     	    
     	    }
+    	
+    	
+    	if (request.getSession().getAttribute( "utilisateur" ) != null)
+    	    out.print( "<h3> Bienvenue <strong>" + ((Utilisateur)request.getSession().getAttribute( "utilisateur" )).getPseudo(  ) + "</strong> !! </h3>" );
+    	
+    	
+    	
+    	
     	
     	if (request.getSession().getAttribute( "utilisateur" ) == null){ %>
     
@@ -52,7 +53,7 @@ import="model.Utilisateur"  %>
         
         
         <% }else{ %>
-        
+     
         	
             <form action="${ sessionScope.nomPage }"  method="post">
             <p>

@@ -66,17 +66,26 @@ public class ServletConnexion extends HttpServlet {
 
                 // Si cette utilisateur existe dans la base, on actualise la
                 // variable de session
-                if ( utilisateur != null )
+                if ( utilisateur != null ) {
                     session.setAttribute( "utilisateur", utilisateur );
+                    // Redirection vers Accueil.jsp
+                    response.sendRedirect( request.getContextPath() + "/Accueil" );
+                } else {
 
-                // Envoi d'un message qui informe si il y'a une erreur lors de
-                // l'envoi des données
-                request.setAttribute( "message", cf.getResultat() );
+                    // Envoi d'un message qui informe si il y'a une erreur lors
+                    // de
+                    // l'envoi des données
+                    request.setAttribute( "message", cf.getResultat() );
+                    // Redirection vers Connexion.jsp
+                    this.getServletContext().getRequestDispatcher( "/WEB-INF/Connexion.jsp" ).forward( request,
+                            response );
 
-            }
+                }
 
-            // Redirection vers Connexion.jsp
-            this.getServletContext().getRequestDispatcher( "/WEB-INF/Connexion.jsp" ).forward( request, response );
+            } else
+                // Redirection vers Connexion.jsp
+                this.getServletContext().getRequestDispatcher( "/WEB-INF/Connexion.jsp" ).forward( request,
+                        response );
         }
     }
 

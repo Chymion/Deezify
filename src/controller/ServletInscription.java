@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.InscriptionForm;
+
 /**
  * Controlleur de la page Inscription.jsp
+ * 
  * @author Antonin
  *
  */
@@ -46,7 +48,7 @@ public class ServletInscription extends HttpServlet {
             }
 
             request.setAttribute( "resultat", i.getResultat() );
-            System.out.println( "jksqdjk" );
+
         }
 
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Inscription.jsp" ).forward( request, response );

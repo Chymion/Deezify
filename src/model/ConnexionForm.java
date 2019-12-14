@@ -73,36 +73,48 @@ public final class ConnexionForm {
         String motDePasse = getValeurChamp( request, CHAMP_PASS );
         String pseudo = getValeurChamp( request, CHAMP_PSEUDO );
 
-        /* On vérfie si l'utilisateur existe déjà dans la base */
+        if ( verificationChamps( pseudo, motDePasse ) )
+            if ( this.existe( pseudo, motDePasse ) ) {
 
-        if ( this.existe( pseudo, motDePasse ) ) {
+                Utilisateur utilisateur = new Utilisateur( pseudo, motDePasse );
+                resultat = "Connexion réussie\n";
+                return utilisateur;
+            } else {
 
-            Utilisateur utilisateur = new Utilisateur( pseudo, motDePasse );
-            resultat = "Connexion réussie";
-            return utilisateur;
-        } else {
+                resultat = "Échec de la connexion, cet utilisateur n'existe pas\n";
 
-            resultat = "Échec de la connexion, cet utilisateur n'existe pas";
-            return null;
+            }
 
-        }
+        return null;
     }
 
     /**
-     * Valide le mot de passe saisi si il est correct ou pas
+     * Permet de vérifier les données rentrées par l'utilisateur
      * 
+     * @param pseudo
      * @param motDePasse
-     * @throws Exception
+     * @return booléen : true si les données son saisies ( aucun champ vide ),
+     *         false sinon
      */
 
-    private void validationMotDePasse( String motDePasse ) throws Exception {
-        if ( motDePasse != null ) {
-            if ( motDePasse.length() < 3 ) {
-                resultat += "Le mot de passe doit contenir au moins 3 caractères.";
-            }
-        } else {
-            resultat += "Merci de saisir votre mot de passe.";
-        }
+    private boolean verificationChamps( String pseudo, String motDePasse ) {
+
+        // Si ni le pseudo et motdepasse non étaient saisi
+        if ( pseudo == null && motDePasse == null ) {
+            resultat = "Veuillez rentrer votre mot de passe et votre pseudo\n";
+            return false;
+            // si le pseudo na pas été saisi
+        } else if ( pseudo == null ) {
+            resultat = "Veuillez rentrer votre pseudo\n";
+            return false;
+            // si le mot de pase n'a pas été saisi
+        } else if ( motDePasse == null ) {
+            resultat = "Veuillez rentrer un mot de passe\n";
+            return false;
+            // si tous a été saisi
+        } else
+            return true;
+
     }
 
     /**

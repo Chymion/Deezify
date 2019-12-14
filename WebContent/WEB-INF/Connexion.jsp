@@ -41,16 +41,11 @@
             <br />
             <% 
     	
-    			if ( request.getAttribute( "message" ) != null ){
-    		
-    			    if ( ((String)request.getAttribute( "message" )).equals( "Échec de la connexion, cet utilisateur n'existe pas" ) )
+    			if ( request.getAttribute( "message" ) != null )   			 
     			    	out.print((String)request.getAttribute( "message" )); 
-    			    else {                 
-    			        
-    			        this.getServletContext().getRequestDispatcher( "/Accueil" ).forward( request, response );
-    			    }
+    			  
     			    
-    			}
+    			
     	
     		%>
             <button> Connexion </button>
