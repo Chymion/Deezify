@@ -20,10 +20,10 @@
     <body>
         <%@ include file="../Menu.jsp"%>
         <p class="sousTitre3"> Profil </p>
-        <p class="sousTitre2"> nom : <% out.print(utilisateur.getNom(  )); %> </p>
-        <p class="sousTitre2"> prenom : <% out.print(utilisateur.getPrenom(  )); %> </p>
-        <p class="sousTitre2"> Pseudo : <% out.print(utilisateur.getPseudo(  )); %> </p>
-        <p class="sousTitre2"> Email : <% out.print(utilisateur.getEmail(  )); %> </p>
+        <p class="sousTitre2"> Nom : <font style="color:white"> <% out.print(utilisateur.getNom(  )); %> </font> </p>
+        <p class="sousTitre2"> Prénom : <font style="color:white"> <% out.print(utilisateur.getPrenom(  )); %> </font> </p>
+        <p class="sousTitre2"> Pseudo : <font style="color:white"> <% out.print(utilisateur.getPseudo(  )); %> </font> </p>
+        <p class="sousTitre2"> Email : <font style="color:white"> <% out.print(utilisateur.getEmail(  )); %> </font> </p>
         <%@ include file="Lecteur.jsp"%>	
     </body>
 

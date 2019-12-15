@@ -93,6 +93,11 @@ a {
     border-radius: 10pt;
 }
 
+.connexion:hover {
+	
+	    border:2px solid white;
+}
+
 .sousTitre {
 	
 	background-color: black;
@@ -135,6 +140,7 @@ button {
     border-radius: 10pt;
 }
 
+
 .button {
 
     font-size: 16pt;
@@ -147,6 +153,11 @@ button {
     width: 100pt;
 }
 
+.button:hover {
+	
+	    border:2px solid white;
+}
+
 .button2 {
 
     font-size: 16pt;
@@ -157,6 +168,11 @@ button {
     margin-left: 15pt;
     border: none;
     border-radius: 10pt;
+}
+
+.button2:hover {
+	
+	    border:2px solid white;
 }
 
 #conteneurRecherche {
@@ -228,6 +244,13 @@ footer {
     border: none;
 }
 
+.boutonMusique:hover {
+	
+	    border:2px solid white;
+}
+
+
+
 
 .boutonPlayPause {
 	
@@ -238,6 +261,11 @@ footer {
 	border: none;
 	height: 50pt;
 	width: 50pt;
+}
+
+.boutonPlayPause:hover {
+	    
+	    border:2px solid white;
 }
 
 .conteneurVolume {
@@ -268,14 +296,9 @@ section {
 	
 }
 
- 
  th{
 	padding-right: 200pt;
 }
-
-/*button{
-	background-color: black;
-}*/
 
 .buttonExplorer{
 	background-color: orange;
@@ -321,7 +344,7 @@ section {
     text-align: center;
     color: #fff;
     text-shadow: 1px 1px 1px #000;
-    border-radius: 10px;
+    border-radius: 10pt;
     background-color: rgba(255, 165, 2, 1);
     background-image: linear-gradient(to top left,
                                       rgba(0, 0, 0, .2),

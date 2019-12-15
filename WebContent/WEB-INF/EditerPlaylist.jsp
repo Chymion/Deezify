@@ -56,7 +56,7 @@ import="model.Playlist" %>
   			
   				// Nom artiste
  
-  			  	out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
+  			  	out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" type=submit class=\"boutonArtiste\" value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
 
   			
   			
@@ -119,7 +119,7 @@ import="model.Playlist" %>
   			
   				// Nom artiste
   				
-  				out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
+  				out.print("<form action=/DeezifyWeb/Artiste>Artiste : <input name=\"artiste\" class=\"boutonArtiste\" type=submit value=\""+ligneActuelleMusique.getArtiste(  ).getNom(  )+"\" /></form>");
 
  
   			
