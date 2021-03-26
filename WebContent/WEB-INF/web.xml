@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app 
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0">
+	
+	<servlet>
+        <servlet-name> Accueil </servlet-name>
+        <servlet-class> controller.ServletAccueil </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Accueil </servlet-name>
+        <url-pattern> /Accueil </url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name> Recherche </servlet-name>
+        <servlet-class> controller.ServletRecherche </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Recherche </servlet-name>
+        <url-pattern> /Recherche </url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name> Recommandation </servlet-name>
+        <servlet-class> controller.ServletRecommandation </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Recommandation </servlet-name>
+        <url-pattern> /Recommandations </url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name> Ma Musique </servlet-name>
+        <servlet-class> controller.ServletMaMusique </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Ma Musique </servlet-name>
+        <url-pattern> /Musique </url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name> Explorer </servlet-name>
+        <servlet-class> controller.ServletExplorer </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Explorer </servlet-name>
+        <url-pattern> /Explorer </url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name> Profil </servlet-name>
+        <servlet-class> controller.ServletProfil </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Profil </servlet-name>
+        <url-pattern> /Profil </url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name> Connexion </servlet-name>
+        <servlet-class> controller.ServletConnexion </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name> Connexion </servlet-name>
+        <url-pattern> /Connexion </url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name> Inscription </servlet-name>
+    	<servlet-class> controller.ServletInscription </servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name> Inscription </servlet-name>
+    	<url-pattern> /Inscription </url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>Playlist</servlet-name>
+    	<servlet-class>controller.ServletPlaylist</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>Playlist</servlet-name>
+    	<url-pattern>/Playlist</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>ListeMusique</servlet-name>
+    	<servlet-class>controller.ServletListeMusique</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>ListeMusique</servlet-name>
+    	<url-pattern>/ListeMusique</url-pattern>
+    </servlet-mapping>
+    
+    
+    <servlet>
+    	<servlet-name>EditerPlaylist</servlet-name>
+    	<servlet-class>controller.ServletEditerPlaylist</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>EditerPlaylist</servlet-name>
+    	<url-pattern>/EditerPlaylist</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>ListeMusiqueMaMusique</servlet-name>
+    	<servlet-class>controller.ServletListeMusiqueMaMusique</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>ListeMusiqueMaMusique</servlet-name>
+    	<url-pattern>/ListeMusiqueMaMusique</url-pattern>
+    </servlet-mapping>
+    
+     <servlet>
+    	<servlet-name>Artiste</servlet-name>
+    	<servlet-class>controller.ServletArtiste</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    	<servlet-name>Artiste</servlet-name>
+    	<url-pattern>/Artiste</url-pattern>
+    </servlet-mapping>
+    
+	
+</web-app>

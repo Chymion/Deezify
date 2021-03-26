@@ -1,0 +1,360 @@
+body {
+
+    background-color: black;
+    color: white;
+    font-family: fantasy;
+    font-size: 16pt;
+}
+
+h1 {
+
+    font-size: 40pt;
+    text-align: center;
+}
+
+h2 {
+	
+	margin-top: 30pt;
+	text-align: center;
+	border-bottom: solid;
+	border-width: 1px;
+	border-color: orange;
+}
+
+h3 {
+	
+	font-size: 16pt;
+	text-decoration: none;
+	margin-right: 10pt;
+	padding-top: 3pt;
+	text-align: center;
+}
+
+#conteneur {
+
+    display: flex;
+    justify-content: center;
+    border: 3px orange outset;
+    border-radius: 10pt;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#boutonMenu {
+
+    text-align: center;
+    background-color: black;
+    margin-left: 10pt;
+    margin-right: 10pt;
+    padding-top: 2pt;
+    width: 150pt;
+}
+
+#boutonMenu a:hover {
+
+    color: orange;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.bienvenue {
+
+    text-align: center;
+    font-size: 60pt;
+    color: orange;
+}
+
+.paragrapheBienvenue {
+
+    text-align: center;
+
+}
+
+#conteneurRight {
+
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10pt;
+}
+
+.connexion {
+
+	font-size: 16pt;
+    background-color: orange;
+    color: white;
+    text-decoration: none;
+    padding: 3pt;
+    margin-right: 10pt;
+    border: none;
+    border-radius: 10pt;
+}
+
+.connexion:hover {
+	
+	    border:2px solid white;
+}
+
+.sousTitre {
+	
+	background-color: black;
+	border: none;
+    text-align: center;
+    color: orange;
+    font-size: 20pt;
+    font-family: fantasy;
+}
+.sousTitre:hover{
+	color:white;
+}
+
+.sousTitre2 {
+
+    text-align: center;
+    color: orange;
+    font-size: 20pt;
+}
+
+.sousTitre3 {
+	
+	background-color:black;
+    text-align: center;
+    color: orange;
+    font-size: 30pt;
+    border:none;
+    font-family: fantasy;
+}
+
+button {
+
+    font-size: 16pt;
+    background-color: orange;
+    color: white;
+    text-decoration: none;
+    padding: 3pt;
+    margin-right: 10pt;
+    border: none;
+    border-radius: 10pt;
+}
+
+
+.button {
+
+    font-size: 16pt;
+    background-color: orange;
+    color: white;
+    text-decoration: none;
+    padding: 3pt;
+    border: none;
+    border-radius: 10pt;
+    width: 100pt;
+}
+
+.button:hover {
+	
+	    border:2px solid white;
+}
+
+.button2 {
+
+    font-size: 16pt;
+    background-color: orange;
+    color: white;
+    text-decoration: none;
+    padding: 3pt;
+    margin-left: 15pt;
+    border: none;
+    border-radius: 10pt;
+}
+
+.button2:hover {
+	
+	    border:2px solid white;
+}
+
+#conteneurRecherche {
+
+    display: flex;
+    justify-content: center;
+}
+
+.textField {
+
+    border: none;
+    font-size: 16pt;
+    padding-left: 16pt;
+    width: 50%;
+}
+
+.field {
+
+    border: none;
+    font-size: 16pt;
+    padding-left: 16pt;
+    width: 100%;
+}
+
+#conteneurConnexion {
+
+    display: flex;
+    justify-content: center;
+}
+
+#conteneurConnexion2 {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lienInscription {
+
+    color: orange;
+}
+
+.lienInscription:hover {
+
+    text-decoration: underline;
+}
+
+#conteneurLecteur {
+
+    margin-top: 10pt;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+
+.boutonMusique {
+
+    background-color: orange;
+    color: white;
+    text-align: center;
+    border-radius: 10pt;
+    border: none;
+}
+
+.boutonMusique:hover {
+	
+	    border:2px solid white;
+}
+
+
+
+
+.boutonPlayPause {
+	
+	text-align: center;
+	border-radius: 50%;
+	background-color: orange;
+	color: white;
+	border: none;
+	height: 50pt;
+	width: 50pt;
+}
+
+.boutonPlayPause:hover {
+	    
+	    border:2px solid white;
+}
+
+.conteneurVolume {
+	
+	margin-left: 5pt;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.conteneurPitch {
+	
+	margin-right: 5pt;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.lienGenre{
+	
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+section {
+	column-count: 1;
+	column-gap: 0px;
+	
+}
+
+ th{
+	padding-right: 200pt;
+}
+
+.buttonExplorer{
+	background-color: orange;
+}
+
+.box{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.elem{
+	
+	flex: auto;
+	flex-basis: auto;
+	justify-content: start;
+	text-align: center;
+	margin:1%;
+	border: solid;
+	border-width: 1px;
+	border-color: white;
+	border-radius: 10pt;
+	
+	
+}
+.elemMusique{
+	
+	margin:1%;
+	padding: 1%;
+	flex: auto;
+	flex-basis: auto;
+	justify-content: space-around;
+	border: solid;
+	border-width: 1px;
+	border-color: white;
+	border-radius: 10pt;
+}
+
+.boutonArtiste{
+    border: 0;
+    line-height: 1.5;
+    padding: 0 10px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10pt;
+    background-color: rgba(255, 165, 2, 1);
+    background-image: linear-gradient(to top left,
+                                      rgba(0, 0, 0, .2),
+                                      rgba(0, 0, 0, .2) 30%,
+                                      rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+.boutonArtiste:hover {
+    background-color: rgba(255, 165, 2, 1);
+    border:2px solid white;
+}
