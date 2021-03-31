@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import adaptateur.AdaptateurFormat;
 import adaptateur.AudioMasterInterface;
+import adaptateur.GestionFormat;
 import model.AudioMaster;
 import model.EnsembleGenre;
 import model.ListeMusique;
@@ -40,14 +41,7 @@ public class ServletExplorer extends HttpServlet {
         session.setAttribute( "nomPage", "Explorer" );
         
         // Gestion de la musique
-        AudioMasterInterface am = new AdaptateurFormat();
-        // Gestion du bouton Play/Pause
-        try {
-			am.gestionEvenements(request, session);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        GestionFormat.gererMusique(request, session);
 
      
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Explorer.jsp" ).forward( request, response );

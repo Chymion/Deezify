@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import adaptateur.AdaptateurFormat;
 import adaptateur.AudioMasterInterface;
+import adaptateur.GestionFormat;
 import model.AudioMaster;
 import model.EnsembleGenre;
 /**
@@ -61,14 +62,7 @@ public class ServletPlaylist extends HttpServlet {
             }
 
             // Gestion de la musique
-            AudioMasterInterface am = new AdaptateurFormat();
-            // Gestion du bouton Play/Pause
-            try {
-    			am.gestionEvenements(request, session);
-    		} catch (InterruptedException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
+            GestionFormat.gererMusique(request, session);
 
             // Si il y'a un genre déjà existant, il suffit d'actualiser genre de
             // session

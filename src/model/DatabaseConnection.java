@@ -7,10 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-
 /**
  * Permet la connection à la base de données
  * 
@@ -23,12 +19,10 @@ public class DatabaseConnection {
     // ATTRIBUTS
     // -------------------------------------------------------------------------------------------------------------------------------------------------
 
-    private String     url        = "";   // url de l'emplacement de la base
-    private String     password   = "";   // Mot de passe de la connexion
-    private String     userName   = "";   // Nom de l'utilisateur
     private Connection connection = null; // Etablit la connection avec la base
     private ResultSet resultSet;
     private PreparedStatement preparedStatement;
+    private static DatabaseConnection uniqueInstance;
 
     // CONSTRUCTEUR
     // -----------------------------------------------------------------------------------------------------------------------------------------------
@@ -48,24 +42,41 @@ public class DatabaseConnection {
      * @throws Exception
      */
 
-    public DatabaseConnection( String url, String password, String userName, String referencePilote )
+    private DatabaseConnection( String url, String password, String userName, String referencePilote )
             throws ClassNotFoundException, SQLException, Exception {
-        this.url = url;
-        this.password = password;
-        this.userName = userName;
 
         // On fourni la reference du pilote
         Class.forName( referencePilote );
 
         // Connection a la base
         connection = DriverManager
-                .getConnection( this.url + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC" +
-                        "", this.userName, this.password );
+                .getConnection( url + "?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC" +
+                        "", userName, password );
 
         // Verification si on est connecte
         if ( connection == null )
             throw new Exception( "Vous etes pas connecté." );
 
+    }
+    
+    /**
+     * Appelée pour récupérer l'instance de la base
+     * @return DatabaseConnection
+     */
+    
+    public static DatabaseConnection getInstance()
+    {
+    	try 
+    	{
+	    	if(uniqueInstance == null)
+	    		uniqueInstance = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root", "com.mysql.cj.jdbc.Driver" );	
+    	}
+    	catch(Exception e) 
+    	{
+    		e.printStackTrace();
+		}
+    	
+    	return uniqueInstance;
     }
 
     // METHODES
@@ -87,7 +98,7 @@ public class DatabaseConnection {
         try {
             // On exï¿½cute la requï¿½te
             preparedStatement = this.connection.prepareStatement( q );
-            int status = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch ( SQLException e ) {
             System.out.println( "Probleme lors de l'insertion des donnees avec de cette requete : " + q
                     + "\nPeut etre que cette valeur existe deja dans la base..." );
@@ -121,10 +132,6 @@ public class DatabaseConnection {
         // l'afficher
         return resultSet;
 
-    }
-    
-    public Connection getConnection(HttpServletRequest request) {
-    	return this.connection;
     }
     
     public void deconnection() throws SQLException

@@ -1,7 +1,5 @@
 package observateur.gestionMusique;
 
-import com.mysql.cj.Session;
-
 import model.AudioMaster;
 import javax.servlet.http.HttpSession;
 
@@ -19,9 +17,16 @@ public class AffichagePitch implements Observateur {
 	@Override
 	public void actualiser(float pitch, float volume) {
 		// TODO Auto-generated method stub
+		
+		//On récupère le nouveau pitch 
 		this.pitch = pitch;
+		
+		//On le met à jour en session
 		this.session.setAttribute( "pitch", pitch);
-		AudioMaster.modifierPitch(pitch);
+		
+		//Appelle de la classe AudioMaster pour changer le pitch
+		AudioMaster audioMaster = new AudioMaster();
+		audioMaster.modifierPitch(pitch);
 	}
 	
 

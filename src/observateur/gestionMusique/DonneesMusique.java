@@ -5,11 +5,16 @@ import java.util.List;
 
 public class DonneesMusique implements Sujet {
 
+	//Liste des observateurs qui seront notifiés
 	private List<Observateur> observateurs = new ArrayList();
+	
+	//pitch de la musique
     private float pitch;
+    
+    //Volume de la musique
     private float volume;
 
-
+    //Appelée pour mettre à jour le pitch et le volume en notifiant les observateurs
     public void setMesures(float pitch, float volume) {
         this.pitch = pitch;
         this.volume = volume;

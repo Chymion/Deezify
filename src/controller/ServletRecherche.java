@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import adaptateur.AdaptateurFormat;
 import adaptateur.AudioMasterInterface;
+import adaptateur.GestionFormat;
 import model.AudioMaster;
 import model.EnsembleGenre;
 import model.ListeMusique;
@@ -37,21 +38,8 @@ public class ServletRecherche extends HttpServlet {
         EnsembleGenre ensembleGenre = (EnsembleGenre) session.getAttribute("ensembleGenre");
         
         // Gestion de la musique
-        AudioMasterInterface am = new AdaptateurFormat();
-        try {
-			am.startSong(request, session);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        // Gestion du bouton Play/Pause
-        try {
-			am.gestionEvenements(request, session);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
+        GestionFormat.gererMusique(request, session);
+        
     	session.setAttribute( "nomPage", "Recherche" );
     
 		try {

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import adaptateur.AdaptateurFormat;
 import adaptateur.AudioMasterInterface;
+import adaptateur.GestionFormat;
 import model.AudioMaster;
 /**
  * Controlleur de la page Recommandation.jsp
@@ -29,15 +30,8 @@ public class ServletRecommandation extends HttpServlet {
         HttpSession session = request.getSession();
         session.setAttribute( "nomPage", "Recommandations" );
         // Gestion de la musique
-        AudioMasterInterface am = new AdaptateurFormat();
-    
-        // Gestion du bouton Play/Pause
-        try {
-			am.gestionEvenements(request, session);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        GestionFormat.gererMusique(request, session);
+        
         this.getServletContext().getRequestDispatcher( "/WEB-INF/Recommandation.jsp" ).forward( request, response );
     }
 

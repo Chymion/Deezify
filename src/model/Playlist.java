@@ -8,14 +8,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import decorateur.style.Electro;
+import decorateur.style.Metal;
+import decorateur.style.Pop;
+import decorateur.style.Rap;
+import decorateur.style.Rock;
 import fabrique.objet.FabriqueObjet;
 import fabrique.objet.FabriqueObjetAbstraite;
 
 public class Playlist extends ListeMusique {
 
     static DatabaseConnection db;
-    private String description = "";
+    private String description = "Styles : ";
     private static FabriqueObjetAbstraite fab = new FabriqueObjet();
     
     /**
@@ -30,14 +36,13 @@ public class Playlist extends ListeMusique {
         this.image = image;
 
         try {
-            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                    "com.mysql.cj.jdbc.Driver" );
+            db = DatabaseConnection.getInstance();
         } catch ( Exception e ) {
             e.getMessage();
         }
 
     }
-    /*Permet d'ajouter une nouvelle playlist dans la base de données
+    /**Permet d'ajouter une nouvelle playlist dans la base de données
      * @throws SQLException
      */
 
@@ -216,6 +221,8 @@ public class Playlist extends ListeMusique {
                         + "\"" );
 
     }
+
+   
     
     /**
      * renvoi la description des styles musicaux que contient une playlist (Design Pattern Décorateur)
@@ -224,6 +231,7 @@ public class Playlist extends ListeMusique {
 
 
     public String getDescription( ) {
+    	//Retourne 'styles : '
         return this.description;
     }
     

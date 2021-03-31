@@ -5,9 +5,9 @@ import javax.servlet.http.HttpSession;
 
 public interface Mp3Interface {
 
-	public int lancerMusique( String file );
-	public void resume();
-	public void manageEffects(HttpServletRequest request, HttpSession session);
+	public int launchMusic( String file );
 	public void Destruction();
+	public void pause();
+	public void resume();
 
 }

@@ -33,7 +33,7 @@ public class AudioMaster implements AudioMasterInterface{
     private static String             songName;
     private static float 			  volume = 1.0f;
     private static float 			  pitch = 1.0f;
-    private static boolean 		  count = false;
+    private static boolean 		  	  count = false;
     private static boolean 			  firstClick = false;
     private static DonneesMusique donneesMusique;
     private static AffichagePitch affichagePitch;
@@ -66,15 +66,19 @@ public class AudioMaster implements AudioMasterInterface{
         AL10.alSourcePlay( sourceID );
     }
 
+    @Override
     public void pause() {
         AL10.alSourcePause( sourceID );
     }
 
-    public static void setVolume( float volume ) {
+ 
+	@Override
+    public void setVolume( float volume ) {
         AL10.alSourcef( sourceID, AL10.AL_GAIN, volume );
     }
 
-    public static void modifierPitch( float pitch ) {
+	@Override
+    public void modifierPitch( float pitch ) {
         AL10.alSourcef( sourceID, AL10.AL_PITCH, pitch );
     }
 
@@ -159,53 +163,52 @@ public class AudioMaster implements AudioMasterInterface{
     @Override
     public void gestionEvenements(HttpServletRequest request, HttpSession session)
     {
-    	
+    	//Instancation des observateurs affichagePitch et affichageVolume
     	affichagePitch = new AffichagePitch(donneesMusique, request.getSession());
     	affichageVolume = new AffichageVolume(donneesMusique, request.getSession());
     	
+    	//On enregistre les observateurs dans donneesMusique
     	donneesMusique.enregisterObservateur(affichagePitch);
     	donneesMusique.enregisterObservateur(affichageVolume);
-    		
-    	 if ( request.getParameter( "boutonPlay" ) != null ) {
-             if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
-                 ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
-                 session.setAttribute( "count", true );
-             } else {
-                 ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
-                 session.setAttribute( "count", false );
-             }
-         }
-
+    	
+		//On vérifie si l'utilisateur a cliqué sur le bouton play/pause
+		if ( request.getParameter( "boutonPlay" ) != null ) {
+		
+			 //On met la musique en pause si elle est entrain de jouer
+			 if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
+				 ( (AudioMaster) session.getAttribute( "audio" ) ).pause();
+				 session.setAttribute( "count", true );
+				 
+			 //On remet la musique si elle est en pause
+			 } else {
+			     ( (AudioMaster) session.getAttribute( "audio" ) ).continuer();
+			     session.setAttribute( "count", false );
+		     }
+		 }
+		
+		 //On vérifie si l'utilisateur a cliqué sur le bouton low pour réduire le volume
          if ( request.getParameter( "boutonLow" ) != null ) {
         	 volume = (float) session.getAttribute( "vol" );
              donneesMusique.setMesures(pitch, volume /= 2.3f);
-             //volume = (float) session.getAttribute( "vol" );
-             //session.setAttribute( "vol", volume /= 2.3f );
-             //AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
          }
 
+         //On vérifie si l'utilisateur a cliqué sur le bouton slower pour réduire le pitch
+         if ( request.getParameter( "boutonSlower" ) != null ) {
+             pitch = (float) session.getAttribute( "pitch" );
+             donneesMusique.setMesures(pitch -= 0.1f, volume);
+         }
+         
          if ( request.getParameter( "boutonUp" ) != null ) {
         	 volume = (float) session.getAttribute( "vol" );
              donneesMusique.setMesures(pitch, volume *= 2.3f);
-             //volume = (float) session.getAttribute( "vol" );
-             //session.setAttribute( "vol", volume *= 2.3f );
-             //AudioMaster.setVolume( (float) session.getAttribute( "vol" ) );
-
          }
 
          if ( request.getParameter( "boutonFaster" ) != null ) {
              pitch = (float) session.getAttribute( "pitch" );
              donneesMusique.setMesures(pitch += 0.1f, volume);
-             //session.setAttribute( "pitch", pitch += 0.1f );
-             //AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
          }
 
-         if ( request.getParameter( "boutonSlower" ) != null ) {
-             pitch = (float) session.getAttribute( "pitch" );
-             donneesMusique.setMesures(pitch -= 0.1f, volume);
-             //session.setAttribute( "pitch", pitch -= 0.1f );
-             //AudioMaster.modifierPitch( (float) session.getAttribute( "pitch" ) );
-         }
+    
     }
     
     // Liberation des ressources

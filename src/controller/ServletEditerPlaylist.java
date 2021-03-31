@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import adaptateur.AdaptateurFormat;
 import adaptateur.AudioMasterInterface;
+import adaptateur.GestionFormat;
 import model.AudioMaster;
 import model.EnsembleGenre;
 import model.Musique;
@@ -125,21 +126,7 @@ public class ServletEditerPlaylist extends HttpServlet {
             session.setAttribute( "tabMusiqueMaMusique", tabMusiqueSupprimer );
 
             // Gestion de la musique
-            AudioMasterInterface am = new AdaptateurFormat();
-            try {
-				am.startSong(request, session);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-            // Gestion du bouton Play/Pause
-            try {
-				am.gestionEvenements(request, session);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            GestionFormat.gererMusique(request, session);
 
             // Préparation des attributs
             request.setAttribute( "tabMusiqueAjouter", tabMusiqueAjouter );

@@ -84,7 +84,7 @@ import="model.Playlist"
 			out.print("</form>");
 			//Si styles contient des styles, on les affiches
 			if(!styles.isEmpty())
-				out.print("Styles : " + styles.get(k));
+				out.print(styles.get(k));
 			//Sinon, on dit qu'il n'y'a aucune musique dans la playlist
 			else
 				out.print("Aucune musiques");

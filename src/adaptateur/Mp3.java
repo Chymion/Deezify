@@ -23,7 +23,7 @@ public class Mp3 implements Mp3Interface{
 	public Thread thread;
 	
 	@Override
-	public int lancerMusique(String file) {
+	public int launchMusic(String file) {
 		// TODO Auto-generated method stub
 		try {
             FIS = new FileInputStream(file);
@@ -51,7 +51,7 @@ public class Mp3 implements Mp3Interface{
                     player.play();
                     
                     if(player.isComplete() ){
-                    	lancerMusique(fileLocation);
+                    	launchMusic(fileLocation);
                     }
                     if(player.isComplete()){
                         
@@ -67,36 +67,19 @@ public class Mp3 implements Mp3Interface{
         
 		return 0;
 	}
-
+	
+	@Override
+	public void pause()
+	{
+		synchronized (thread) {
+			thread.suspend();
+		}
+	}
+	
 	@Override
 	public void resume()
 	{
-		try {
-			player.play();
-		} catch (JavaLayerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	
-	@Override
-	public void manageEffects(HttpServletRequest request, HttpSession session) {
-		// TODO Auto-generated method stub
-		
-		if ( request.getParameter( "boutonPlay" ) != null ) {
-			if ( (boolean) ( session.getAttribute( "count" ) ) == false ) {
-                	System.out.println("synchonised");
-                	synchronized (thread) {
-						thread.suspend();
-					}
-                session.setAttribute( "count", true );
-            } else {
-                thread.resume();
-                session.setAttribute( "count", false );
-            }
-		}
-		
+		thread.resume();
 	}
 	
 	@Override

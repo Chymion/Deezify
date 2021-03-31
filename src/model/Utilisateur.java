@@ -32,8 +32,7 @@ public class Utilisateur {
         this.nom = nom;
         this.password = password;
 
-        this.db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                "com.mysql.cj.jdbc.Driver" );
+        this.db = DatabaseConnection.getInstance();
 
         // Insertion du nouvelle utilisateur dans la base
         db.insertData( "INSERT INTO utilisateur VALUES ('" + prenom + "','" + nom + "','" + pseudo + "','" + email
@@ -58,8 +57,7 @@ public class Utilisateur {
         this.password = password;
 
         // Instancation des autres attributs
-        this.db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                "com.mysql.cj.jdbc.Driver" );
+        this.db = DatabaseConnection.getInstance();
 
         ResultSet rs = null;
         try {

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import adaptateur.AdaptateurFormat;
 import adaptateur.AudioMasterInterface;
+import adaptateur.GestionFormat;
 import decorateur.style.Electro;
 import decorateur.style.Metal;
 import decorateur.style.Pop;
@@ -95,14 +96,7 @@ public class ServletMaMusique extends HttpServlet {
             }
 
             // Gestion de la musique
-            AudioMasterInterface am = new AdaptateurFormat();
-            // Gestion du bouton Play/Pause
-            try {
-    			am.gestionEvenements(request, session);
-    		} catch (InterruptedException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
+            GestionFormat.gererMusique(request, session);
             try {
 				session.setAttribute("styles", getStyles(session));
 			} catch (Exception e) {
@@ -113,46 +107,44 @@ public class ServletMaMusique extends HttpServlet {
         }
     }
     
-    private ArrayList<String> getStyles(HttpSession session) throws Exception
+    private  ArrayList<String> getStyles(HttpSession session) throws Exception
     {
-    	
-    	
     	//récupère les playlists de l'utilisateur 
     	ArrayList<Playlist> tabPlaylist = (ArrayList<Playlist>) session.getAttribute( "tabPlaylistUtilisateur" );
     	
-    	//Liste des styles musicaux de chaque musique
+    	//Liste des styles musicaux de chaque playlist de l'utilisateur
     	ArrayList<String> stylesPlaylist = new ArrayList<String>();
-    	
-    	Playlist ligneActuelle = null;
     	
     	//On parcours chaque playlist
     	for(int k = 0; k < tabPlaylist.size() ; k++ ){
 			 
  			//On récupère la playlist suivante
- 		    ligneActuelle = tabPlaylist.get( k ); 
+ 		    Playlist playlistActuelle = tabPlaylist.get( k ); 
  		    
- 		    //On récupère les styles musicaux de la playlist en parcourant ses musiques 
- 		    ArrayList<Musique> musiques = Playlist.getMusiqueActuel(ligneActuelle.getNomListe(), ( (Utilisateur) session.getAttribute( "utilisateur" ) ).getPseudo());
+ 		    //On récupère les musiques d'une playlist de l'utilisateur connecté
+ 		    ArrayList<Musique> musiques = Playlist.getMusiqueActuel(playlistActuelle.getNomListe(), ( (Utilisateur) session.getAttribute( "utilisateur" ) ).getPseudo());
+ 		    
+ 		    //On récupère les styles musicaux que contient la playlist en regardent les styles de chaque musique de la playlist
  		    ArrayList<String> styles = Playlist.getstylesPlaylist(musiques);
  		   
+ 		    //On parcours chaque style récupéré
  		    for(String style : styles)
  		    {
+ 		    	
  		    	if(style.equals("Rap"))
- 		    		ligneActuelle = new Rap(ligneActuelle.getNomListe(), ligneActuelle.getUtilisateur(), ligneActuelle.getImage(), ligneActuelle);
+ 		    		playlistActuelle = new Rap(playlistActuelle.getNomListe(), playlistActuelle.getUtilisateur(), playlistActuelle.getImage(), playlistActuelle);
  		    	if(style.equals("Rock"))
- 		    		ligneActuelle = new Rock(ligneActuelle.getNomListe(), ligneActuelle.getUtilisateur(), ligneActuelle.getImage(), ligneActuelle);
+ 		    		playlistActuelle = new Rock(playlistActuelle.getNomListe(), playlistActuelle.getUtilisateur(), playlistActuelle.getImage(), playlistActuelle);
  		    	if(style.equals("Pop"))
- 		    		ligneActuelle = new Pop(ligneActuelle.getNomListe(), ligneActuelle.getUtilisateur(), ligneActuelle.getImage(), ligneActuelle);
+ 		    		playlistActuelle = new Pop(playlistActuelle.getNomListe(), playlistActuelle.getUtilisateur(), playlistActuelle.getImage(), playlistActuelle);
  		    	if(style.equals("Metal"))
- 		    		ligneActuelle = new Metal(ligneActuelle.getNomListe(), ligneActuelle.getUtilisateur(), ligneActuelle.getImage(), ligneActuelle);
+ 		    		playlistActuelle = new Metal(playlistActuelle.getNomListe(), playlistActuelle.getUtilisateur(), playlistActuelle.getImage(), playlistActuelle);
  		    	if(style.equals("Electro"))
- 		    		ligneActuelle = new Electro(ligneActuelle.getNomListe(), ligneActuelle.getUtilisateur(), ligneActuelle.getImage(), ligneActuelle);
+ 		    		playlistActuelle = new Electro(playlistActuelle.getNomListe(), playlistActuelle.getUtilisateur(), playlistActuelle.getImage(), playlistActuelle);
  		    }
  		    
- 		    //Ajout de la description des styles d'une playlist
- 		    
- 		  
-	    	stylesPlaylist.add(ligneActuelle.getDescription());
+ 		    //On ajoute la description des style de la playlist
+	    	stylesPlaylist.add(playlistActuelle.getDescription());
  		 }	 
     	
     	return stylesPlaylist;

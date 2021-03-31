@@ -89,9 +89,8 @@ public class Musique {
         String date = "";
         String chemin = "";
         try {
-            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                    "com.mysql.cj.jdbc.Driver" );
-        } catch ( ClassNotFoundException | SQLException e ) {
+            db = DatabaseConnection.getInstance();
+        } catch ( Exception e ) {
 
         }
         ResultSet rs = null;

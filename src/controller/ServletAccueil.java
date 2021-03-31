@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import adaptateur.AdaptateurFormat;
 import adaptateur.AudioMasterInterface;
+import adaptateur.GestionFormat;
 import decorateur.style.Rap;
 import model.AudioMaster;
 import model.DatabaseConnection;
@@ -39,17 +40,10 @@ public class ServletAccueil extends HttpServlet {
     	
     	HttpSession session = request.getSession();
     	DatabaseConnection connection;
+    	
     	//Instancation de la base en session si n'existe pas
-    	if(session.getAttribute("database") == null) {
-    		
-    		try {
-    		connection = 
-    				new DatabaseConnection( "jdbc:mysql://localhost:3306/deezify", "root", "root","com.mysql.cj.jdbc.Driver" );
-    		session.setAttribute("database", connection);
-    		} catch( Exception e) {}
-    	}
-        
-        
+		session.setAttribute("database", DatabaseConnection.getInstance());
+  
         // Instancation du click si il n'existe pas
         if ( session.getAttribute( "click" ) == null )
             session.setAttribute( "click", firstClick );
@@ -79,15 +73,7 @@ public class ServletAccueil extends HttpServlet {
 
         }
 
-        AudioMasterInterface am = new AdaptateurFormat();
-        // Gestion du bouton Play/Pause
-        try {
-			am.gestionEvenements(request, session);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+        GestionFormat.gererMusique(request, session);
 
         String nomPage = "Accueil";
         session.setAttribute( "nomPage", nomPage );

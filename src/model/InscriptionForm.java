@@ -29,8 +29,7 @@ public class InscriptionForm {
 
     public InscriptionForm() throws Exception {
 
-        this.db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                "com.mysql.cj.jdbc.Driver" );
+        this.db = DatabaseConnection.getInstance();
 
     }
 

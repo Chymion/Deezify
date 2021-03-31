@@ -21,7 +21,8 @@ public class AffichageVolume implements Observateur {
 		// TODO Auto-generated method stub
 		this.volume = volume;
 		this.session.setAttribute( "vol", volume);
-		AudioMaster.setVolume(volume);
+		AudioMaster audioMaster = new AudioMaster();
+		audioMaster.setVolume(volume);
 	}
 	
 

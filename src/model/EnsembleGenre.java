@@ -37,8 +37,7 @@ public class EnsembleGenre {
         this.tabGenre = new ArrayList<Genre>();
         rechercheStrategie = new RechercheMusiqueStrategie();
         try {
-            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                    "com.mysql.cj.jdbc.Driver" );
+            db = DatabaseConnection.getInstance();
         } catch ( Exception e ) {
             e.getMessage();
         }
@@ -56,8 +55,7 @@ public class EnsembleGenre {
         this.tabGenre = tabGenre;
         rechercheStrategie = new RechercheMusiqueStrategie();
         try {
-            db = new DatabaseConnection( "jdbc:mysql://localhost:3306/Deezify", "root", "root",
-                    "com.mysql.cj.jdbc.Driver" );
+            db = DatabaseConnection.getInstance();
         } catch ( Exception e ) {
             e.getMessage();
         }
@@ -211,8 +209,13 @@ public class EnsembleGenre {
 
     public void effectuerRecherche( HttpServletRequest request ) throws Exception {
 
+    	//Session
     	HttpSession httpSession = request.getSession();
+    	
+    	//Base de données
     	DatabaseConnection db = (DatabaseConnection) httpSession.getAttribute("database");
+    	
+    	//terme que l'utilisateur a rentré
     	String pattern = (String) request.getParameter( "recherche" );
     	
     	//Changement du comportement
